@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 
 export const HeroWithImage = (props: { onClick: () => void }) => (
   <Container py={{ base: "16", md: "24" }}>
-    <SimpleGrid columns={{ base: 1, md: 2 }} gap={16}>
+    <SimpleGrid columns={{ base: 1, md: 2 }} gap={30}>
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -30,42 +30,22 @@ export const HeroWithImage = (props: { onClick: () => void }) => (
         style={{ display: "flex", justifyContent: "center" }}
       >
         <Stack spacing={{ base: "8", md: "12" }} justifyContent="center">
-          <Stack spacing={{ base: "4", md: "6" }}>
-            <Heading size={{ base: "md", md: "md" }}>
-              핏트너는 당신의 문제를 해결합니다
+          <Stack
+            spacing={{ base: "4", md: "6" }}
+            align={{ base: "center", md: "start" }}
+          >
+            <Heading size={{ base: "md", md: "md" }} fontWeight={"extrabold"}>
+              요양병원 상담이
+              <br />
+              간편해집니다.
             </Heading>
-            <Stack fontSize={{ base: "lg", md: "sm" }} color="fg.muted">
-              <Text>세상에 나와 똑같은 사람은 없습니다.</Text>
-              <Text>내가 먹는 영양제도 그래야 합니다.</Text>
-              <Text>
-                우리는 모두 다른 건강상태, 기저질환, 먹는약, 유전자, 생활습관를
-                가지고 있습니다.
-              </Text>
-              <Text>
-                핏트너는 당신을 분석하고 근거 중심으로 고도화된 AI 데이터 분석,
-                그리고 1:1 약사 상담을 통해 세상의 모든 영양제 중 당신에게 꼭
-                필요한 영양제를 추천해드립니다.
-              </Text>
-              <Text>
-                그리고 지속적인 상담을 통해 끝까지 당신과 함께 건강의 대 변혁을
-                이끌어 갈 것입니다.
-              </Text>
-            </Stack>
+            <Text fontSize={{ base: "lg", md: "md" }} color="fg.muted">
+              비용과 시간을 모두 아껴보세요.
+            </Text>
+            <Box>
+              <Button size={{ base: "lg", md: "xl" }}>무료 상담하기</Button>
+            </Box>
           </Stack>
-          {/* <Stack spacing="3">
-          <Stack direction={{ base: "column", md: "row" }} spacing="3">
-            <Input
-              placeholder="Enter your email"
-              size={{ base: "lg", md: "xl" }}
-              maxW={{ lg: "xs" }}
-            />
-            <Button size={{ base: "lg", md: "xl" }}>Sign Up</Button>
-          </Stack>
-          <Text textStyle="xs" color="fg.subtle">
-            By signing up, you accept our{" "}
-            <Link href="#">Terms and Conditions.</Link>
-          </Text>
-        </Stack> */}
         </Stack>
       </motion.div>
       <motion.div
@@ -79,8 +59,9 @@ export const HeroWithImage = (props: { onClick: () => void }) => (
           x: { duration: 1 },
         }}
       >
-        <AspectRatio ratio={1}>
+        <AspectRatio ratio={2}>
           <Image
+            borderRadius={"2xl"}
             objectFit="cover"
             src="https://tinyurl.com/yeyjvptc"
             alt="Lady at work"
@@ -88,23 +69,6 @@ export const HeroWithImage = (props: { onClick: () => void }) => (
         </AspectRatio>
       </motion.div>
     </SimpleGrid>
-    <Stack
-      align={"center"}
-      fontSize={{ md: "lg" }}
-      mt="10"
-      textAlign={"center"}
-    >
-      <Text>
-        이제 모두를 위해 만들어진 두루뭉술한 영양제와는 하루빨리 작별하고
-      </Text>
-      <Text>내 몸의 건강한 혁명, 핏트너를 시작하세요</Text>
-      <Stack my="2" spacing="4">
-        <Button size="lg" fontSize="md" onClick={props.onClick}>
-          무료로 내 맞춤 영양제 찾으러 가기
-        </Button>
-        <Text>당신의 최고의 건강상태를 느껴보세요</Text>
-      </Stack>
-    </Stack>
   </Container>
 );
 

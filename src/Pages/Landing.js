@@ -1,40 +1,33 @@
 import React from "react";
 import { LayoutWithFullContentHeight } from "../Marketing/Layouts/LayoutWithFullContentHeight/App";
-import { WithImageBackground } from "../Marketing/Heroes/Hero3";
-import { LogoGridWithTitle } from "../Marketing/LogoGrid/LogoGridWithTitle/App";
-import { Image, Container, Box, Flex, Stack } from "@chakra-ui/react";
-import { TestimonialWithRating } from "../Marketing/Testimonials/TestimonialWithRating/App";
-import { StatsWithDivider } from "../Marketing/Stats/StatsWithDivider/App";
-import { HeroWithImage, HeroWithImageReverse } from "../Marketing/Heroes/Hero5";
-import { Features } from "../Marketing/Features/App";
-import { HeroWithImageTop } from "../Marketing/Heroes/Hero6";
-import { HeroWithCropedImage } from "../Marketing/Heroes/Hero1";
-import { CheckboxCardGroupContainer } from "../Application/FormElements/CheckboxCardGroup/App";
-import { CTA1 } from "../Marketing/CallToActions/CTA1";
-import { BlogWithThreeColumns } from "../Marketing/Blog/BlogWithThreeColumns/App";
-import { PopupWithImage } from "../E-Commerce/ShopPopup.js/PopupWithImage/App";
+import { Box } from "@chakra-ui/react";
 import { Navbar } from "../Marketing/Layouts/LayoutWithFullContentHeight/Navbar";
+import { Hero } from "./Hero";
+import { Consulting } from "./Consulting/Consulting";
+import { Feature } from "./Feature/Feature";
+import { Service1 } from "./Service1/Service1";
+import { Service2 } from "./Service2";
+import { Review } from "./Review/Review";
+import { CTA } from "./CTA";
+import { SignUp } from "./Account/SignUp";
+import { Login } from "./Account/Login";
 
 function Landing(props) {
-  const [popupOpen, setPopupOpen] = React.useState(false);
+  // const [popupOpen, setPopupOpen] = React.useState(false);
   return (
     <LayoutWithFullContentHeight>
-      <Navbar onClick={() => setPopupOpen(true)} />
-      <WithImageBackground onClick={() => setPopupOpen(true)} />
-      <LogoGridWithTitle />
-      <HeroWithImageTop />
-      <TestimonialWithRating />
-      <StatsWithDivider onClick={() => setPopupOpen(true)} />
-
-      <Box bgColor="gray.100">
-        <HeroWithImageReverse onClick={() => setPopupOpen(true)} />
-        <HeroWithImage onClick={() => setPopupOpen(true)} />
+      <Navbar />
+      <Hero />
+      <Consulting />
+      <Box bgColor={"gray.100"}>
+        <Feature />
+        <Service1 />
       </Box>
-      <HeroWithCropedImage onClick={() => setPopupOpen(true)} />
-      <BlogWithThreeColumns onClick={() => setPopupOpen(true)} />
-      <Features />
-      <CTA1 onClick={() => setPopupOpen(true)} />
-      <PopupWithImage isOpen={popupOpen} onClose={() => setPopupOpen(false)} />
+      <Service2 />
+      <Review />
+      <CTA />
+      {/* <SignUp />
+      <Login /> */}
     </LayoutWithFullContentHeight>
   );
 }

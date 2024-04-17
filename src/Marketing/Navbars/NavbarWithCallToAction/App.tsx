@@ -26,27 +26,20 @@ export const NavbarWithCallToAction = ({ ...props }) => {
         <Container py="4">
           <HStack justify="space-between">
             {/* <Logo /> */}
-            <Text fontWeight="bold" fontSize="2xl">
-              핏트너
+            <Text fontWeight="bold" fontSize="2xl" color="fg.default">
+              CareJOA
             </Text>
             {isDesktop ? (
               <HStack spacing="8">
-                {/* <ButtonGroup
+                <ButtonGroup
                   size="lg"
                   variant="text"
                   colorScheme="gray"
                   spacing="8"
                 >
-                  {["Components", "Pricing", "Marketplace", "Support"].map(
-                    (item) => (
-                      <Button key={item}>{item}</Button>
-                    )
-                  )}
+                  <Button>로그인</Button>
+                  <Button>회원가입</Button>
                 </ButtonGroup>
-                <Button>Sign Up</Button> */}
-                <Button size="lg" fontSize="md" onClick={props.onClick}>
-                  무료로 내 맞춤 영양제 찾으러 가기
-                </Button>
               </HStack>
             ) : (
               <>

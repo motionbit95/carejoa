@@ -16,7 +16,7 @@ export const FooterWithSocialIconsOnAccent = () => (
         <Stack justify="space-between" direction="row" align="center">
           {/* <Logo /> */}
           <Text fontWeight="bold" fontSize="2xl">
-            핏트너
+            케어조아
           </Text>
           {/* <ButtonGroup variant="tertiary.accent">
             <IconButton
@@ -40,7 +40,7 @@ export const FooterWithSocialIconsOnAccent = () => (
           </ButtonGroup> */}
         </Stack>
         <Text fontSize="sm" color="fg.accent.subtle">
-          &copy; {new Date().getFullYear()} FITNER Inc. All rights reserved.
+          &copy; {new Date().getFullYear()} CareJOA Inc. All rights reserved.
         </Text>
       </Stack>
     </Container>

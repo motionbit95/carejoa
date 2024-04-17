@@ -1,5 +1,3 @@
-import { Box, Container } from "@chakra-ui/react";
-import { Placeholder } from "./Placeholder";
 import { NavbarWithCallToAction } from "../../Navbars/NavbarWithCallToAction/App";
 
 export const Navbar = ({ ...props }) => {
