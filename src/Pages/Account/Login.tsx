@@ -3,6 +3,9 @@ import {
   Button,
   Container,
   Divider,
+  FormControl,
+  FormHelperText,
+  FormLabel,
   Heading,
   HStack,
   Input,
@@ -12,28 +15,51 @@ import {
 } from "@chakra-ui/react";
 
 export const Login = () => (
-  <Box py={{ base: "12", md: "24" }} maxW="7xl" mx="auto">
+  <Container
+    maxW="md"
+    py={{ base: "0", sm: "8" }}
+    px={{ base: "4", sm: "10" }}
+    bg={{ base: "transparent", sm: "bg.surface" }}
+    boxShadow={{ base: "none", sm: "md" }}
+    borderRadius={{ base: "none", sm: "xl" }}
+  >
     <Stack spacing="8">
-      <Stack spacing="6">
+      <Stack spacing="6" align="center">
         {/* <Logo /> */}
-        <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-          <Heading size={{ base: "xs", md: "sm" }}>
-            Log in to your account
-          </Heading>
-          <Text color="fg.muted">Start making your dreams come true</Text>
+        <Heading>CareJOA</Heading>
+        <Stack spacing="3" textAlign="center">
+          <Heading size="xs">요양상담서비스, 케어조아</Heading>
+          <Text color="fg.muted">
+            아직 회원이 아니신가요? <Link href="#">회원가입하기</Link>
+          </Text>
         </Stack>
       </Stack>
       <Stack spacing="6">
-        <Stack spacing="4">
-          <Input placeholder="Enter your email" />
-          <Button>Continue with email</Button>
+        <Stack spacing="5">
+          <FormControl isRequired>
+            <FormLabel htmlFor="email">아이디</FormLabel>
+            <Input id="email" type="email" placeholder="example@gmail.com" />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel htmlFor="password">비밀번호</FormLabel>
+            <Input id="password" type="password" placeholder="비밀번호 입력" />
+            <FormHelperText color="fg.muted">
+              At least 8 characters long
+            </FormHelperText>
+          </FormControl>
+        </Stack>
+        <Stack spacing="6">
+          <Button>로그인</Button>
+        </Stack>
+        <Stack align={"center"}>
+          <Link href="#">비밀번호를 잊으셨나요?</Link>
         </Stack>
       </Stack>
-      <HStack spacing="1" justify="center">
-        <Text textStyle="sm" color="fg.muted">
-          Having issues? <Link href="#">Contact us</Link>
+      <Stack align={"center"}>
+        <Text fontSize="sm" color="fg.muted">
+          Copyright. CareJOA Inc. All rights reserved.
         </Text>
-      </HStack>
+      </Stack>
     </Stack>
-  </Box>
+  </Container>
 );
