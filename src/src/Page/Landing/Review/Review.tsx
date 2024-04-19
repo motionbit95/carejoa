@@ -7,11 +7,11 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { Stat } from "./Stat";
+import { Stat } from "../../../Component/Stat";
 import { reviews, stats } from "./data";
 import { motion } from "framer-motion";
-import { Rating } from "./Rating";
-import { ReviewList } from "./ReviewList";
+import { Rating } from "../../../Component/Rating";
+import { ReviewList } from "../../../Component/ReviewList";
 
 export const Review = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
