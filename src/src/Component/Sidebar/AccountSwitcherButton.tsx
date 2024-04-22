@@ -30,10 +30,10 @@ export const AccountSwitcherButton = (props: FlexProps) => {
       _focus={{ shadow: "outline" }}
     >
       <HStack flex="1" spacing="3">
-        <Avatar w="8" h="8" rounded="md" objectFit="cover" name="케어조아" />
+        <Avatar w="8" h="8" rounded="full" objectFit="cover" />
         <Box textAlign="start">
           <Box noOfLines={1} fontWeight="semibold">
-            CareJOA
+            케어조아
           </Box>
           <Box fontSize="xs" color="gray.400">
             ID {"cKQ5BC5Q6oS8w7UjrgFAajTnFxd2".substring(0, 8)}

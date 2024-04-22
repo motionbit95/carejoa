@@ -7,7 +7,9 @@ import { Mypage } from "./Mypage";
 import { Sidebar } from "../../Component/Sidebar/Sidebar";
 
 function Dashboard(props) {
-  const [selectedMenu, setSelectedMenu] = useState("consulting");
+  const [selectedMenu, setSelectedMenu] = useState(
+    localStorage.getItem("menu") ? localStorage.getItem("menu") : "home"
+  );
   return (
     <Stack w="full" h="full" direction={{ base: "column", lg: "row" }}>
       <Sidebar onclick={(menu) => setSelectedMenu(menu)} />

@@ -36,6 +36,7 @@ export const ReviewList = (props: ReviewProps) => {
           {name}
         </Text>
         <Text
+          noOfLines={6}
           textAlign={"start"}
           fontSize={{ base: "sm", md: "md" }}
           fontWeight="medium"

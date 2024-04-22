@@ -11,24 +11,32 @@ import {
   useRadioGroup,
   UseRadioProps,
   useStyleConfig,
-} from '@chakra-ui/react'
-import { Children, cloneElement, isValidElement, ReactElement, useMemo } from 'react'
+} from "@chakra-ui/react";
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  ReactElement,
+  useMemo,
+} from "react";
 
-interface RadioCardGroupProps<T> extends Omit<StackProps, 'onChange'> {
-  name?: string
-  value?: T
-  defaultValue?: string
-  onChange?: (value: T) => void
+interface RadioCardGroupProps<T> extends Omit<StackProps, "onChange"> {
+  name?: string;
+  value?: T;
+  defaultValue?: string;
+  onChange?: (value: T) => void;
 }
 
-export const RadioCardGroup = <T extends string>(props: RadioCardGroupProps<T>) => {
-  const { children, name, defaultValue, value, onChange, ...rest } = props
+export const RadioCardGroup = <T extends string>(
+  props: RadioCardGroupProps<T>
+) => {
+  const { children, name, defaultValue, value, onChange, ...rest } = props;
   const { getRootProps, getRadioProps } = useRadioGroup({
     name,
     defaultValue,
     value,
     onChange,
-  })
+  });
 
   const cards = useMemo(
     () =>
@@ -39,36 +47,37 @@ export const RadioCardGroup = <T extends string>(props: RadioCardGroupProps<T>) 
             radioProps: getRadioProps({
               value: card.props.value,
             }),
-          })
+          });
         }),
-    [children, getRadioProps],
-  )
+    [children, getRadioProps]
+  );
 
-  return <Stack {...getRootProps(rest)}>{cards}</Stack>
-}
+  return <Stack {...getRootProps(rest)}>{cards}</Stack>;
+};
 
 interface RadioCardProps extends BoxProps {
-  value: string
-  radioProps?: UseRadioProps
+  value: string;
+  radioProps?: UseRadioProps;
 }
 
 export const RadioCard = (props: RadioCardProps) => {
-  const { radioProps, children, ...rest } = props
-  const { getInputProps, getCheckboxProps, getLabelProps, state } = useRadio(radioProps)
-  const id = useId(undefined, 'radio-button')
+  const { radioProps, children, ...rest } = props;
+  const { getInputProps, getCheckboxProps, getLabelProps, state } =
+    useRadio(radioProps);
+  const id = useId(undefined, "radio-button");
 
-  const styles = useStyleConfig('RadioCard', props)
-  const inputProps = getInputProps()
-  const checkboxProps = getCheckboxProps()
-  const labelProps = getLabelProps()
+  const styles = useStyleConfig("RadioCard", props);
+  const inputProps = getInputProps();
+  const checkboxProps = getCheckboxProps();
+  const labelProps = getLabelProps();
   return (
     <Box
       as="label"
       cursor="pointer"
       {...labelProps}
       sx={{
-        '.focus-visible + [data-focus]': {
-          boxShadow: 'outline',
+        ".focus-visible + [data-focus]": {
+          boxShadow: "outline",
           zIndex: 1,
         },
       }}
@@ -87,12 +96,12 @@ export const RadioCard = (props: RadioCardProps) => {
         </Stack>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 export const CheckIcon = createIcon({
-  displayName: 'CheckIcon',
-  viewBox: '0 0 12 10',
+  displayName: "CheckIcon",
+  viewBox: "0 0 12 10",
   path: (
     <polyline
       fill="none"
@@ -102,4 +111,4 @@ export const CheckIcon = createIcon({
       points="1.5 6 4.5 9 10.5 1"
     />
   ),
-})
+});

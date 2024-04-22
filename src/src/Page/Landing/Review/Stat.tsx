@@ -15,7 +15,9 @@ export const Stat = (props: StatProps) => {
       <Heading
         size={{ base: "lg", md: "lg" }}
         fontWeight="bold"
-        color="#47E17A"
+        color="transparent"
+        bgClip="text"
+        bgGradient="linear(to-r, #49E697, #42D950)"
       >
         {value}
       </Heading>

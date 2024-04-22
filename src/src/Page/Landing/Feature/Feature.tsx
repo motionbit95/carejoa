@@ -44,17 +44,22 @@ export const Feature = () => (
             <Stack key={service.name} spacing={{ base: "4", md: "5" }}>
               <Square
                 size={{ base: "10", md: "12" }}
-                bg="accent"
-                color="fg.inverted"
+                bgColor={"bg.surface"}
+                // bg="accent"
+                // color="fg.inverted"
                 borderRadius="lg"
               >
-                <Icon as={service.icon} boxSize={{ base: "5", md: "6" }} />
+                <Icon
+                  as={service.icon}
+                  color={service.color}
+                  boxSize={{ base: "6", md: "8" }}
+                />
               </Square>
               <Stack spacing={{ base: "1", md: "2" }} flex="1">
                 <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="medium">
                   {service.name}
                 </Text>
-                <Text color="fg.muted">{service.description}</Text>
+                <Text opacity={0.5}>{service.description}</Text>
               </Stack>
             </Stack>
           ))}

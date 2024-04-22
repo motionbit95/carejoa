@@ -3,6 +3,7 @@ import {
   Container,
   Flex,
   HStack,
+  Image,
   Stack,
   Text,
   useBreakpointValue,
@@ -12,12 +13,29 @@ import { FiBookmark, FiClock, FiGrid, FiPieChart } from "react-icons/fi";
 import { Logo } from "./Logo";
 import { SidebarButton } from "./SidebarButton";
 import { AccountSwitcher } from "./AccountSwitcher";
+import {
+  MdCalendarToday,
+  MdDashboard,
+  MdFormatListBulleted,
+  MdOutlineSettings,
+} from "react-icons/md";
+import { useState } from "react";
 
 export const Sidebar = (props: { onclick: (menu: string) => void }) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const mobileSidebar = useDisclosure();
+  const [menu, setMenu] = useState(
+    localStorage.getItem("menu") ? localStorage.getItem("menu") : "home"
+  );
+
+  const handleMenu = (menu: string) => {
+    setMenu(menu);
+    localStorage.setItem("menu", menu);
+    props.onclick(menu);
+    mobileSidebar.onClose();
+  };
   return (
-    <Stack>
+    <Stack bgColor={"#F5F6F8"} minH={"100vh"}>
       <Flex display={{ base: "none", lg: "flex" }} as="section" h={"full"}>
         <Stack
           flex="1"
@@ -25,38 +43,49 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
           maxW={{ base: "full", sm: "xs" }}
           py={{ base: "6", sm: "8" }}
           px={{ base: "4", sm: "6" }}
-          bg="bg.surface"
+          // bg="bg.surface"
           borderRightWidth="1px"
           justifyContent="space-between"
         >
           <Stack spacing="8">
             <Stack>
-              <Logo alignSelf="start" />
-              <Text>함께할 때 더 가치있습니다.</Text>
+              {/* <Logo alignSelf="start" /> */}
+              <HStack>
+                <Image
+                  src={require("../CareJOA.png")}
+                  height={"48px"}
+                  w={"auto"}
+                />
+              </HStack>
+              <Text opacity={0.5}>함께할 때 더 가치있습니다.</Text>
             </Stack>
             <AccountSwitcher />
             <Stack spacing="1">
               <SidebarButton
-                leftIcon={<FiGrid />}
-                onClick={() => props.onclick("home")}
+                opacity={menu === "home" ? 1 : 0.5}
+                leftIcon={<MdDashboard />}
+                onClick={() => handleMenu("home")}
               >
                 대시보드
               </SidebarButton>
               <SidebarButton
-                leftIcon={<FiPieChart />}
-                onClick={() => props.onclick("consulting")}
+                opacity={menu === "consulting" ? 1 : 0.5}
+                leftIcon={<MdCalendarToday />}
+                onClick={() => handleMenu("consulting")}
               >
-                상담 선택하기
+                상담 신청하기
               </SidebarButton>
               <SidebarButton
-                leftIcon={<FiClock />}
-                onClick={() => props.onclick("list")}
+                opacity={menu === "list" ? 1 : 0.5}
+                leftIcon={<MdFormatListBulleted />}
+                onClick={() => handleMenu("list")}
               >
                 상담 목록
               </SidebarButton>
               <SidebarButton
-                leftIcon={<FiBookmark />}
-                onClick={() => props.onclick("mypage")}
+                opacity={menu === "mypage" ? 1 : 0.5}
+                leftIcon={<MdOutlineSettings />}
+                onClick={() => handleMenu("mypage")}
               >
                 내정보 관리
               </SidebarButton>

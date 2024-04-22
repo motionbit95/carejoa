@@ -21,10 +21,15 @@ export const Filter = ({ onFilter }: FilterBarProps) => {
   };
 
   return (
-    <HStack align="center" mb={4} bgColor={"gray"} p={4}>
-      <Button colorScheme="blue" onClick={handleFilter} gap={2}>
+    <HStack align="center" mb={4} bgColor={"gray.50"} p={4}>
+      <Button
+        variant="ghost"
+        colorScheme="black"
+        onClick={handleFilter}
+        gap={2}
+      >
         <Icon as={MdOutlineFilterList} />
-        Filter
+        필터
       </Button>
       <Flex>
         <Input
@@ -35,6 +40,7 @@ export const Filter = ({ onFilter }: FilterBarProps) => {
           mr={2}
         />
         <Select
+          bgColor={"white"}
           value={status}
           onChange={(e) => setStatus(e.target.value)}
           placeholder="전체상담"

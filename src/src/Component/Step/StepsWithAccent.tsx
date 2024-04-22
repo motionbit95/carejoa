@@ -5,8 +5,8 @@ import { steps } from "../../Page/Dashboard/data";
 export const StepsWithAccent = (props: any) => {
   const { currentStep } = props;
   return (
-    <Box bg="bg.surface">
-      <Container py={{ base: "8", md: "16" }}>
+    <Box>
+      <Container py={{ base: "8", md: "16" }} pb={{ base: "4", md: "2" }}>
         <Stack direction={{ base: "column", md: "row" }} spacing="4">
           {steps.map((step, id) => (
             <Step

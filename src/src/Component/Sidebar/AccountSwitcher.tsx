@@ -14,7 +14,7 @@ export const AccountSwitcher = () => {
   return (
     <Menu>
       <AccountSwitcherButton />
-      <MenuList
+      {/* <MenuList
         shadow="lg"
         py="4"
         color={useColorModeValue("gray.600", "gray.200")}
@@ -27,16 +27,16 @@ export const AccountSwitcher = () => {
           <MenuItemOption value="chakra-ui" fontWeight="semibold" rounded="md">
             Chakra UI
           </MenuItemOption>
-          {/* <MenuItemOption value="careerlyft" fontWeight="semibold" rounded="md">
+          <MenuItemOption value="careerlyft" fontWeight="semibold" rounded="md">
             CareerLyft
-          </MenuItemOption> */}
+          </MenuItemOption>
         </MenuOptionGroup>
         <MenuDivider />
         <MenuItem rounded="md">Workspace settings</MenuItem>
         <MenuItem rounded="md">Add an account</MenuItem>
         <MenuDivider />
         <MenuItem rounded="md">Logout</MenuItem>
-      </MenuList>
+      </MenuList> */}
     </Menu>
   );
 };

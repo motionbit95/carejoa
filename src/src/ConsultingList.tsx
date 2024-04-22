@@ -13,10 +13,16 @@ import { data } from "./Page/Dashboard/data";
 
 export const ConsultingList = () => {
   return (
-    <TableContainer>
-      <Table>
+    <TableContainer
+      border={"1px"}
+      borderColor={"gray.200"}
+      borderRadius={"xl"}
+      shadow={"sm"}
+      p={4}
+    >
+      <Table size={"sm"}>
         <Thead>
-          <Tr>
+          <Tr fontWeight={"bold"}>
             <Td>상태</Td>
             <Td>신청일</Td>
             <Td>요양시설</Td>
@@ -24,6 +30,7 @@ export const ConsultingList = () => {
             <Td>시설등급</Td>
             <Td>시설크기</Td>
             <Td>비용</Td>
+            <Td></Td>
           </Tr>
         </Thead>
         <Tbody>
@@ -54,9 +61,13 @@ export const ConsultingList = () => {
               <Td>{item.class}</Td>
               <Td>
                 <ButtonGroup spacing={"4"}>
-                  <Button colorScheme="blue">삭제</Button>
+                  <Button colorScheme="gray" size={"xs"} px={"3"}>
+                    삭제
+                  </Button>
                   <Button
-                    colorScheme="gray"
+                    size={"xs"}
+                    px={"3"}
+                    colorScheme="blue"
                     display={item.state === "상담완료" ? "none" : "block"}
                   >
                     수정

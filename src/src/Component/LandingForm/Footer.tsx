@@ -1,4 +1,11 @@
-import { Box, Container, Divider, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Divider,
+  Stack,
+  StackDivider,
+  Text,
+} from "@chakra-ui/react";
 
 export const Footer = () => (
   <Box bg="bg.accent.default" color="fg.accent.default">
@@ -10,17 +17,25 @@ export const Footer = () => (
             케어조아
           </Text>
         </Stack>
-        <Stack>
-          <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+        <Stack opacity={0.7}>
+          <Stack
+            direction={{ base: "column", md: "row" }}
+            divider={<StackDivider opacity={0.5} />}
+            spacing={4}
+          >
             <Text>대표자 : 박대수</Text>
-            <Divider orientation="vertical" h={"6"} />
+            {/* <Divider orientation="vertical" h={"6"} /> */}
             <Text>상호명 : 케이뷰틱스</Text>
           </Stack>
-          <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+          <Stack
+            direction={{ base: "column", md: "row" }}
+            divider={<StackDivider opacity={0.5} />}
+            spacing={4}
+          >
             <Text>Call : 032-277-4915</Text>
-            <Divider orientation="vertical" h={"6"} />
+            {/* <Divider orientation="vertical" h={"6"} /> */}
             <Text>사업자번호 : 693-47-00786</Text>
-            <Divider orientation="vertical" h={"6"} />
+            {/* <Divider orientation="vertical" h={"6"} /> */}
             <Text>이메일 : procos@hanmail.net</Text>
           </Stack>
         </Stack>

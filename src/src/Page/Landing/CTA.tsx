@@ -10,7 +10,7 @@ export const CTA = () => (
             신뢰할 수 있는 요양병원 상담서비스
           </Text>
           <Heading size={{ base: "sm", md: "md" }} fontWeight="extrabold">
-            신청서 작성하기
+            케어조아와 함께하세요.
           </Heading>
         </Stack>
         <Link to="/login">

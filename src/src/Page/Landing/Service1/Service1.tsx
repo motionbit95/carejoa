@@ -1,8 +1,10 @@
 import {
   Box,
   Container,
+  HStack,
   Heading,
   Icon,
+  Image,
   SimpleGrid,
   Square,
   Stack,
@@ -29,23 +31,27 @@ export const Service1 = () => (
       </Stack>
       <Stack alignItems={"center"}>
         <SimpleGrid
-          display={{ base: "none", md: "grid" }}
-          columns={{ base: 1, md: 2, lg: 4 }}
-          columnGap={10}
+          // display={{ base: "none", md: "grid" }}
+          columns={{ base: 1, sm: 2, lg: 4 }}
+          columnGap={{ base: 10, md: 16 }}
           rowGap={{ base: 10, md: 16 }}
         >
-          {buttonItems.map((item) => (
+          {buttonItems.map((item, index) => (
             <Stack key={item.name} spacing={{ base: "4", md: "5" }}>
               <Square
-                size={{ base: "40", md: "36" }}
-                bg="accent"
-                color="fg.inverted"
+                size={{ base: "36", md: "36" }}
+                // bg="accent"
+                // color="fg.inverted"
+                bgColor={item.color}
                 borderRadius="lg"
                 flexDirection="column"
                 justifyContent={"space-between"}
+                alignItems={"flex-start"}
               >
                 <Box padding={{ base: "2", md: "3" }}>
                   <Text
+                    whiteSpace={"pre-wrap"}
+                    color="white"
                     textAlign={"start"}
                     fontSize={{ base: "sm", md: "md" }}
                     fontWeight="medium"
@@ -58,52 +64,12 @@ export const Service1 = () => (
                   alignSelf="flex-end"
                   as={item.icon}
                   boxSize={{ base: "10", md: "12" }}
+                  color={"white"}
                 />
               </Square>
             </Stack>
           ))}
         </SimpleGrid>
-        <Stack
-          bgColor={"white"}
-          p={6}
-          borderRadius={"2xl"}
-          display={{ base: "grid", md: "none" }}
-        >
-          <SimpleGrid
-            columns={{ base: 2, md: 2, lg: 4 }}
-            columnGap={10}
-            rowGap={{ base: 10, md: 16 }}
-          >
-            {buttonItems.map((item) => (
-              <Stack key={item.name} spacing={{ base: "4", md: "5" }}>
-                <Square
-                  size={{ base: "40", md: "36" }}
-                  bg="accent"
-                  color="fg.inverted"
-                  borderRadius="lg"
-                  flexDirection="column"
-                  justifyContent={"space-between"}
-                >
-                  <Box padding={{ base: "2", md: "3" }}>
-                    <Text
-                      textAlign={"start"}
-                      fontSize={{ base: "sm", md: "md" }}
-                      fontWeight="medium"
-                    >
-                      {item.name}
-                    </Text>
-                  </Box>
-                  <Icon
-                    m={3}
-                    alignSelf="flex-end"
-                    as={item.icon}
-                    boxSize={{ base: "10", md: "12" }}
-                  />
-                </Square>
-              </Stack>
-            ))}
-          </SimpleGrid>
-        </Stack>
       </Stack>
     </Stack>
   </Container>

@@ -6,15 +6,17 @@ import {
   FormLabel,
   Heading,
   HStack,
+  Image,
   Input,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Forgot } from "./Forgot";
 import { useState } from "react";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [popupOpen, setPopupOpen] = useState(false);
   return (
     <Flex flex="1" align="center">
@@ -29,7 +31,11 @@ export const Login = () => {
         <Stack spacing="8">
           <Stack spacing="6" align="center">
             {/* <Logo /> */}
-            <Heading>CareJOA</Heading>
+            {/* <Heading>CareJOA</Heading> */}
+            <Image
+              height={"64px"}
+              src={require("../../Component/CareJOA.png")}
+            />
             <Stack spacing="3" textAlign="center">
               <Heading size="xs">요양상담서비스, 케어조아</Heading>
               <HStack>
@@ -82,7 +88,7 @@ export const Login = () => {
                   At least 8 characters long
                 </FormHelperText> */}
                 </FormControl>
-                <Button>로그인</Button>
+                <Button onClick={() => navigate("/dashboard")}>로그인</Button>
               </Stack>
             </form>
             <Stack align={"center"}>

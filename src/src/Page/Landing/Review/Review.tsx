@@ -40,7 +40,9 @@ export const Review = () => {
               <Heading
                 size={{ base: "lg", md: "xl" }}
                 fontWeight="bold"
-                color="#47E17A"
+                color="transparent"
+                bgClip="text"
+                bgGradient="linear(to-r, #49E697, #42D950)"
               >
                 4.9점
               </Heading>

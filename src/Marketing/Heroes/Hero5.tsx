@@ -63,8 +63,8 @@ export const HeroWithImage = (props: { onClick: () => void }) => (
           <Image
             borderRadius={"2xl"}
             objectFit="cover"
-            src="https://tinyurl.com/yeyjvptc"
-            alt="Lady at work"
+            src={require("../../src/Component/image1.png")}
+            // alt="Lady at work"
           />
         </AspectRatio>
       </motion.div>

@@ -4,7 +4,7 @@ import { shelters } from "../../Page/Dashboard/data";
 
 export const RadioCardGroupContainer = () => {
   return (
-    <Box as="section" bg="bg.surface" py={{ base: "4", md: "8" }}>
+    <Box as="section" py={{ base: "4", md: "8" }}>
       <Container>
         <RadioCardGroup spacing="3">
           {shelters.map((shelter, id) => (

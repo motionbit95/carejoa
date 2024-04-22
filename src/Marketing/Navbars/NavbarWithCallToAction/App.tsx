@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   Container,
   HStack,
+  Image,
   Text,
   useBreakpointValue,
   useDisclosure,
@@ -29,6 +30,7 @@ export const NavbarWithCallToAction = ({ ...props }) => {
             <Text fontWeight="bold" fontSize="2xl" color="fg.default">
               CareJOA
             </Text>
+
             {isDesktop ? (
               <HStack spacing="8">
                 <ButtonGroup

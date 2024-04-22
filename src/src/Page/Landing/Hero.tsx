@@ -37,8 +37,8 @@ export const Hero = () => (
         <Image
           borderRadius={"2xl"}
           objectFit="cover"
-          src="https://tinyurl.com/yeyjvptc"
-          alt="Lady at work"
+          src={require("../../Component/image1.png")}
+          // alt="Lady at work"
         />
       </AspectRatio>
     </SimpleGrid>

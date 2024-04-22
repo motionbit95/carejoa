@@ -14,6 +14,7 @@ import {
   cloneElement,
   isValidElement,
   ReactElement,
+  useEffect,
   useMemo,
 } from "react";
 
@@ -85,6 +86,7 @@ export const RadioButton = (props: RadioButtonProps) => {
 
   return (
     <Box
+      w={"full"}
       as="label"
       cursor="pointer"
       {...labelProps}
@@ -97,11 +99,15 @@ export const RadioButton = (props: RadioButtonProps) => {
     >
       <input {...inputProps} aria-labelledby={id} />
       <Button
+        w={"full"}
         id={id}
         as="div"
         _focus={{ boxShadow: "none" }}
         {...checkboxProps}
         {...rest}
+        bgColor={radioProps?.isChecked ? "blue.100" : "white"}
+        color={radioProps?.isChecked ? "accent" : "fg.muted"}
+        fontWeight={radioProps?.isChecked ? "bold" : "normal"}
       />
     </Box>
   );

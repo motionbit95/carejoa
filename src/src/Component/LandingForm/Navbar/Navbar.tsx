@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   Container,
   HStack,
+  Image,
   Text,
   useBreakpointValue,
   useDisclosure,
@@ -26,9 +27,10 @@ export const Navbar = ({ ...props }) => {
         <Container py="4">
           <HStack justify="space-between">
             {/* <Logo /> */}
-            <Text fontWeight="bold" fontSize="2xl" color="fg.default">
-              CareJOA
-            </Text>
+            <Image
+              height={"48px"}
+              src={require("../../../Component/CareJOA.png")}
+            />
             {isDesktop ? (
               <HStack spacing="8">
                 <ButtonGroup
