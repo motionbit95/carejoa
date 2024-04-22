@@ -3,7 +3,9 @@ import {
   Button,
   ButtonGroup,
   Container,
+  Flex,
   Heading,
+  Icon,
   Stack,
   Table,
   TableContainer,
@@ -15,9 +17,11 @@ import {
 } from "@chakra-ui/react";
 import { data } from "./data";
 import { Filter } from "../../Component/Filter";
+import { ConsultingList } from "../../ConsultingList";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 export const List = () => (
-  <Box as="section" bg="bg.surface">
+  <Box as="section">
     <Container py={{ base: "2", md: "4" }}>
       <Heading size={{ base: "sm", md: "sm" }}>상담목록</Heading>
     </Container>
@@ -25,46 +29,14 @@ export const List = () => (
     <Container py={{ base: "4", md: "8" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <TableContainer>
-            <Table>
-              <Thead>
-                <Tr>
-                  <Td>상태</Td>
-                  <Td>신청일</Td>
-                  <Td>요양시설</Td>
-                  <Td>지역</Td>
-                  <Td>시설등급</Td>
-                  <Td>시설크기</Td>
-                  <Td>비용</Td>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data.map((item) => (
-                  <Tr>
-                    <Td>{item.state}</Td>
-                    <Td>
-                      {item.date}
-                      <br />
-                      {item.time}
-                    </Td>
-                    <Td>{item.shelter}</Td>
-                    <Td>{item.region}</Td>
-                    <Td>{item.rating}</Td>
-                    <Td>{item.size}</Td>
-                    <Td>{item.class}</Td>
-                    <Td>
-                      <ButtonGroup spacing={"4"}>
-                        <Button>삭제</Button>
-                        <Button>수정</Button>
-                      </ButtonGroup>
-                    </Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <ConsultingList />
         </Stack>
       </Stack>
+      <Flex p={3} gap={3}>
+        <Icon as={BsChevronLeft} boxSize={{ base: "4", md: "6" }} />
+        <Text>1</Text>
+        <Icon as={BsChevronRight} boxSize={{ base: "4", md: "6" }} />
+      </Flex>
     </Container>
   </Box>
 );

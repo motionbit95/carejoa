@@ -28,7 +28,7 @@ export const Consulting = () => {
   };
 
   return (
-    <Box as="section" bg="bg.surface">
+    <Box as="section">
       <StepsWithAccent currentStep={step} />
       <Stack maxW={"2xl"} mx="auto" py={{ base: "4", md: "8" }}>
         {step === 1 && <Step1 />}

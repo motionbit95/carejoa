@@ -13,7 +13,7 @@ export const Forgot = (props: any) => {
       isOpen={props.isOpen}
       onClose={props.onClose}
       isCentered
-      size={{ base: "full", md: "5xl" }}
+      size={{ base: "full", md: "xl" }}
       // `trapFocus` and `blockScrollOnMount` are only switched off so that the preview works properly.
       blockScrollOnMount={false}
       trapFocus={false}
@@ -28,7 +28,7 @@ export const Forgot = (props: any) => {
         <ModalCloseButton />
         <Stack spacing="4">
           <Text fontSize="lg" fontWeight="bold">
-            비밀번호 복구 모달
+            비밀번호 찾아줘요
           </Text>
         </Stack>
       </ModalContent>

@@ -1,4 +1,5 @@
 import { Box, Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const CTA = () => (
   <Box as="section" bg="bg.surface">
@@ -12,9 +13,9 @@ export const CTA = () => (
             신청서 작성하기
           </Heading>
         </Stack>
-        <Box>
+        <Link to="/login">
           <Button size="xl">무료 상담하기</Button>
-        </Box>
+        </Link>
       </Stack>
     </Container>
   </Box>

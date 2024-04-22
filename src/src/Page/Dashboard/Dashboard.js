@@ -18,8 +18,10 @@ function Dashboard(props) {
   return (
     <Flex h="full">
       <Sidebar onclick={(menu) => setSelectedMenu(menu)} />
-      <Box bg={mode("white", "gray.800")} flex="1" overflow="auto">
-        {selectedMenu === "home" && <Home />}
+      <Box bgColor={"bg.surface"} flex="1" overflow="auto">
+        {selectedMenu === "home" && (
+          <Home onclick={(menu) => setSelectedMenu(menu)} />
+        )}
         {selectedMenu === "consulting" && <Consulting />}
         {selectedMenu === "list" && <List />}
         {selectedMenu === "mypage" && <Mypage />}

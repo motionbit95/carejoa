@@ -36,7 +36,6 @@ export const SignUp = (prop: any) => {
       >
         {!showForm && <SignupForm onClick={() => setShowForm(true)} />}
         {showForm && <CertificateForm />}
-        {/* <CertificateForm /> */}
       </Container>
     </Flex>
   );

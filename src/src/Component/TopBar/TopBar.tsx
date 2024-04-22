@@ -33,7 +33,9 @@ export const Topbar = ({ ...props }) => {
               <HStack spacing="8">
                 <ButtonGroup size="lg" spacing="4">
                   <Button variant="outline">상담내용 확인</Button>
-                  <Button>상담 신청하기</Button>
+                  <Button onClick={() => props.onclick("consulting")}>
+                    상담 신청하기
+                  </Button>
                 </ButtonGroup>
               </HStack>
             ) : (

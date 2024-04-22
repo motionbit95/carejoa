@@ -1,6 +1,7 @@
 import {
   Box,
   Container,
+  HStack,
   Heading,
   SimpleGrid,
   Stack,
@@ -58,15 +59,16 @@ export const Review = () => {
               ))}
             </Stack>
           </SimpleGrid>
-          <SimpleGrid
-            columns={{ base: 2, md: 2, lg: 4 }}
-            columnGap={10}
-            rowGap={{ base: 10, md: 16 }}
+          <HStack
+            gap={10}
+            maxWidth={"100%"}
+            overflowX={"scroll"}
+            className="Non-scroll"
           >
             {reviews.map((review, index) => (
               <ReviewList key={index} {...review} />
             ))}
-          </SimpleGrid>
+          </HStack>
         </Stack>
       </Container>
     </Box>

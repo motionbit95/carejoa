@@ -10,6 +10,8 @@ export const ReviewList = (props: ReviewProps) => {
   const { name, description, icon, ...stackProps } = props;
   return (
     <Stack
+      minW={{ base: "150px", md: "250px" }}
+      minH={{ base: "200px", md: "300px" }}
       {...stackProps}
       bgColor={"gray.100"}
       p={6}

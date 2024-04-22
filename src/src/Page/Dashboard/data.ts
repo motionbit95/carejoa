@@ -25,7 +25,7 @@ export const data = [
     },
     {
         id: 3,
-        state: "작성중",
+        state: "상담완료",
         date : "2024.04.04",
         time : "09:00",
         shelter : "주야간보호", 
@@ -36,7 +36,7 @@ export const data = [
      },
     {
         id: 4,
-        state: "작성중",
+        state: "상담완료",
         date : "2022.01.01",
         time : "09:00",
         shelter : "방문시설", 

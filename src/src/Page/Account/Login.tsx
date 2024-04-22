@@ -52,38 +52,42 @@ export const Login = () => {
             </Stack>
           </Stack>
           <Stack spacing="6">
-            <Stack spacing="5">
-              <FormControl isRequired>
-                <FormLabel htmlFor="email" fontWeight={"bold"} fontSize={"md"}>
-                  아이디
-                </FormLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="example@gmail.com"
-                />
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel
-                  htmlFor="password"
-                  fontWeight={"bold"}
-                  fontSize={"md"}
-                >
-                  비밀번호
-                </FormLabel>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="비밀번호 입력"
-                />
-                {/* <FormHelperText color="fg.muted">
+            <form>
+              <Stack spacing="5">
+                <FormControl isRequired>
+                  <FormLabel
+                    htmlFor="email"
+                    fontWeight={"bold"}
+                    fontSize={"md"}
+                  >
+                    아이디
+                  </FormLabel>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="example@gmail.com"
+                  />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel
+                    htmlFor="password"
+                    fontWeight={"bold"}
+                    fontSize={"md"}
+                  >
+                    비밀번호
+                  </FormLabel>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="비밀번호 입력"
+                  />
+                  {/* <FormHelperText color="fg.muted">
                   At least 8 characters long
                 </FormHelperText> */}
-              </FormControl>
-            </Stack>
-            <Stack spacing="6">
-              <Button>로그인</Button>
-            </Stack>
+                </FormControl>
+                <Button>로그인</Button>
+              </Stack>
+            </form>
             <Stack align={"center"}>
               <Text
                 cursor={"pointer"}

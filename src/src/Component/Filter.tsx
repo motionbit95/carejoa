@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { MdOutlineFilterList, MdSearch } from "react-icons/md";
+import { MdOutlineFilterList } from "react-icons/md";
 
 interface Filter {
   date: string;
@@ -49,9 +49,9 @@ export const Filter = ({ onFilter }: FilterBarProps) => {
           placeholder="전체상담"
           w={"200px"}
         >
-          <option value="pending">Pending</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
+          <option value="Writing">작성중</option>
+          <option value="complete">신청완료</option>
+          <option value="incomplete">상담완료</option>
         </Select>
       </Flex>
     </HStack>
