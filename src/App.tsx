@@ -5,7 +5,6 @@ import Landing from "./src/Page/Landing/Landing";
 import { Login } from "./src/Page/Account/Login";
 import { SignUp } from "./src/Page/Account/SignUp";
 import Dashboard from "./src/Page/Dashboard/Dashboard";
-
 function App() {
   return (
     <BrowserRouter>

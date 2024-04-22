@@ -21,7 +21,7 @@ export const List = () => (
     <Container py={{ base: "2", md: "4" }}>
       <Heading size={{ base: "sm", md: "sm" }}>상담목록</Heading>
     </Container>
-    {/* <Filter /> */}
+    <Filter onFilter={(filter) => console.log(filter)} />
     <Container py={{ base: "4", md: "8" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>

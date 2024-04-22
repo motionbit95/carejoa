@@ -1,18 +1,18 @@
 export const steps = [
   {
-    title: 'Step 1',
-    description: 'Description',
+    title: "1단계",
+    description: "요양시설 선택",
   },
   {
-    title: 'Step 2',
-    description: 'Description',
+    title: "2단계",
+    description: "요양 프로그램 선택",
   },
   {
-    title: 'Step 3',
-    description: 'Description',
+    title: "3단계",
+    description: "환자 상태 입력",
   },
   {
-    title: 'Step 4',
-    description: 'Description',
+    title: "4단계",
+    description: "개인정보 이용동의",
   },
-]
+];
