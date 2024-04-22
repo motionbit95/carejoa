@@ -6,7 +6,6 @@ import {
   DrawerContent,
   DrawerProps,
   HStack,
-  Stack,
 } from "@chakra-ui/react";
 
 export const MobileDrawer = (props: Omit<DrawerProps, "children">) => (

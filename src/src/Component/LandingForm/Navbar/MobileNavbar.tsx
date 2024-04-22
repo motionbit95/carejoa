@@ -6,8 +6,8 @@ import {
   DrawerContent,
   DrawerProps,
   HStack,
-  Stack,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const MobileDrawer = (props: Omit<DrawerProps, "children">) => (
   <Drawer placement="top" {...props}>
@@ -15,8 +15,12 @@ export const MobileDrawer = (props: Omit<DrawerProps, "children">) => (
       <DrawerBody mt="16">
         <HStack spacing="8" justify={"flex-end"}>
           <ButtonGroup size="lg" variant="text" colorScheme="gray" spacing="8">
-            <Button>로그인</Button>
-            <Button>회원가입</Button>
+            <Link to="/login">
+              <Button>로그인</Button>
+            </Link>
+            <Link to="/signup">
+              <Button>회원가입</Button>
+            </Link>
           </ButtonGroup>
         </HStack>
       </DrawerBody>

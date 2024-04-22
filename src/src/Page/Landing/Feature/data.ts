@@ -1,5 +1,5 @@
 import { BsFillMoonFill, BsStars } from 'react-icons/bs'
-import { FaAccessibleIcon, FaExpandAlt, FaPaintBrush } from 'react-icons/fa'
+import { FaPaintBrush } from 'react-icons/fa'
 import { IoRocketSharp } from 'react-icons/io5'
 
 export const services = [

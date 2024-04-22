@@ -1,7 +1,6 @@
 import {
   Button,
   Container,
-  Divider,
   Flex,
   FormControl,
   FormHelperText,
@@ -11,7 +10,6 @@ import {
   Input,
   Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import {
@@ -164,7 +162,7 @@ export const CertificateForm = () => {
           </FormControl>
           <TermsAgreement setCheckedItems={setIsTermsAgreed} />
         </Stack>
-        <Link to="/">
+        <Link to="/dashboard">
           <Button w={"100%"} size={"xl"}>
             케어조아 시작하기
           </Button>

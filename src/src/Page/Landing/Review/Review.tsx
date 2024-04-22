@@ -6,16 +6,13 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
-import { Stat } from "../../../Component/Stat";
+import { Stat } from "./Stat";
 import { reviews, stats } from "./data";
-import { motion } from "framer-motion";
-import { Rating } from "../../../Component/Rating";
-import { ReviewList } from "../../../Component/ReviewList";
+import { Rating } from "./Rating";
+import { ReviewList } from "./ReviewList";
 
 export const Review = () => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
   return (
     <Box bg="black">
       <Container py={{ base: "16", md: "24" }}>

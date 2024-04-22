@@ -8,7 +8,6 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Logo } from "./Logo";
 import { MobileDrawer } from "./MobileNavbar";
 import { ToggleButton } from "./ToggleButton";
 import { Link } from "react-router-dom";

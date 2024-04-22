@@ -1,21 +1,12 @@
 import {
   Box,
-  Button,
-  ButtonGroup,
   Container,
   Flex,
   Heading,
   Icon,
   Stack,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
   Text,
-  Thead,
-  Tr,
 } from "@chakra-ui/react";
-import { data } from "./data";
 import { Filter } from "../../Component/Filter";
 import { ConsultingList } from "../../ConsultingList";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";

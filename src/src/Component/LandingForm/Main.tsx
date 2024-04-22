@@ -1,4 +1,4 @@
-import { Container, Flex, FlexProps } from "@chakra-ui/react";
+import { Flex, FlexProps } from "@chakra-ui/react";
 
 export const Main = (props: FlexProps) => {
   return (

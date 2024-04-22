@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Icon,
-  Input,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Flex, HStack, Icon, Input, Select } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdOutlineFilterList } from "react-icons/md";
 

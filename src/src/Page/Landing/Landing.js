@@ -1,4 +1,3 @@
-import React from "react";
 import { Box } from "@chakra-ui/react";
 import { Hero } from "./Hero";
 import { Consulting } from "./Consulting/Consulting";

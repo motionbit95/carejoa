@@ -1,6 +1,5 @@
 import { Box, Container, Stack } from "@chakra-ui/react";
 import { Step } from "./Step";
-import { useStep } from "./useStep";
 import { steps } from "../../Page/Dashboard/data";
 
 export const StepsWithAccent = (props: any) => {

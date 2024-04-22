@@ -2,15 +2,14 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   HStack,
-  Heading,
   Icon,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { BiChevronRight } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
-import { createKeywordTypeNode } from "typescript";
 
 export const Mypage = () => (
   <Box as="section">
@@ -32,7 +31,7 @@ export const Mypage = () => (
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             내정보 관리
           </Text>
-          <hr />
+          <Divider />
           <Stack spacing={7}>
             <HStack justify={"space-between"}>
               <Text fontSize={{ base: "lg", md: "xl" }}>이름</Text>

@@ -1,12 +1,4 @@
-import {
-  Box,
-  ButtonGroup,
-  Container,
-  IconButton,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { Box, Container, Divider, Stack, Text } from "@chakra-ui/react";
 import { Logo } from "./Logo";
 
 export const FooterWithSocialIconsOnAccent = () => (
@@ -18,26 +10,20 @@ export const FooterWithSocialIconsOnAccent = () => (
           <Text fontWeight="bold" fontSize="2xl">
             케어조아
           </Text>
-          {/* <ButtonGroup variant="tertiary.accent">
-            <IconButton
-              as="a"
-              href="#"
-              aria-label="LinkedIn"
-              icon={<FaLinkedin />}
-            />
-            <IconButton
-              as="a"
-              href="#"
-              aria-label="GitHub"
-              icon={<FaGithub />}
-            />
-            <IconButton
-              as="a"
-              href="#"
-              aria-label="Twitter"
-              icon={<FaTwitter />}
-            />
-          </ButtonGroup> */}
+        </Stack>
+        <Stack>
+          <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+            <Text>대표자 : 박대수</Text>
+            <Divider orientation="vertical" h={"6"} />
+            <Text>상호명 : 케이뷰틱스</Text>
+          </Stack>
+          <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+            <Text>Call : 032-277-4915</Text>
+            <Divider orientation="vertical" h={"6"} />
+            <Text>사업자번호 : 693-47-00786</Text>
+            <Divider orientation="vertical" h={"6"} />
+            <Text>이메일 : procos@hanmail.net</Text>
+          </Stack>
         </Stack>
         <Text fontSize="sm" color="fg.accent.subtle">
           &copy; {new Date().getFullYear()} CareJOA Inc. All rights reserved.

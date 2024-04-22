@@ -1,5 +1,3 @@
-import { BiCheckCircle, BiSolidCheckCircle } from "react-icons/bi"
-
 export const data = [
     {
         id: 1,

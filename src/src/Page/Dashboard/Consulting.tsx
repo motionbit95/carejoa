@@ -8,8 +8,6 @@ import {
   Button,
   ButtonGroup,
   Container,
-  Heading,
-  Icon,
   Input,
   Stack,
   Text,
@@ -141,8 +139,8 @@ export const Step3 = () => {
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             어르신 성함 입력
-            <Input placeholder="성함 입력" />
           </Text>
+          <Input placeholder="성함 입력" />
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>

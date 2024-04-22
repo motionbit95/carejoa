@@ -4,10 +4,9 @@ import {
   Flex,
   FlexProps,
   HStack,
-  Img,
   useMenuButton,
 } from "@chakra-ui/react";
-import { HiChevronDown, HiSelector } from "react-icons/hi";
+import { HiChevronDown } from "react-icons/hi";
 
 export const AccountSwitcherButton = (props: FlexProps) => {
   const buttonProps = useMenuButton(props);

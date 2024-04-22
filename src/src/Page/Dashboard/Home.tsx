@@ -4,21 +4,13 @@ import {
   Button,
   ButtonGroup,
   Container,
-  Flex,
   Heading,
   Image,
   SimpleGrid,
   Stack,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
   Text,
-  Thead,
-  Tr,
 } from "@chakra-ui/react";
 import { Topbar } from "../../Component/TopBar/TopBar";
-import { data } from "./data";
 import { ConsultingList } from "../../ConsultingList";
 
 export const Home = (props: { onclick: (menu: string) => void }) => (
