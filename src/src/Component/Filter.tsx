@@ -1,5 +1,15 @@
-import { Box, Button, Flex, Input, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Icon,
+  Input,
+  Select,
+  Text,
+} from "@chakra-ui/react";
 import { useState } from "react";
+import { MdOutlineFilterList, MdSearch } from "react-icons/md";
 
 interface Filter {
   date: string;
@@ -20,8 +30,12 @@ export const Filter = ({ onFilter }: FilterBarProps) => {
   };
 
   return (
-    <Flex align="center" justify="space-between" mb={4}>
-      <Box>
+    <HStack align="center" mb={4} bgColor={"gray"} p={4}>
+      <Button colorScheme="blue" onClick={handleFilter} gap={2}>
+        <Icon as={MdOutlineFilterList} />
+        Filter
+      </Button>
+      <Flex>
         <Input
           type="date"
           value={date}
@@ -32,17 +46,14 @@ export const Filter = ({ onFilter }: FilterBarProps) => {
         <Select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          placeholder="Select Status"
-          w="150px"
+          placeholder="전체상담"
+          w={"200px"}
         >
           <option value="pending">Pending</option>
           <option value="completed">Completed</option>
           <option value="cancelled">Cancelled</option>
         </Select>
-      </Box>
-      <Button colorScheme="blue" onClick={handleFilter}>
-        Filter
-      </Button>
-    </Flex>
+      </Flex>
+    </HStack>
   );
 };

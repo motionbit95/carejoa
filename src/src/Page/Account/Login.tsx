@@ -35,15 +35,28 @@ export const Login = () => {
             <Heading>CareJOA</Heading>
             <Stack spacing="3" textAlign="center">
               <Heading size="xs">요양상담서비스, 케어조아</Heading>
-              <Text color="fg.muted">
-                아직 회원이 아니신가요? <Link to="/signup">회원가입하기</Link>
-              </Text>
+              <HStack>
+                <Text color="fg.muted" fontWeight={"bold"}>
+                  아직 회원이 아니신가요?
+                </Text>
+                <Link to="/signup">
+                  <Text
+                    fontWeight={"bold"}
+                    color="#2A67D1"
+                    textDecoration={"underline"}
+                  >
+                    회원가입하기
+                  </Text>
+                </Link>
+              </HStack>
             </Stack>
           </Stack>
           <Stack spacing="6">
             <Stack spacing="5">
               <FormControl isRequired>
-                <FormLabel htmlFor="email">아이디</FormLabel>
+                <FormLabel htmlFor="email" fontWeight={"bold"} fontSize={"md"}>
+                  아이디
+                </FormLabel>
                 <Input
                   id="email"
                   type="email"
@@ -51,22 +64,34 @@ export const Login = () => {
                 />
               </FormControl>
               <FormControl isRequired>
-                <FormLabel htmlFor="password">비밀번호</FormLabel>
+                <FormLabel
+                  htmlFor="password"
+                  fontWeight={"bold"}
+                  fontSize={"md"}
+                >
+                  비밀번호
+                </FormLabel>
                 <Input
                   id="password"
                   type="password"
                   placeholder="비밀번호 입력"
                 />
-                <FormHelperText color="fg.muted">
+                {/* <FormHelperText color="fg.muted">
                   At least 8 characters long
-                </FormHelperText>
+                </FormHelperText> */}
               </FormControl>
             </Stack>
             <Stack spacing="6">
               <Button>로그인</Button>
             </Stack>
             <Stack align={"center"}>
-              <Text cursor={"pointer"} onClick={() => setPopupOpen(true)}>
+              <Text
+                cursor={"pointer"}
+                onClick={() => setPopupOpen(true)}
+                fontWeight={"bold"}
+                color="#2A67D1"
+                textDecoration={"underline"}
+              >
                 비밀번호를 잊으셨나요?
               </Text>
               <Forgot isOpen={popupOpen} onClose={() => setPopupOpen(false)} />

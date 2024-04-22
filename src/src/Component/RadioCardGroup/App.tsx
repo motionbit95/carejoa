@@ -1,18 +1,19 @@
 import { Box, Container, Text } from "@chakra-ui/react";
 import { RadioCard, RadioCardGroup } from "./RadioCardGroup";
+import { shelters } from "../../Page/Dashboard/data";
 
 export const RadioCardGroupContainer = () => {
   return (
     <Box as="section" bg="bg.surface" py={{ base: "4", md: "8" }}>
-      <Container maxW="lg">
-        <RadioCardGroup defaultValue="one" spacing="3">
-          {["one", "two", "three"].map((option) => (
-            <RadioCard key={option} value={option}>
-              <Text color="fg.emphasized" fontWeight="medium" fontSize="sm">
-                {option}
+      <Container>
+        <RadioCardGroup spacing="3">
+          {shelters.map((shelter, id) => (
+            <RadioCard key={id} value={shelter.title}>
+              <Text color="fg.emphasized" fontWeight="medium" fontSize="lg">
+                {shelter.title}
               </Text>
               <Text color="fg.muted" textStyle="sm">
-                Jelly biscuit muffin icing dessert powder macaroon.
+                {shelter.detail}
               </Text>
             </RadioCard>
           ))}
