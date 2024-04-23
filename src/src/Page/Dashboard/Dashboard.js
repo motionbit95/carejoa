@@ -15,7 +15,9 @@ function Dashboard(props) {
     <Stack w="full" h="full" direction={{ base: "column", lg: "row" }}>
       <Sidebar onclick={(menu) => setSelectedMenu(menu)} />
       <Box bgColor={"bg.surface"} flex="1" overflow="auto">
-        {selectedMenu === "home" && <Home />}
+        {selectedMenu === "home" && (
+          <Home onclick={(menu) => setSelectedMenu(menu)} />
+        )}
         {selectedMenu === "consulting" && <Consulting />}
         {selectedMenu === "list" && <List />}
         {selectedMenu === "mypage" && <Mypage />}

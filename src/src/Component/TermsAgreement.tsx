@@ -1,5 +1,6 @@
-import { Checkbox, HStack, Stack, Text } from "@chakra-ui/react";
+import { Checkbox, HStack, Icon, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { HiChevronRight } from "react-icons/hi";
 
 export function TermsAgreement(props: any) {
   const [checkedItems, setCheckedItems] = useState([
@@ -34,7 +35,7 @@ export function TermsAgreement(props: any) {
         <Text>약관 전체 동의</Text>
       </Checkbox>
       <hr />
-      <Stack>
+      <Stack fontSize={"sm"} color={"fg.muted"} spacing={2}>
         <HStack>
           <Checkbox
             isChecked={checkedItems[0]}
@@ -51,8 +52,9 @@ export function TermsAgreement(props: any) {
               ]);
             }}
           />
-          <HStack>
+          <HStack justify={"space-between"} w={"100%"}>
             <Text>(필수) 케어조아 이용약관 동의</Text>
+            <HiChevronRight size={20} />
           </HStack>
         </HStack>
         <HStack>
@@ -71,7 +73,10 @@ export function TermsAgreement(props: any) {
               ]);
             }}
           />
-          <Text>(필수) 개인정보 수집 및 이용동의</Text>
+          <HStack justify={"space-between"} w={"100%"}>
+            <Text>(필수) 개인정보 수집 및 이용동의</Text>
+            <HiChevronRight size={20} />
+          </HStack>
         </HStack>
         <HStack>
           <Checkbox

@@ -140,19 +140,19 @@ export const CertificateForm = () => {
       <Stack spacing="6">
         <Stack spacing="5">
           <FormControl isRequired>
-            <FormLabel htmlFor="name" fontWeight={"bold"} fontSize={"md"}>
+            <FormLabel htmlFor="phone" fontWeight={"bold"} fontSize={"md"}>
               연락처
             </FormLabel>
             <HStack>
-              <Input id="name" placeholder="01012345678" />
+              <Input id="phone" type="number" placeholder="01012345678" />
               <Button>인증요청</Button>
             </HStack>
           </FormControl>
           <FormControl isRequired>
-            <FormLabel htmlFor="email" fontWeight={"bold"} fontSize={"md"}>
+            <FormLabel htmlFor="code" fontWeight={"bold"} fontSize={"md"}>
               인증번호입력
             </FormLabel>
-            <Input id="email" type="email" placeholder="XXXXXX" />
+            <Input id="code" type="number" placeholder="XXXXXX" />
             <FormHelperText color="fg.muted">
               <HStack>
                 <Text>인증번호를 받지 못하셨나요?</Text>

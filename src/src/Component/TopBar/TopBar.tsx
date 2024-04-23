@@ -15,7 +15,7 @@ import { BsChevronLeft } from "react-icons/bs";
 export const Topbar = ({ ...props }) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const mobileNavbar = useDisclosure();
-  const { menu, buttons, isbackstack } = props;
+  const { menu, buttons, isbackstack, navigations, isNav } = props;
   return (
     <Box as="section">
       <Box borderBottomWidth="1px" bg="bg.surface">
@@ -30,10 +30,32 @@ export const Topbar = ({ ...props }) => {
               </Text>
             </HStack>
             <HStack spacing="8" display={{ base: "none", lg: "block" }}>
-              <ButtonGroup size="lg" spacing="4">
-                <Button variant="outline">{buttons[0]}</Button>
-                <Button>{buttons[1]}</Button>
-              </ButtonGroup>
+              {isNav ? (
+                <ButtonGroup size="lg" spacing="4">
+                  <Button
+                    onClick={() => {
+                      localStorage.setItem("menu", navigations[0]);
+                      window.location.reload();
+                    }}
+                    variant="outline"
+                  >
+                    {buttons[0]}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      localStorage.setItem("menu", navigations[1]);
+                      window.location.reload();
+                    }}
+                  >
+                    {buttons[1]}
+                  </Button>
+                </ButtonGroup>
+              ) : (
+                <ButtonGroup size="lg" spacing="4">
+                  <Button variant="outline">{buttons[0]}</Button>
+                  <Button>{buttons[1]}</Button>
+                </ButtonGroup>
+              )}
             </HStack>
           </HStack>
         </Container>
