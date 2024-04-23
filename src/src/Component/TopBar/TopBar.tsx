@@ -23,7 +23,14 @@ export const Topbar = ({ ...props }) => {
           <HStack justify="space-between">
             <HStack>
               {isbackstack && (
-                <Icon as={BsChevronLeft} boxSize={{ base: "4", md: "5" }} />
+                <Icon
+                  as={BsChevronLeft}
+                  boxSize={{ base: "4", md: "5" }}
+                  onClick={() => {
+                    localStorage.setItem("menu", "list");
+                    window.location.reload();
+                  }}
+                />
               )}
               <Text fontWeight="bold" fontSize="2xl" color="fg.default">
                 {menu}

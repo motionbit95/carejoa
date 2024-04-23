@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Topbar } from "../../Component/TopBar/TopBar";
-import { ConsultingList } from "../../ConsultingList";
+import { ConsultingList } from "../../Component/ConsultingList";
 
 export const Home = () => (
   <Box as="section">
@@ -62,7 +62,7 @@ export const Home = () => (
             <Image
               // borderRadius={"2xl"}
               objectFit="cover"
-              src={require("../../Component/image1.png")}
+              src={require("../../asset/image1.png")}
               alt="Lady at work"
             />
           </AspectRatio>

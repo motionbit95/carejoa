@@ -32,10 +32,7 @@ export const Login = () => {
           <Stack spacing="6" align="center">
             {/* <Logo /> */}
             {/* <Heading>CareJOA</Heading> */}
-            <Image
-              height={"64px"}
-              src={require("../../Component/CareJOA.png")}
-            />
+            <Image height={"64px"} src={require("../../asset/CareJOA.png")} />
             <Stack spacing="3" textAlign="center">
               <Heading size="xs">요양상담서비스, 케어조아</Heading>
               <HStack>

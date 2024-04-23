@@ -77,8 +77,8 @@ export const Consulting = () => {
                 objectFit="cover"
                 src={
                   isMobile
-                    ? require("../../../Component/mokup2.png")
-                    : require("../../../Component/mokup.png")
+                    ? require("../../../asset/mokup2.png")
+                    : require("../../../asset/mokup.png")
                 }
                 alt={consulting.alt}
                 w={{ base: "300px", md: "full" }}

@@ -37,7 +37,7 @@ export const Hero = () => (
         <Image
           borderRadius={"2xl"}
           objectFit="cover"
-          src={require("../../Component/image1.png")}
+          src={require("../../asset/image1.png")}
           // alt="Lady at work"
         />
       </AspectRatio>

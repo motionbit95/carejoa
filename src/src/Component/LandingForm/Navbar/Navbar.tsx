@@ -29,7 +29,7 @@ export const Navbar = ({ ...props }) => {
             {/* <Logo /> */}
             <Image
               height={"48px"}
-              src={require("../../../Component/CareJOA.png")}
+              src={require("../../../asset/CareJOA.png")}
             />
             {isDesktop ? (
               <HStack spacing="8">

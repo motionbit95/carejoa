@@ -41,10 +41,10 @@ export const Service2 = () => (
           {/* <Box>지도</Box> */}
           <Box position={"relative"} py={{ base: "4", md: "8" }}>
             <Center>
-              <Image src={require("../../Component/map.png")} w={"50%"} />
+              <Image src={require("../../asset/map.png")} w={"50%"} />
             </Center>
             <Image
-              src={require("../../Component/example.png")}
+              src={require("../../asset/example.png")}
               w={"50%"}
               position={"absolute"}
               right={0}
@@ -69,7 +69,7 @@ export const Service2 = () => (
             </Text>
             <HStack justifyContent={"flex-end"}>
               {/* <Icon boxSize={{ base: "10", md: "12" }} as={BsStars} /> */}
-              <Image src={require("../../Component/image2.png")} w={"100px"} />
+              <Image src={require("../../asset/image2.png")} w={"100px"} />
             </HStack>
           </Stack>
           <Stack
@@ -88,7 +88,7 @@ export const Service2 = () => (
             </Text>
             <HStack justifyContent={"flex-end"}>
               {/* <Icon boxSize={{ base: "10", md: "12" }} as={BsStars} /> */}
-              <Image src={require("../../Component/image3.png")} w={"100px"} />
+              <Image src={require("../../asset/image3.png")} w={"100px"} />
             </HStack>
           </Stack>
         </Stack>

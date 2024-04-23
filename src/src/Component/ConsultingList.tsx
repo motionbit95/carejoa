@@ -9,9 +9,13 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { data } from "./Page/Dashboard/data";
+import { data } from "../Page/Dashboard/data";
 
-export const ConsultingList = () => {
+const goDetail = () => {
+  alert("상세 상담페이지로 이동");
+};
+
+export const ConsultingList = ({ ...props }) => {
   return (
     <TableContainer
       border={"1px"}
@@ -35,7 +39,7 @@ export const ConsultingList = () => {
         </Thead>
         <Tbody>
           {data.map((item) => (
-            <Tr>
+            <Tr cursor={"pointer"} onClick={props.onClick}>
               <Td>
                 <Tag
                   colorScheme={

@@ -20,7 +20,7 @@ export const MobileDrawer = (props) => {
             <DrawerCloseButton />
             <DrawerHeader py={4}>
               <Image
-                src={require("../CareJOA.png")}
+                src={require("../../asset/CareJOA.png")}
                 height={"48px"}
                 w={"auto"}
               />

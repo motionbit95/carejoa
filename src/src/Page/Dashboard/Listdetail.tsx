@@ -31,6 +31,8 @@ export const ListDetail = () => {
           justify="space-between"
         >
           <Stack
+            minW={{ base: "full", lg: "700px" }}
+            flex={3}
             bgColor={"bg.surface"}
             borderRadius={"xl"}
             shadow={"sm"}
@@ -105,7 +107,7 @@ export const ListDetail = () => {
           </Stack>
           <Stack
             flex={1}
-            minW={{ base: "full", lg: "300px" }}
+            minW={{ base: "full", lg: "270px" }}
             bgColor={"bg.surface"}
             borderRadius={"xl"}
             shadow={"sm"}
