@@ -15,40 +15,21 @@ export const Topbar = ({ ...props }) => {
   const mobileNavbar = useDisclosure();
   return (
     <Box as="section">
-      <Box
-        borderBottomWidth="1px"
-        bg="bg.surface"
-        position="relative"
-        zIndex="tooltip"
-      >
+      <Box borderBottomWidth="1px" bg="bg.surface">
         <Container py="4">
           <HStack justify="space-between">
             {/* <Logo /> */}
             <Text fontWeight="bold" fontSize="2xl" color="fg.default">
               대시보드
             </Text>
-            {isDesktop ? (
-              <HStack spacing="8">
-                <ButtonGroup size="lg" spacing="4">
-                  <Button variant="outline">상담내용 확인</Button>
-                  <Button onClick={() => props.onclick("consulting")}>
-                    상담 신청하기
-                  </Button>
-                </ButtonGroup>
-              </HStack>
-            ) : (
-              <>
-                <ToggleButton
-                  onClick={mobileNavbar.onToggle}
-                  isOpen={mobileNavbar.isOpen}
-                  aria-label="Open Menu"
-                />
-                {/* <MobileDrawer
-                  isOpen={mobileNavbar.isOpen}
-                  onClose={mobileNavbar.onClose}
-                /> */}
-              </>
-            )}
+            <HStack spacing="8" display={{ base: "none", lg: "block" }}>
+              <ButtonGroup size="lg" spacing="4">
+                <Button variant="outline">상담내용 확인</Button>
+                <Button onClick={() => props.onclick("consulting")}>
+                  상담 신청하기
+                </Button>
+              </ButtonGroup>
+            </HStack>
           </HStack>
         </Container>
       </Box>

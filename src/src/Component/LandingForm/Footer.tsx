@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 export const Footer = () => (
-  <Box bg="bg.accent.default" color="fg.accent.default">
+  <Box bg="bg.accent.default" color="fg.accent.default" minW={"400px"}>
     <Container as="footer" role="contentinfo" py={{ base: "12", md: "16" }}>
       <Stack spacing={{ base: "4", md: "5" }}>
         <Stack justify="space-between" direction="row" align="center">

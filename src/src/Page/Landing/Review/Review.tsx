@@ -59,7 +59,7 @@ export const Review = () => {
             </Stack>
           </SimpleGrid>
           <HStack
-            gap={10}
+            gap={{ base: "2", md: "4" }}
             maxWidth={"100%"}
             overflowX={"scroll"}
             className="Non-scroll"

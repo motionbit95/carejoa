@@ -1,5 +1,4 @@
 import {
-  Box,
   Container,
   Flex,
   HStack,
@@ -9,8 +8,6 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FiBookmark, FiClock, FiGrid, FiPieChart } from "react-icons/fi";
-import { Logo } from "./Logo";
 import { SidebarButton } from "./SidebarButton";
 import { AccountSwitcher } from "./AccountSwitcher";
 import {
@@ -20,6 +17,8 @@ import {
   MdOutlineSettings,
 } from "react-icons/md";
 import { useState } from "react";
+import { MobileDrawer } from "./MobileSidebar";
+import { ToggleButton } from "../TopBar/ToggleButton";
 
 export const Sidebar = (props: { onclick: (menu: string) => void }) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
@@ -35,8 +34,8 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
     mobileSidebar.onClose();
   };
   return (
-    <Stack bgColor={"#F5F6F8"} minH={"100vh"}>
-      <Flex display={{ base: "none", lg: "flex" }} as="section" h={"full"}>
+    <Stack bgColor={"#F5F6F8"}>
+      <Flex display={{ base: "none", lg: "flex" }} as="section" minH={"100vh"}>
         <Stack
           flex="1"
           w={{ base: "full", sm: "xs" }}
@@ -49,7 +48,6 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
         >
           <Stack spacing="8">
             <Stack>
-              {/* <Logo alignSelf="start" /> */}
               <HStack>
                 <Image
                   src={require("../CareJOA.png")}
@@ -57,7 +55,9 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
                   w={"auto"}
                 />
               </HStack>
-              <Text opacity={0.5}>함께할 때 더 가치있습니다.</Text>
+              <Text display={{ base: "none", lg: "block" }} opacity={0.5}>
+                함께할 때 더 가치있습니다.
+              </Text>
             </Stack>
             <AccountSwitcher />
             <Stack spacing="1">
@@ -93,9 +93,40 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
           </Stack>
         </Stack>
       </Flex>
-      <Flex display={{ base: "flex", lg: "none" }} as="section" w={"full"}>
-        <Text>모바일 사이드바입니다.</Text>
-      </Flex>
+      <Container display={{ base: "Flex", lg: "none" }}>
+        <Flex
+          p={4}
+          width={"100%"}
+          justify="space-between"
+          align="center"
+          borderBottomWidth="1px"
+        >
+          <Flex align="center" width={"100%"} justify="space-between">
+            <HStack>
+              <Image
+                src={require("../CareJOA.png")}
+                height={"48px"}
+                w={"auto"}
+              />
+            </HStack>
+            <Text display={{ base: "none", md: "block" }} mr={4}>
+              정보
+            </Text>
+          </Flex>
+          <HStack>
+            <ToggleButton
+              onClick={mobileSidebar.onToggle}
+              isOpen={mobileSidebar.isOpen}
+              aria-label="Open Menu"
+            />
+            <MobileDrawer
+              handleMenu={handleMenu}
+              isOpen={mobileSidebar.isOpen}
+              onClose={mobileSidebar.onClose}
+            />
+          </HStack>
+        </Flex>
+      </Container>
     </Stack>
   );
 };

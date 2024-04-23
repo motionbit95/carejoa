@@ -20,7 +20,7 @@ export const Mypage = () => {
         <Stack
           borderRadius={"2xl"}
           shadow={"sm"}
-          w={"50%"}
+          w={{ base: "full", lg: "50%" }}
           spacing={6}
           bgColor={"gray.50"}
           h={"100%"}
