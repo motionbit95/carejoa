@@ -7,10 +7,12 @@ import { Service2 } from "./Service2";
 import { Review } from "./Review/Review";
 import { CTA } from "./CTA";
 import { Layout } from "../../Component/LandingForm/Layout";
+import { Banner } from "./Banner";
 function Landing(props) {
   // const [popupOpen, setPopupOpen] = React.useState(false);
   return (
     <Layout>
+      <Banner />
       <Hero />
       <Consulting />
       <Box bgColor={"gray.100"}>
