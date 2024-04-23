@@ -10,6 +10,7 @@ import {
 import { Filter } from "../../Component/Filter";
 import { ConsultingList } from "../../ConsultingList";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { ListDetail } from "./Listdetail";
 
 export const List = () => (
   <Box as="section">
@@ -37,5 +38,6 @@ export const List = () => (
         />
       </Flex>
     </Container>
+    <ListDetail />
   </Box>
 );

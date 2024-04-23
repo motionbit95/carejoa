@@ -86,3 +86,42 @@ export const shelters = [
         detail: "일시적으로 노인이나 장애인을 돌보거나 관리하기 위한 시설입니다",
     }
 ]
+
+export const consultingList = [
+    {
+        id: 1,
+        title: "강북휴요양병원",
+        place: "서울특별시 강북구 도봉로 161",
+        size : "중형",
+        shelter : "요양병원",
+        info : "암특화, 암한방협진",
+        price: "637,668",
+    },
+    {
+      id: 2,
+      title: "강북실버종합복지센터",
+      place: "서울특별시 강북구 오패산로 290",
+      size : "대형",
+      shelter : "요양원",
+      info : "재활특화, 치매특화",
+      price: "734,100",
+    },
+    {
+      id: 3,
+      title: "강북휴요양병원",
+      place: "서울특별시 강북구 도봉로 161",
+      size : "대형",
+      shelter : "요양병원",
+      info : "암특화, 암한방협진",
+      price: "637,668",
+    },
+    {
+      id: 4,
+      title: "강북휴요양병원",
+      place: "서울특별시 강북구 도봉로 161",
+      size : "대형",
+      shelter : "요양병원",
+      info : "암특화, 암한방협진",
+      price: "637,668",
+    }
+]

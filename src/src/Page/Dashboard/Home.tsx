@@ -13,9 +13,9 @@ import {
 import { Topbar } from "../../Component/TopBar/TopBar";
 import { ConsultingList } from "../../ConsultingList";
 
-export const Home = (props: { onclick: (menu: string) => void }) => (
+export const Home = () => (
   <Box as="section">
-    <Topbar {...props} />
+    <Topbar menu="대시보드" buttons={["상담내용 확인", "상담 신청하기"]} />
     <Container py={{ base: "4", md: "8" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <SimpleGrid
@@ -35,9 +35,7 @@ export const Home = (props: { onclick: (menu: string) => void }) => (
             </Stack>
             <ButtonGroup size="lg" spacing="4">
               <Button variant="outline">상담내용 확인</Button>
-              <Button onClick={() => props.onclick("consulting")}>
-                상담 신청하기
-              </Button>
+              <Button>상담 신청하기</Button>
             </ButtonGroup>
           </Stack>
           <AspectRatio ratio={3}>
