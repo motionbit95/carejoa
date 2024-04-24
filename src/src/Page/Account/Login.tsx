@@ -14,9 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { Forgot } from "./Forgot";
 import { useState } from "react";
+import { signIn } from "../../Firebase/Auth";
 
 export const Login = () => {
   const [popupOpen, setPopupOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return (
     <Flex flex="1" align="center">
       <Container
@@ -62,9 +71,10 @@ export const Login = () => {
                     아이디
                   </FormLabel>
                   <Input
-                    id="email"
+                    name="email"
                     type="email"
                     placeholder="example@gmail.com"
+                    onChange={handleChange}
                   />
                 </FormControl>
                 <FormControl isRequired>
@@ -76,17 +86,35 @@ export const Login = () => {
                     비밀번호
                   </FormLabel>
                   <Input
-                    id="password"
+                    name="password"
                     type="password"
                     placeholder="비밀번호 입력"
+                    onChange={handleChange}
                   />
                   {/* <FormHelperText color="fg.muted">
                   At least 8 characters long
                 </FormHelperText> */}
                 </FormControl>
-                <Link href="/dashboard">
-                  <Button>로그인</Button>
-                </Link>
+                {/* <Link href="/dashboard"> */}
+                <Button
+                  onClick={async () => {
+                    console.log(formData);
+                    let res = await signIn(formData.email, formData.password);
+                    console.log(res);
+
+                    if (!res.uid) {
+                      // 로그인 실패
+                      alert(res.error);
+                    } else {
+                      // 로그인 성공
+                      console.log("로그인 성공! uid:", res.uid);
+                      window.location.href = "/dashboard";
+                    }
+                  }}
+                >
+                  로그인
+                </Button>
+                {/* </Link> */}
               </Stack>
             </form>
             <Stack align={"center"}>

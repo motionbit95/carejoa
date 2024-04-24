@@ -18,6 +18,8 @@ import {
 } from "../../Component/RadioButtonGroup/RadioButtonGroup";
 import { useState } from "react";
 import { TermsAgreement } from "../../Component/TermsAgreement";
+import { signUp } from "../../Firebase/Auth";
+import { setDocument } from "../../Firebase/Database";
 
 export const SignUp = () => {
   const [nextForm, setNextForm] = useState<boolean>(false);
@@ -41,6 +43,16 @@ export const SignUp = () => {
 };
 
 export const SignupForm = (props: any) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    type: "0", // 개인 : 0, 기업 : 1
+  });
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return (
     <Stack spacing="8">
       <Stack spacing="6" align="center">
@@ -61,7 +73,7 @@ export const SignupForm = (props: any) => {
               name="name"
               type="text"
               placeholder="이름을 입력해주세요."
-              // onChange={handleChange}
+              onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
@@ -75,7 +87,7 @@ export const SignupForm = (props: any) => {
               name="email"
               type="email"
               placeholder="example@gmail.com"
-              // onChange={handleChange}
+              onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
@@ -89,23 +101,53 @@ export const SignupForm = (props: any) => {
               name="password"
               type="password"
               placeholder="********"
-              // onChange={handleChange}
+              onChange={handleChange}
             />
           </FormControl>
           <FormControl isRequired>
             <FormLabel htmlFor="password" fontWeight={"bold"} fontSize={"md"}>
               회원구분
             </FormLabel>
-            <RadioButtonGroup defaultValue="1">
-              <RadioButton value="1">개인 회원</RadioButton>
-              <RadioButton value="2">기간 회원</RadioButton>
+            <RadioButtonGroup
+              defaultValue="1"
+              name="type"
+              onChange={(value) => setFormData({ ...formData, type: value })}
+            >
+              <RadioButton value={"0"}>개인 회원</RadioButton>
+              <RadioButton value={"1"}>기관 회원</RadioButton>
             </RadioButtonGroup>
           </FormControl>
         </Stack>
         <Stack spacing="6">
-          <Button size={"xl"} onClick={() => props.setNextForm(true)}>
-            다음으로
+          <Button
+            size={"xl"}
+            onClick={async () => {
+              console.log(formData);
+              await signUp(formData.email, formData.password).then(
+                async (res) => {
+                  if (!res.uid) {
+                    console.log("가입 실패! : ", res.error);
+                    alert(res.error);
+                  } else {
+                    console.log("가입 성공! : ", res.uid);
+                    // 회원 정보를 저장
+                    setDocument("users", res.uid, {
+                      name: formData.name,
+                      email: formData.email,
+                      type: formData.type,
+                    });
+
+                    // Todo - 가입 성공 안내문구 후 로그인 화면으로 이동
+                  }
+                }
+              );
+            }}
+          >
+            회원가입 완료
           </Button>
+          {/* <Button size={"xl"} onClick={() => props.setNextForm(true)}>
+            다음으로
+          </Button> */}
         </Stack>
         <HStack justify={"center"}>
           <Text color="fg.muted" fontWeight={"bold"}>
