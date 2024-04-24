@@ -8,15 +8,14 @@ import {
   HStack,
   Image,
   Input,
+  Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
 import { Forgot } from "./Forgot";
 import { useState } from "react";
 
 export const Login = () => {
-  const navigate = useNavigate();
   const [popupOpen, setPopupOpen] = useState(false);
   return (
     <Flex flex="1" align="center">
@@ -39,7 +38,7 @@ export const Login = () => {
                 <Text color="fg.muted" fontWeight={"bold"}>
                   아직 회원이 아니신가요?
                 </Text>
-                <Link to="/signup">
+                <Link href="/signup">
                   <Text
                     fontWeight={"bold"}
                     color="#2A67D1"
@@ -85,7 +84,9 @@ export const Login = () => {
                   At least 8 characters long
                 </FormHelperText> */}
                 </FormControl>
-                <Button onClick={() => navigate("/dashboard")}>로그인</Button>
+                <Link href="/dashboard">
+                  <Button>로그인</Button>
+                </Link>
               </Stack>
             </form>
             <Stack align={"center"}>

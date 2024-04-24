@@ -10,6 +10,7 @@ import {
   Stack,
   StackDivider,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import { BiLink } from "react-icons/bi";
 import { BsYoutube } from "react-icons/bs";
@@ -17,7 +18,7 @@ import { ImBubble } from "react-icons/im";
 import { RiKakaoTalkFill } from "react-icons/ri";
 
 export const Footer = () => (
-  <Box bg="bg.accent.default" color="fg.accent.default" minW={"400px"}>
+  <Box bg="bg.accent.default" color="fg.accent.default">
     <Container as="footer" role="contentinfo" py={{ base: "12", md: "16" }}>
       <Stack
         direction={{ base: "column", md: "row" }}
@@ -52,59 +53,67 @@ export const Footer = () => (
               <Text>이메일 : procos@hanmail.net</Text>
             </Stack>
           </Stack>
-          <Text fontSize="sm" color="fg.accent.subtle">
-            &copy; {new Date().getFullYear()} CareJOA Inc. All rights reserved.
-          </Text>
+          <Stack
+            justify={"space-between"}
+            direction={{ base: "column", md: "row" }}
+            align="center"
+          >
+            <Text fontSize="sm" color="fg.accent.subtle">
+              &copy; {new Date().getFullYear()} CareJOA Inc. All rights
+              reserved.
+            </Text>
+            <ButtonGroup colorScheme="gray">
+              {/* <IconButton  aria-label="Naver" /> */}
+              <Button
+                fontSize={"xl"}
+                fontWeight={"extrabold"}
+                padding={"2px 4px"}
+                size={"md"}
+                color={"green.400"}
+                aria-label="naver"
+              >
+                N
+              </Button>
+              <Button
+                aria-label="blog"
+                fontSize={"sm"}
+                fontWeight={"extrabold"}
+                padding={"2px 4px"}
+                size={"md"}
+                color={"green.400"}
+              >
+                blog
+              </Button>
+              <IconButton
+                color={"red"}
+                icon={<BsYoutube />}
+                aria-label="youtube"
+              />
+              <IconButton
+                color={"yellow.400"}
+                icon={<ImBubble />}
+                aria-label="kakao"
+              />
+            </ButtonGroup>
+          </Stack>
         </Stack>
+      </Stack>
+      <Tooltip label="링크 복사">
         <Circle
           bgColor={"white"}
           size={"40px"}
           color={"black"}
           position={"fixed"}
-          bottom={"40"}
-          right={"20"}
+          bottom={"10"}
+          right={"10"}
           _hover={{ bgColor: "gray.300", color: "white" }}
           cursor={"pointer"}
           zIndex={10}
+          shadow={"lg"}
         >
           <Icon as={BiLink} fontSize={"3xl"} />
         </Circle>
-        <Stack justify={"flex-end"}>
-          <ButtonGroup colorScheme="gray">
-            {/* <IconButton  aria-label="Naver" /> */}
-            <Button
-              fontSize={"xl"}
-              fontWeight={"extrabold"}
-              padding={"2px 4px"}
-              size={"md"}
-              color={"green.400"}
-              aria-label="naver"
-            >
-              N
-            </Button>
-            <Button
-              aria-label="blog"
-              fontSize={"sm"}
-              fontWeight={"extrabold"}
-              padding={"2px 4px"}
-              size={"md"}
-              color={"green.400"}
-            >
-              blog
-            </Button>
-            <IconButton
-              color={"red"}
-              icon={<BsYoutube />}
-              aria-label="youtube"
-            />
-            <IconButton
-              color={"yellow.400"}
-              icon={<ImBubble />}
-              aria-label="kakao"
-            />
-          </ButtonGroup>
-        </Stack>
-      </Stack>
+      </Tooltip>
     </Container>
   </Box>
 );

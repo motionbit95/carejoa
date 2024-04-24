@@ -10,10 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { BiChevronRight } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
 
 export const Mypage = () => {
-  const navigate = useNavigate();
   return (
     <Box as="section">
       <Container py={{ base: "4", md: "8" }} h={"100vh"}>
@@ -65,9 +63,6 @@ export const Mypage = () => {
                 color={"fg.onGray"}
                 size={"lg"}
                 gap={2}
-                onClick={() => {
-                  navigate("/login");
-                }}
               >
                 <Icon as={FiLogOut} />
                 로그아웃

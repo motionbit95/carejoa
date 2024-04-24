@@ -8,10 +8,10 @@ import {
   Heading,
   HStack,
   Input,
+  Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import {
   RadioButton,
   RadioButtonGroup,
@@ -19,8 +19,8 @@ import {
 import { useState } from "react";
 import { TermsAgreement } from "../../Component/TermsAgreement";
 
-export const SignUp = (prop: any) => {
-  const [showForm, setShowForm] = useState<boolean>(false);
+export const SignUp = () => {
+  const [nextForm, setNextForm] = useState<boolean>(false);
 
   return (
     <Flex flex="1" align="center">
@@ -32,14 +32,15 @@ export const SignUp = (prop: any) => {
         boxShadow={{ base: "none", sm: "md" }}
         borderRadius={{ base: "none", sm: "xl" }}
       >
-        {!showForm && <SignupForm onClick={() => setShowForm(true)} />}
-        {showForm && <CertificateForm />}
+        {/* 회원가입 정보를 입력하면 전화번호 인증페이지로 넘어가게 수정 */}
+        {!nextForm && <SignupForm setNextForm={setNextForm} />}
+        {nextForm && <CertificateForm />}
       </Container>
     </Flex>
   );
 };
 
-export const SignupForm = (props: { onClick: () => void }) => {
+export const SignupForm = (props: any) => {
   return (
     <Stack spacing="8">
       <Stack spacing="6" align="center">
@@ -56,7 +57,12 @@ export const SignupForm = (props: { onClick: () => void }) => {
             <FormLabel htmlFor="name" fontWeight={"bold"} fontSize={"md"}>
               이름
             </FormLabel>
-            <Input id="name" type="text" placeholder="이름을 입력해주세요." />
+            <Input
+              name="name"
+              type="text"
+              placeholder="이름을 입력해주세요."
+              // onChange={handleChange}
+            />
           </FormControl>
           <FormControl isRequired>
             <FormLabel htmlFor="email" fontWeight={"bold"} fontSize={"md"}>
@@ -65,7 +71,12 @@ export const SignupForm = (props: { onClick: () => void }) => {
             <FormHelperText color="fg.muted">
               추후 로그인 . 시아이디로 사용됩니다.
             </FormHelperText>
-            <Input id="email" type="email" placeholder="example@gmail.com" />
+            <Input
+              name="email"
+              type="email"
+              placeholder="example@gmail.com"
+              // onChange={handleChange}
+            />
           </FormControl>
           <FormControl isRequired>
             <FormLabel htmlFor="password" fontWeight={"bold"} fontSize={"md"}>
@@ -74,7 +85,12 @@ export const SignupForm = (props: { onClick: () => void }) => {
             <FormHelperText color="fg.muted">
               영문, 숫자, 특수문자를 포함한 8~32자 문자열
             </FormHelperText>
-            <Input id="password" type="password" placeholder="********" />
+            <Input
+              name="password"
+              type="password"
+              placeholder="********"
+              // onChange={handleChange}
+            />
           </FormControl>
           <FormControl isRequired>
             <FormLabel htmlFor="password" fontWeight={"bold"} fontSize={"md"}>
@@ -87,7 +103,7 @@ export const SignupForm = (props: { onClick: () => void }) => {
           </FormControl>
         </Stack>
         <Stack spacing="6">
-          <Button size={"xl"} onClick={props.onClick}>
+          <Button size={"xl"} onClick={() => props.setNextForm(true)}>
             다음으로
           </Button>
         </Stack>
@@ -95,7 +111,7 @@ export const SignupForm = (props: { onClick: () => void }) => {
           <Text color="fg.muted" fontWeight={"bold"}>
             이미 회원이신가요?
           </Text>
-          <Link to="/login">
+          <Link href="/login">
             <Text
               fontWeight={"bold"}
               color="#2A67D1"
@@ -115,7 +131,7 @@ export const SignupForm = (props: { onClick: () => void }) => {
   );
 };
 
-export const CertificateForm = () => {
+export const CertificateForm = (props: any) => {
   const [isTermsAgreed, setIsTermsAgreed] = useState([
     false,
     false,
@@ -162,7 +178,7 @@ export const CertificateForm = () => {
           </FormControl>
           <TermsAgreement setCheckedItems={setIsTermsAgreed} />
         </Stack>
-        <Link to="/dashboard">
+        <Link href="/dashboard">
           <Button w={"100%"} size={"xl"}>
             케어조아 시작하기
           </Button>

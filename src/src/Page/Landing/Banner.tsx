@@ -1,20 +1,15 @@
 import {
   Box,
-  Button,
   Container,
   Flex,
   HStack,
-  Heading,
   Icon,
-  Input,
   SimpleGrid,
   Square,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { SearchBar } from "../../Component/SearchBar";
-import { services } from "./Feature/data";
 import { MdHealing, MdLocalHospital, MdLocationPin } from "react-icons/md";
 import { BiBath, BiBuildingHouse, BiHomeHeart } from "react-icons/bi";
 import { BsSearchHeart } from "react-icons/bs";
@@ -26,7 +21,7 @@ import { BannerCarousel } from "../../Component/BannerCarousel";
 export const Banner = () => (
   <Box as="section" bg="bg.surface">
     <Container py={{ base: "4", md: "8" }}>
-      <Flex w={"full"} justifyContent={"center"}>
+      <Flex w={"full"} justifyContent={"center"} h={"50"}>
         <SearchBar />
       </Flex>
     </Container>
@@ -35,7 +30,7 @@ export const Banner = () => (
       <HStack
         justify={"center"}
         fontWeight={"bold"}
-        fontSize={{ base: "md", sm: "xl", md: "3xl" }}
+        fontSize={{ base: "sm", sm: "xl", md: "3xl" }}
         textAlign={"center"}
       >
         <Stack

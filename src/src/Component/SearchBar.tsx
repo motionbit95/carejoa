@@ -1,9 +1,17 @@
-import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import {
+  Flex,
+  Icon,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+} from "@chakra-ui/react";
 import { RiSearchLine } from "react-icons/ri";
 
 export const SearchBar = () => {
   return (
-    <InputGroup w={"50%"}>
+    <InputGroup w={{ base: "full", sm: "60%", md: "50%", lg: "50%" }}>
       <Input
         focusBorderColor="blue.500"
         fontSize="sm"

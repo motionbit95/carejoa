@@ -5,13 +5,13 @@ import {
   Container,
   HStack,
   Image,
+  Link,
   Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { MobileDrawer } from "./MobileNavbar";
 import { ToggleButton } from "./ToggleButton";
-import { Link } from "react-router-dom";
 
 export const Navbar = ({ ...props }) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
@@ -39,10 +39,10 @@ export const Navbar = ({ ...props }) => {
                   colorScheme="gray"
                   spacing="8"
                 >
-                  <Link to="/login">
+                  <Link href="/login">
                     <Button>로그인</Button>
                   </Link>
-                  <Link to="/signup">
+                  <Link href="/signup">
                     <Button>회원가입</Button>
                   </Link>
                 </ButtonGroup>
