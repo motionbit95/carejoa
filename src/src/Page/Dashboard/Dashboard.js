@@ -5,7 +5,7 @@ import { Consulting } from "./Consulting";
 import { List } from "./List";
 import { Mypage } from "./Mypage";
 import { Sidebar } from "../../Component/Sidebar/Sidebar";
-import { Estimate } from "./Estimate";
+import { CreateEstimate, Estimate } from "./Estimate";
 
 function Dashboard(props) {
   const [selectedMenu, setSelectedMenu] = useState(
@@ -19,17 +19,22 @@ function Dashboard(props) {
       case "consulting":
         return <Consulting />;
       case "estimate":
-        return <Estimate />;
+        return <Estimate onclick={(menu) => setSelectedMenu(menu)} />;
       case "list":
-        return <List />;
+        return <List userInfo={props.userInfo} />;
       case "mypage":
         return <Mypage />;
+      case "createEstimate":
+        return <CreateEstimate />;
     }
   };
 
   return (
     <Stack w="full" h="full" direction={{ base: "column", lg: "row" }}>
-      <Sidebar onChangeMenu={(menu) => setSelectedMenu(menu)} />
+      <Sidebar
+        userInfo={props.userInfo}
+        onChangeMenu={(menu) => setSelectedMenu(menu)}
+      />
       <Box bgColor={"bg.surface"} flex="1" overflow="auto">
         {getPage()}
       </Box>

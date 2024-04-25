@@ -172,3 +172,51 @@ export const UserData = [
       price: "50~100",
     }
 ]
+
+
+export const estimateList = [
+  {
+      id: 1,
+      title: "한마음 요양원 1인실 견적서",
+      grade: "1등급",
+      place: "서울특별시 강북구 도봉로 161",
+      size : "중형",
+      call: "02-1234-1234",
+      shelter : "요양병원",
+      info : "암특화, 암한방협진",
+      price: "637,668",
+  },
+  {
+    id: 2,
+    title: "강북실버종합복지센터 다인실 견적서",
+    grade: "1등급",
+    place: "서울특별시 강북구 오패산로 290",
+    size : "대형",
+    call: "02-1234-1234",
+    shelter : "요양원",
+    info : "재활특화, 치매특화",
+    price: "734,100",
+  },
+  {
+    id: 3,
+    title: "강북휴요양병원 2인실 견적서",
+    grade: "1등급",
+    place: "서울특별시 강북구 도봉로 161",
+    size : "대형",
+    call: "02-1234-1234",
+    shelter : "요양병원",
+    info : "암특화, 암한방협진",
+    price: "637,668",
+  },
+  {
+    id: 4,
+    title: "강북휴요양병원 1인실 견적서",
+    grade: "1등급",
+    place: "서울특별시 강북구 도봉로 161",
+    size : "대형",
+    call: "02-1234-1234",
+    shelter : "요양병원",
+    info : "암특화, 암한방협진",
+    price: "637,668",
+  }
+]

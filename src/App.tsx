@@ -7,21 +7,31 @@ import { SignUp } from "./src/Page/Account/SignUp";
 import Dashboard from "./src/Page/Dashboard/Dashboard";
 import { useAuth } from "./src/Firebase/Auth";
 import { getDocument } from "./src/Firebase/Database";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./src/Firebase/Config";
 function App() {
-  // const currentUser: any = useAuth();
-  // const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<any>({});
 
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     console.log(currentUser.uid);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        console.log("App 에서 받은 uid : ", uid);
+        // ...
 
-  //     const getUserInfo = async () => {
-  //       const user = await getDocument("users", currentUser.uid);
-  //       setUserInfo(user);
-  //     };
-  //     getUserInfo();
-  //   }
-  // }, [currentUser]);
+        const getUser = async () => {
+          const user = await getDocument("users", uid);
+          setUserInfo(user);
+        };
+        getUser();
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  }, []);
 
   return (
     <BrowserRouter>
@@ -29,7 +39,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard userInfo={userInfo} />} />
       </Routes>
     </BrowserRouter>
   );

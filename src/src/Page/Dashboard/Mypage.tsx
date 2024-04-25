@@ -140,14 +140,33 @@ export const Mypage = () => {
 };
 
 export const PWUpdate = () => {
-  const passwordsMatch = (
-    newPassword: string,
-    confirmPassword: string
-  ): boolean => {
-    return newPassword === confirmPassword;
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handlePWUpdate = (e: any) => {
+    if (e.target.name === "current-password") {
+      setCurrentPassword(e.target.value);
+    } else if (e.target.name === "new-password") {
+      setNewPassword(e.target.value);
+    } else if (e.target.name === "confirm-password") {
+      setConfirmPassword(e.target.value);
+    }
+    // setPasswordsMatch(newPassword === confirmPassword);
   };
 
-  const handlePWUpdate = () => {};
+  const handleSubmit = () => {
+    if (newPassword === confirmPassword) {
+      alert("비밀번호 변경");
+    } else {
+      console.log(
+        "비밀번호가 일치하지 않습니다.",
+        `${currentPassword} ${newPassword} ${confirmPassword} ${
+          newPassword === confirmPassword
+        }`
+      );
+    }
+  };
 
   return (
     <Stack
@@ -166,7 +185,7 @@ export const PWUpdate = () => {
           <Input
             type="password"
             name="current-password"
-            // value={currentPassword}
+            value={currentPassword}
             onChange={handlePWUpdate}
           />
         </FormControl>
@@ -176,7 +195,7 @@ export const PWUpdate = () => {
           <Input
             type="password"
             name="new-password"
-            // value={newPassword}
+            value={newPassword}
             onChange={handlePWUpdate}
           />
         </FormControl>
@@ -186,18 +205,15 @@ export const PWUpdate = () => {
           <Input
             type="password"
             name="confirm-password"
-            // value={confirmPassword}
+            value={confirmPassword}
             onChange={handlePWUpdate}
           />
-          {!passwordsMatch && (
-            <FormErrorMessage>비밀번호가 일치하지 않습니다.</FormErrorMessage>
-          )}
         </FormControl>
       </InputGroup>
 
       <Box w={"full"} textAlign={"right"}>
         <Tooltip label="변경 후 로그인 화면으로 이동합니다.">
-          <Button>변경하기</Button>
+          <Button onClick={handleSubmit}>변경하기</Button>
         </Tooltip>
       </Box>
     </Stack>

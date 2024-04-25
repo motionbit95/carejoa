@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Topbar } from "../../Component/TopBar/TopBar";
 import { CardList } from "../../Component/CardList/CardList";
+import { consultingList } from "./data";
 
 export const Home = () => (
   <Box as="section">
@@ -74,8 +75,14 @@ export const Home = () => (
           spacing={{ base: "3", md: "6" }}
         >
           <Heading size={"xs"}>최근에 신청한 상담</Heading>
-          <SimpleGrid columns={{ base: 1, md: 2 }}>
-            <CardList />
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+            {consultingList.map((consulting, index) => (
+              <CardList
+                bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
+                key={index}
+                {...consulting}
+              />
+            ))}
           </SimpleGrid>
         </Stack>
       </Stack>

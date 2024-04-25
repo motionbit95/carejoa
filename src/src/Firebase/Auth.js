@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
  * 사용자 비밀번호 재설정
  */
 
+// 아래 계정 정보의 state가 변경 될 때마다 사용자 uid를 로드하여 저장합니다.
 export function useAuth() {
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {

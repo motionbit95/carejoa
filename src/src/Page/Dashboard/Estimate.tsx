@@ -30,8 +30,9 @@ import {
 import { Filter } from "../../Component/Filter";
 import { CardList } from "../../Component/CardList/CardList";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { estimateList } from "./data";
 
-export const Estimate = () => {
+export const Estimate = ({ ...props }) => {
   return (
     <Box as="section">
       <Flex
@@ -43,12 +44,20 @@ export const Estimate = () => {
         <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
           견적서 목록
         </Text>
-        <Button size={"sm"}>견적서 생성하기</Button>
+        <Button size={"sm"} onClick={() => props.onclick("createEstimate")}>
+          견적서 생성하기
+        </Button>
       </Flex>
       <Filter onFilter={(filter) => console.log(filter)} />
-      <Stack px={"4"}>
+      <Stack px={"4"} py={{ base: "2", md: "4" }}>
         <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
-          <CardList />
+          {estimateList.map((estimate, index) => (
+            <CardList
+              bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
+              key={index}
+              {...estimate}
+            />
+          ))}
           {/* <Flex p={3} gap={6} alignItems={"center"}>
           <Icon
             cursor={"pointer"}

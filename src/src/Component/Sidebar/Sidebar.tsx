@@ -20,12 +20,19 @@ import { useState } from "react";
 import { MobileDrawer } from "./MobileSidebar";
 import { ToggleButton } from "../TopBar/ToggleButton";
 
-export const Sidebar = (props: { onChangeMenu: (menu: string) => void }) => {
+export const Sidebar = (props: {
+  onChangeMenu: (menu: string) => void;
+  userInfo: any;
+}) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const mobileSidebar = useDisclosure();
   const [menu, setMenu] = useState(
     localStorage.getItem("menu") ? localStorage.getItem("menu") : "home"
   );
+
+  const { userInfo } = props;
+
+  console.log("사이드바에서 받았다", userInfo);
 
   const handleMenu = (menu: string) => {
     setMenu(menu);
@@ -68,7 +75,7 @@ export const Sidebar = (props: { onChangeMenu: (menu: string) => void }) => {
               >
                 대시보드
               </SidebarButton>
-              <>
+              {userInfo.type === "0" && (
                 <SidebarButton
                   opacity={menu === "consulting" ? 1 : 0.5}
                   leftIcon={<MdCalendarToday />}
@@ -76,6 +83,8 @@ export const Sidebar = (props: { onChangeMenu: (menu: string) => void }) => {
                 >
                   상담 신청하기
                 </SidebarButton>
+              )}
+              {userInfo.type === "1" && (
                 <SidebarButton
                   opacity={menu === "estimate" ? 1 : 0.5}
                   leftIcon={<MdCalendarToday />}
@@ -83,7 +92,8 @@ export const Sidebar = (props: { onChangeMenu: (menu: string) => void }) => {
                 >
                   견적서 관리
                 </SidebarButton>
-              </>
+              )}
+
               <SidebarButton
                 opacity={menu === "list" ? 1 : 0.5}
                 leftIcon={<MdFormatListBulleted />}
