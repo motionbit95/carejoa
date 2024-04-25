@@ -53,6 +53,27 @@ export const SignupForm = (props: any) => {
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSignUp = async () => {
+    console.log(formData);
+    await signUp(formData.email, formData.password).then(async (res) => {
+      if (!res.uid) {
+        console.log("가입 실패! : ", res.error);
+        alert(res.error);
+      } else {
+        console.log("가입 성공! : ", res.uid);
+        // 회원 정보를 저장
+        await setDocument("users", res.uid, {
+          name: formData.name,
+          email: formData.email,
+          type: formData.type,
+        });
+        console.log("로그인 성공! uid:", res.uid);
+        window.location.href = "/dashboard";
+      }
+    });
+  };
+
   return (
     <Stack spacing="8">
       <Stack spacing="6" align="center">
@@ -109,6 +130,7 @@ export const SignupForm = (props: any) => {
               회원구분
             </FormLabel>
             <RadioButtonGroup
+              w={"full"}
               defaultValue="1"
               name="type"
               onChange={(value) => setFormData({ ...formData, type: value })}
@@ -119,30 +141,7 @@ export const SignupForm = (props: any) => {
           </FormControl>
         </Stack>
         <Stack spacing="6">
-          <Button
-            size={"xl"}
-            onClick={async () => {
-              console.log(formData);
-              await signUp(formData.email, formData.password).then(
-                async (res) => {
-                  if (!res.uid) {
-                    console.log("가입 실패! : ", res.error);
-                    alert(res.error);
-                  } else {
-                    console.log("가입 성공! : ", res.uid);
-                    // 회원 정보를 저장
-                    setDocument("users", res.uid, {
-                      name: formData.name,
-                      email: formData.email,
-                      type: formData.type,
-                    });
-
-                    // Todo - 가입 성공 안내문구 후 로그인 화면으로 이동
-                  }
-                }
-              );
-            }}
-          >
+          <Button size={"xl"} onClick={handleSignUp}>
             회원가입 완료
           </Button>
           {/* <Button size={"xl"} onClick={() => props.setNextForm(true)}>
@@ -154,11 +153,7 @@ export const SignupForm = (props: any) => {
             이미 회원이신가요?
           </Text>
           <Link href="/login">
-            <Text
-              fontWeight={"bold"}
-              color="#2A67D1"
-              textDecoration={"underline"}
-            >
+            <Text fontWeight={"bold"} color="#2A67D1">
               로그인하기
             </Text>
           </Link>
@@ -220,11 +215,9 @@ export const CertificateForm = (props: any) => {
           </FormControl>
           <TermsAgreement setCheckedItems={setIsTermsAgreed} />
         </Stack>
-        <Link href="/dashboard">
-          <Button w={"100%"} size={"xl"}>
-            케어조아 시작하기
-          </Button>
-        </Link>
+        <Button w={"100%"} size={"xl"}>
+          케어조아 시작하기
+        </Button>
         <Stack align={"center"}>
           <Text fontSize="sm" color="fg.muted">
             Copyright. CareJOA Inc. All rights reserved.

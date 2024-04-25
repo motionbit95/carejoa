@@ -26,6 +26,22 @@ export const Login = () => {
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleLogin = async () => {
+    console.log(formData);
+    let res = await signIn(formData.email, formData.password);
+    console.log(res);
+
+    if (!res.uid) {
+      // 로그인 실패
+      alert(res.error);
+    } else {
+      // 로그인 성공
+      console.log("로그인 성공! uid:", res.uid);
+      window.location.href = "/dashboard";
+    }
+  };
+
   return (
     <Flex flex="1" align="center">
       <Container
@@ -48,11 +64,7 @@ export const Login = () => {
                   아직 회원이 아니신가요?
                 </Text>
                 <Link href="/signup">
-                  <Text
-                    fontWeight={"bold"}
-                    color="#2A67D1"
-                    textDecoration={"underline"}
-                  >
+                  <Text fontWeight={"bold"} color="#2A67D1">
                     회원가입하기
                   </Text>
                 </Link>
@@ -60,70 +72,41 @@ export const Login = () => {
             </Stack>
           </Stack>
           <Stack spacing="6">
-            <form>
-              <Stack spacing="5">
-                <FormControl isRequired>
-                  <FormLabel
-                    htmlFor="email"
-                    fontWeight={"bold"}
-                    fontSize={"md"}
-                  >
-                    아이디
-                  </FormLabel>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="example@gmail.com"
-                    onChange={handleChange}
-                  />
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel
-                    htmlFor="password"
-                    fontWeight={"bold"}
-                    fontSize={"md"}
-                  >
-                    비밀번호
-                  </FormLabel>
-                  <Input
-                    name="password"
-                    type="password"
-                    placeholder="비밀번호 입력"
-                    onChange={handleChange}
-                  />
-                  {/* <FormHelperText color="fg.muted">
-                  At least 8 characters long
-                </FormHelperText> */}
-                </FormControl>
-                {/* <Link href="/dashboard"> */}
-                <Button
-                  onClick={async () => {
-                    console.log(formData);
-                    let res = await signIn(formData.email, formData.password);
-                    console.log(res);
-
-                    if (!res.uid) {
-                      // 로그인 실패
-                      alert(res.error);
-                    } else {
-                      // 로그인 성공
-                      console.log("로그인 성공! uid:", res.uid);
-                      window.location.href = "/dashboard";
-                    }
-                  }}
+            <Stack spacing="5">
+              <FormControl isRequired>
+                <FormLabel htmlFor="email" fontWeight={"bold"} fontSize={"md"}>
+                  아이디
+                </FormLabel>
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="example@gmail.com"
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel
+                  htmlFor="password"
+                  fontWeight={"bold"}
+                  fontSize={"md"}
                 >
-                  로그인
-                </Button>
-                {/* </Link> */}
-              </Stack>
-            </form>
+                  비밀번호
+                </FormLabel>
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="비밀번호 입력"
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <Button onClick={handleLogin}>로그인</Button>
+            </Stack>
             <Stack align={"center"}>
               <Text
                 cursor={"pointer"}
                 onClick={() => setPopupOpen(true)}
                 fontWeight={"bold"}
                 color="#2A67D1"
-                textDecoration={"underline"}
               >
                 비밀번호를 잊으셨나요?
               </Text>

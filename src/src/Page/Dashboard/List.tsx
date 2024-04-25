@@ -4,35 +4,51 @@ import {
   Flex,
   Heading,
   Icon,
+  SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { Filter } from "../../Component/Filter";
-import { ConsultingList } from "../../Component/ConsultingList";
+import { CardList } from "../../Component/CardList/CardList";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { ListDetail } from "./Listdetail";
 import { useState } from "react";
+import { UserList } from "../../Component/CardList/UserList";
+import { UserData, consultingList } from "./data";
 
 export const List = ({ ...props }) => {
   const [showDetail, setShowDetail] = useState(false);
   return (
     <Box as="section">
       {!showDetail ? (
-        <Stack>
-          <Container py={{ base: "2", md: "4" }}>
-            <Heading size={{ base: "sm", md: "sm" }}>상담목록</Heading>
-          </Container>
+        <Stack spacing={0}>
+          <Flex align={"center"} px={"4"} py={{ base: "2", md: "4" }}>
+            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+              상담 목록
+            </Text>
+          </Flex>
           <Filter onFilter={(filter) => console.log(filter)} />
-          <Container py={{ base: "4", md: "8" }} pt={{ base: "0", md: "2" }}>
-            <Stack spacing={{ base: "3", md: "6" }}>
-              <Stack
-                p={{ base: "2", md: "4" }}
-                borderRadius={"xl"}
-                shadow={"sm"}
-              >
-                <ConsultingList onClick={() => setShowDetail(true)} />
-              </Stack>
-            </Stack>
+          <Stack px={"4"}>
+            <Text>유저일 때</Text>
+            <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
+              {consultingList.map((consulting, index) => (
+                <CardList
+                  bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
+                  key={index}
+                  {...consulting}
+                />
+              ))}
+            </SimpleGrid>
+            <Text>기관일 때</Text>
+            <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
+              {UserData.map((user, index) => (
+                <UserList
+                  bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
+                  key={index}
+                  {...user}
+                />
+              ))}
+            </SimpleGrid>
             <Flex p={3} gap={6} alignItems={"center"}>
               <Icon
                 cursor={"pointer"}
@@ -46,7 +62,7 @@ export const List = ({ ...props }) => {
                 boxSize={{ base: "3", md: "4" }}
               />
             </Flex>
-          </Container>
+          </Stack>
         </Stack>
       ) : (
         <ListDetail />

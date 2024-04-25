@@ -5,6 +5,7 @@ import {
   Container,
   HStack,
   Icon,
+  Stack,
   Text,
   useBreakpointValue,
   useDisclosure,
@@ -19,7 +20,7 @@ export const Topbar = ({ ...props }) => {
   return (
     <Box as="section">
       <Box borderBottomWidth="1px" bg="bg.surface">
-        <Container py="4">
+        <Stack p="4">
           <HStack justify="space-between">
             <HStack>
               {isbackstack && (
@@ -65,7 +66,7 @@ export const Topbar = ({ ...props }) => {
               )}
             </HStack>
           </HStack>
-        </Container>
+        </Stack>
       </Box>
     </Box>
   );

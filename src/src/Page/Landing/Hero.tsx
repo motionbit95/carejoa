@@ -4,11 +4,11 @@ import {
   Container,
   Heading,
   Image,
-  Link,
   SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 export const Hero = () => (
   <Container py={{ base: "16", md: "24" }}>
     <SimpleGrid columns={{ base: 1, md: 2 }} gap={30}>
@@ -25,7 +25,7 @@ export const Hero = () => (
           <Text fontSize={{ base: "lg", md: "md" }} color="fg.muted">
             비용과 시간을 모두 아껴보세요.
           </Text>
-          <Link href="/login">
+          <Link to="/login">
             <Button size={{ base: "lg", md: "xl" }} colorScheme="blue">
               무료 상담하기
             </Button>

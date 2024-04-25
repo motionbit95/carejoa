@@ -20,7 +20,7 @@ import { useState } from "react";
 import { MobileDrawer } from "./MobileSidebar";
 import { ToggleButton } from "../TopBar/ToggleButton";
 
-export const Sidebar = (props: { onclick: (menu: string) => void }) => {
+export const Sidebar = (props: { onChangeMenu: (menu: string) => void }) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const mobileSidebar = useDisclosure();
   const [menu, setMenu] = useState(
@@ -30,7 +30,7 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
   const handleMenu = (menu: string) => {
     setMenu(menu);
     localStorage.setItem("menu", menu);
-    props.onclick(menu);
+    props.onChangeMenu(menu);
     mobileSidebar.onClose();
   };
   return (
@@ -68,13 +68,22 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
               >
                 대시보드
               </SidebarButton>
-              <SidebarButton
-                opacity={menu === "consulting" ? 1 : 0.5}
-                leftIcon={<MdCalendarToday />}
-                onClick={() => handleMenu("consulting")}
-              >
-                상담 신청하기
-              </SidebarButton>
+              <>
+                <SidebarButton
+                  opacity={menu === "consulting" ? 1 : 0.5}
+                  leftIcon={<MdCalendarToday />}
+                  onClick={() => handleMenu("consulting")}
+                >
+                  상담 신청하기
+                </SidebarButton>
+                <SidebarButton
+                  opacity={menu === "estimate" ? 1 : 0.5}
+                  leftIcon={<MdCalendarToday />}
+                  onClick={() => handleMenu("estimate")}
+                >
+                  견적서 관리
+                </SidebarButton>
+              </>
               <SidebarButton
                 opacity={menu === "list" ? 1 : 0.5}
                 leftIcon={<MdFormatListBulleted />}
@@ -109,9 +118,6 @@ export const Sidebar = (props: { onclick: (menu: string) => void }) => {
                 w={"auto"}
               />
             </HStack>
-            <Text display={{ base: "none", md: "block" }} mr={4}>
-              정보
-            </Text>
           </Flex>
           <HStack>
             <ToggleButton

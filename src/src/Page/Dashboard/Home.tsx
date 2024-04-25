@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Topbar } from "../../Component/TopBar/TopBar";
-import { ConsultingList } from "../../Component/ConsultingList";
+import { CardList } from "../../Component/CardList/CardList";
 
 export const Home = () => (
   <Box as="section">
@@ -21,7 +21,7 @@ export const Home = () => (
       navigations={["list", "consulting"]}
       isNav
     />
-    <Container py={{ base: "4", md: "8" }}>
+    <Stack px={"4"} py={{ base: "4", md: "8" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <SimpleGrid
           columns={{ base: 1, md: 2 }}
@@ -74,9 +74,11 @@ export const Home = () => (
           spacing={{ base: "3", md: "6" }}
         >
           <Heading size={"xs"}>최근에 신청한 상담</Heading>
-          <ConsultingList />
+          <SimpleGrid columns={{ base: 1, md: 2 }}>
+            <CardList />
+          </SimpleGrid>
         </Stack>
       </Stack>
-    </Container>
+    </Stack>
   </Box>
 );

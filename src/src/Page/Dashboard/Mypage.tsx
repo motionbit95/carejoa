@@ -3,10 +3,16 @@ import {
   Button,
   Container,
   Divider,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
   HStack,
   Icon,
+  Input,
+  InputGroup,
   Stack,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BiChevronRight } from "react-icons/bi";
@@ -15,6 +21,12 @@ import { delUser, logOut, useAuth } from "../../Firebase/Auth";
 import { getDocument } from "../../Firebase/Database";
 
 export const Mypage = () => {
+  const [showPWUpdate, setShowPWUpdate] = useState(false);
+
+  const toggleVisibility = () => {
+    setShowPWUpdate((prev) => !prev);
+  };
+
   const currentUser: any = useAuth();
   const [userInfo, setUserInfo] = useState<any>({});
 
@@ -29,9 +41,10 @@ export const Mypage = () => {
       getUser();
     }
   }, [currentUser]);
+
   return (
     <Box as="section">
-      <Container py={{ base: "4", md: "8" }} h={"100vh"}>
+      <Container py={{ base: "4", md: "8" }}>
         <Stack
           borderRadius={"2xl"}
           shadow={"sm"}
@@ -53,7 +66,9 @@ export const Mypage = () => {
             <Stack spacing={7}>
               <HStack justify={"space-between"}>
                 <Text fontSize={{ base: "lg", md: "xl" }}>이름</Text>
-                <Text fontSize={{ base: "lg", md: "xl" }}>{userInfo.name}</Text>
+                <Text fontSize={{ base: "lg", md: "xl" }}>
+                  {userInfo?.name}
+                </Text>
               </HStack>
               {/* <HStack justify={"space-between"}>
                 <Text fontSize={{ base: "lg", md: "xl" }}>연락처</Text>
@@ -64,15 +79,21 @@ export const Mypage = () => {
               </HStack> */}
               <HStack justify={"space-between"}>
                 <Text fontSize={{ base: "lg", md: "xl" }}>비밀번호</Text>
-                <HStack spacing={0}>
+
+                <HStack
+                  spacing={0}
+                  onClick={toggleVisibility}
+                  cursor={"pointer"}
+                >
                   <Text fontSize={{ base: "lg", md: "xl" }}>변경하기</Text>
                   <Icon as={BiChevronRight} boxSize={7} />
                 </HStack>
               </HStack>
+              {showPWUpdate && <PWUpdate />}
               <HStack justify={"space-between"}>
                 <Text fontSize={{ base: "lg", md: "xl" }}>이메일</Text>
                 <Text fontSize={{ base: "lg", md: "xl" }}>
-                  {userInfo.email}
+                  {userInfo?.email}
                 </Text>
               </HStack>
               <Button
@@ -115,5 +136,70 @@ export const Mypage = () => {
         </Stack>
       </Container>
     </Box>
+  );
+};
+
+export const PWUpdate = () => {
+  const passwordsMatch = (
+    newPassword: string,
+    confirmPassword: string
+  ): boolean => {
+    return newPassword === confirmPassword;
+  };
+
+  const handlePWUpdate = () => {};
+
+  return (
+    <Stack
+      borderRadius={"xl"}
+      shadow={"sm"}
+      p={4}
+      spacing={4}
+      bgColor={"gray.200"}
+    >
+      <Text fontWeight={"bold"} fontSize={{ base: "lg", md: "xl" }}>
+        비밀번호 변경
+      </Text>
+      <InputGroup flexDirection={"column"} gap={2}>
+        <FormControl>
+          <FormLabel htmlFor="current-password">현재 비밀번호</FormLabel>
+          <Input
+            type="password"
+            name="current-password"
+            // value={currentPassword}
+            onChange={handlePWUpdate}
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel htmlFor="new-password">새로운 비밀번호</FormLabel>
+          <Input
+            type="password"
+            name="new-password"
+            // value={newPassword}
+            onChange={handlePWUpdate}
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel htmlFor="confirm-password">비밀번호 확인</FormLabel>
+          <Input
+            type="password"
+            name="confirm-password"
+            // value={confirmPassword}
+            onChange={handlePWUpdate}
+          />
+          {!passwordsMatch && (
+            <FormErrorMessage>비밀번호가 일치하지 않습니다.</FormErrorMessage>
+          )}
+        </FormControl>
+      </InputGroup>
+
+      <Box w={"full"} textAlign={"right"}>
+        <Tooltip label="변경 후 로그인 화면으로 이동합니다.">
+          <Button>변경하기</Button>
+        </Tooltip>
+      </Box>
+    </Stack>
   );
 };
