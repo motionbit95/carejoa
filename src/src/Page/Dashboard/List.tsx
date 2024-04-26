@@ -38,6 +38,7 @@ export const List = ({ ...props }) => {
                     bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
                     key={index}
                     {...consulting}
+                    onClick={() => setShowDetail(true)}
                   />
                 ))}
               </SimpleGrid>

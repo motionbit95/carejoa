@@ -32,20 +32,10 @@ export const Step = (props: StepProps) => {
   });
 
   return (
-    <Stack
-      spacing="3"
-      direction={{ base: "row", md: "column" }}
-      flex="1"
-      {...stackProps}
-    >
-      <Stack
-        spacing="0"
-        align="center"
-        direction={{ base: "column", md: "row" }}
-      >
+    <Stack spacing="3" direction={"column"} flex="1" {...stackProps}>
+      <Stack spacing="0" align="center" direction={"row"}>
         <Divider
-          display={isMobile ? "none" : "initial"}
-          orientation={orientation}
+          // display={isMobile ? "none" : "initial"}
           borderWidth="1px"
           borderColor={
             isFirstStep
@@ -57,7 +47,7 @@ export const Step = (props: StepProps) => {
         />
         <StepCircle isActive={isActive} isCompleted={isCompleted} />
         <Divider
-          orientation={orientation}
+          // orientation={orientation}
           borderWidth="1px"
           borderColor={
             isCompleted ? "accent" : isLastStep ? "transparent" : "inherit"
@@ -66,10 +56,10 @@ export const Step = (props: StepProps) => {
       </Stack>
       <Stack
         spacing="0.5"
-        pb={isMobile && !isLastStep ? "8" : "0"}
-        align={{ base: "start", md: "center" }}
+        // pb={isMobile && !isLastStep ? "8" : "0"}
+        align={"center"}
       >
-        <Text>{title}</Text>
+        <Text fontSize={{ base: "11px", sm: "sm", md: "md" }}>{title}</Text>
       </Stack>
     </Stack>
   );

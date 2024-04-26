@@ -4,6 +4,7 @@ import { steps } from "../../Page/Dashboard/data";
 
 export const StepsWithAccent = (props: any) => {
   const { currentStep } = props;
+
   return (
     <Box>
       <Container py={{ base: "8", md: "16" }} pb={{ base: "4", md: "2" }}>

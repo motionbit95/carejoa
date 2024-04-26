@@ -45,7 +45,15 @@ export const ListDetail = () => {
               <Text fontWeight={"bold"} fontSize={"lg"}>
                 2024년 04월 20일 12:00
               </Text>
-              <StepsWithCirclesAndText />
+              <StepsWithCirclesAndText
+                title={[
+                  "신청서작성",
+                  "상담신청완료",
+                  "상담도착",
+                  "상담후기작성",
+                  "상담완료",
+                ]}
+              />
             </Stack>
             <Divider />
             <Stack spacing={4} py={2}>

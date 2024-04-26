@@ -21,11 +21,10 @@ export const MobileDrawer = (props) => {
             <DrawerHeader py={4}>
               <Image
                 src={require("../../asset/CareJOA.png")}
-                height={"48px"}
-                w={"auto"}
+                h={{ base: "10", md: "12" }}
               />
             </DrawerHeader>
-            <Stack spacing="1" mt={12}>
+            <Stack spacing="1" mt={6}>
               <SidebarButton onClick={() => props.handleMenu("home")}>
                 대시보드
               </SidebarButton>

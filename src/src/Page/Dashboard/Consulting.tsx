@@ -38,7 +38,15 @@ export const Consulting = () => {
 
   return (
     <Box as="section">
-      <StepsWithAccent currentStep={step} />
+      <StepsWithAccent
+        currentStep={step}
+        steps={[
+          "요양시설 선택",
+          "요양 프로그램 선택",
+          "환자 상태 입력",
+          "개인정보 이용동의",
+        ]}
+      />
       <Stack maxW={"2xl"} mx="auto" py={{ base: "2", md: "4" }}>
         {step === 1 && <Step1 />}
         {step === 2 && <Step2 />}

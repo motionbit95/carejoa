@@ -62,9 +62,7 @@ export const Sidebar = (props: {
                   w={"auto"}
                 />
               </HStack>
-              <Text display={{ base: "none", lg: "block" }} opacity={0.5}>
-                함께할 때 더 가치있습니다.
-              </Text>
+              <Text opacity={0.5}>함께할 때 더 가치있습니다.</Text>
             </Stack>
             <AccountSwitcher />
             <Stack spacing="1">
@@ -124,7 +122,7 @@ export const Sidebar = (props: {
             <HStack>
               <Image
                 src={require("../../asset/CareJOA.png")}
-                height={"48px"}
+                height={{ base: "8", md: "12" }}
                 w={"auto"}
               />
             </HStack>
