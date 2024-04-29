@@ -1,12 +1,11 @@
 import { Box, Container, Stack } from "@chakra-ui/react";
 import { Step } from "./Step";
-import { useStep } from "./useStep";
 
 export const StepsWithCirclesAndText = ({ ...props }) => {
   const { currentStep } = props;
   return (
     <Box bg="bg.surface">
-      <Stack spacing="0" direction={"row"}>
+      <Stack spacing="0" direction={"row"} py={{ base: "4", md: "8" }}>
         {props.title.map((item: string, id: number) => (
           <Step
             key={id}

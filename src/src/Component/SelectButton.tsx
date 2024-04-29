@@ -23,7 +23,7 @@ export const SelectButton = ({ ...props }) => {
   return (
     <Stack {...props}>
       <SimpleGrid
-        columns={{ base: 1, md: 3 }}
+        columns={{ base: 3, md: 3 }}
         borderRadius={"xl"}
         overflow={"hidden"}
         outline={"1px solid #E2E8F0"}
@@ -32,7 +32,7 @@ export const SelectButton = ({ ...props }) => {
           <Button
             key={item}
             value={item}
-            size="md"
+            size={{ base: "sm", md: "md" }}
             borderRadius={"0"}
             outline={"1px solid #E2E8F0"}
             color={selectedButtons.includes(item) ? "accent" : "fg.muted"}

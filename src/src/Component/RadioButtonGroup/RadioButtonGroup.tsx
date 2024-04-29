@@ -101,6 +101,8 @@ export const RadioButton = (props: RadioButtonProps) => {
       <Button
         w={"full"}
         id={id}
+        fontSize={{ base: "12px", sm: "sm", md: "md" }}
+        p={{ base: "1", sm: "2", md: "3" }}
         as="div"
         _focus={{ boxShadow: "none" }}
         {...checkboxProps}

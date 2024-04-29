@@ -35,7 +35,7 @@ interface UserData {
     shelter: string; // 요양시설
     city: string; // 시
     dong: string; // 동
-    type: string; // 요양시설 등급
+    rank: string; // 요양시설 등급
     size: string; // 요양시설 크기
     //step2
     grade: string; // 요양비용
@@ -66,7 +66,6 @@ export const Consulting = (props: UserData) => {
 
   useEffect(() => {
     console.log("컨설팅 유저정보", userInfo);
-    // setFormData(userInfo);
   }, [userInfo]);
 
   const handleSubmit = () => {
@@ -250,7 +249,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
           </Text>
           <RadioButtonGroupContainer
             onChange={(e: any) => {
-              setFormData({ ...formData, type: e.target.value });
+              setFormData({ ...formData, rank: e.target.value });
             }}
             list={["A등급", "B등급", "C등급", "D등급", "E등급", "상관없음"]}
           />

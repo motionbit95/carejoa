@@ -19,18 +19,21 @@ export const CalculateInput = ({ ...props }) => {
 
   return (
     <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-      <HStack justify={"space-between"}>
-        <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+      <HStack justify={"space-between"} spacing={1}>
+        <Text flex={1} fontSize={{ base: "lg", md: "2xl" }} fontWeight={"bold"}>
           {title}(일)
         </Text>
         <Text
-          fontSize={{ base: "lg", md: "xl" }}
+          flex={1}
+          textAlign={"right"}
+          fontSize={{ base: "md", md: "xl" }}
           color={"blue"}
           fontWeight={"semibold"}
         >
-          월 {number} 원
+          월 {number === undefined ? 0 : (number * 30)?.toLocaleString()} 원
         </Text>
       </HStack>
+      <Text opacity={0.5}>30일 기준</Text>
       <InputGroup>
         <Input
           placeholder="0"
