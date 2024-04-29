@@ -131,7 +131,7 @@ export const SignupForm = (props: any) => {
             </FormLabel>
             <RadioButtonGroup
               w={"full"}
-              defaultValue="1"
+              defaultValue="0"
               name="type"
               onChange={(value) => setFormData({ ...formData, type: value })}
             >

@@ -101,7 +101,13 @@ export const CreateEstimate = (props: EstimateData) => {
             <Step1 formData={formData} setFormData={setFormData} />
           )}
           {step === 2 && (
-            <Step2 formData={formData} setFormData={setFormData} />
+            <Step2
+              formData={formData}
+              setFormData={(data) => {
+                console.log(data);
+                setFormData(data);
+              }}
+            />
           )}
           {step === 3 && (
             <Step3 formData={formData} setFormData={setFormData} />
@@ -260,6 +266,13 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
 };
 
 export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
+  const handleCountChange = (label: string, count: number) => {
+    setFormData({
+      ...formData,
+      [label]: count,
+    });
+  };
+
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
@@ -268,9 +281,24 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
             의료 인력
           </Text>
           <Stack pt={"2"}>
-            <CareInput id="doctor" label="의사" count="명" />
-            <CareInput id="dentist" label="치과의사" count="명" />
-            <CareInput id="dkom" label="한의사" count="명" />
+            <CareInput
+              id="doctor"
+              label="의사"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="dentist"
+              label="치과의사"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="dkom"
+              label="한의사"
+              count="명"
+              onChange={handleCountChange}
+            />
           </Stack>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
@@ -278,12 +306,43 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
             진료과목(전문의 수)
           </Text>
           <Stack pt={"2"}>
-            <CareInput id="medicine" label="내과" count="명" />
-            <CareInput id="rehabilitation" label="재활의학과" count="명" />
-            <CareInput id="family" label="가정의학과" count="명" />
-            <CareInput id="neurosurgery" label="신경외과" count="명" />
-            <CareInput id="Oriental" label="한방내과" count="명" />
-            <CareInput id="bedclothes" label="침구과" count="명" />
+            <CareInput
+              id="medicine"
+              label="내과"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="rehabilitation"
+              label="재활의학과"
+              count="명"
+              onChange={handleCountChange}
+              s
+            />
+            <CareInput
+              id="family"
+              label="가정의학과"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="neurosurgery"
+              label="신경외과"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="Oriental"
+              label="한방내과"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="bedclothes"
+              label="침구과"
+              count="명"
+              onChange={handleCountChange}
+            />
           </Stack>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
@@ -291,16 +350,23 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
             치료 인력
           </Text>
           <Stack pt={"2"}>
-            <CareInput id="physical_therapist" label="물리치료사" count="명" />
+            <CareInput
+              id="physical_therapist"
+              label="물리치료사"
+              count="명"
+              onChange={handleCountChange}
+            />
             <CareInput
               id="occupational_therapist"
               label="작업치료사"
               count="명"
+              onChange={handleCountChange}
             />
             <CareInput
               id="physical_therapyroom"
               label="물리치료실"
               count="실"
+              onChange={handleCountChange}
             />
           </Stack>
         </Stack>
@@ -313,18 +379,21 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
               id="physical_therapist"
               label="물리치료사"
               count="대"
+              // onChange={handleCountChange}
               istype
             />
             <CareInput
               id="occupational_therapist"
               label="작업치료사"
               count="대"
+              // onChange={handleCountChange}
               istype
             />
             <CareInput
               id="physical_therapyroom"
               label="물리치료실"
               count="대"
+              // onChange={handleCountChange}
               istype
             />
           </Stack>
