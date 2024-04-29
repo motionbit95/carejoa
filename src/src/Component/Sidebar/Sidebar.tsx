@@ -32,7 +32,7 @@ export const Sidebar = (props: {
 
   const { userInfo } = props;
 
-  console.log("사이드바에서 받았다", userInfo);
+  // console.log("사이드바에서 받았다", userInfo);
 
   const handleMenu = (menu: string) => {
     setMenu(menu);

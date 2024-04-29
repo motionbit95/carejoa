@@ -14,26 +14,72 @@ import {
   Stack,
   StackDivider,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { RadioCardGroupContainer } from "../../Component/RadioCardGroup/App";
 import { RadioButtonGroupContainer } from "../../Component/RadioButtonGroup/App";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StepsWithAccent } from "../../Component/Step/StepsWithAccent";
-import {
-  RadioCard,
-  RadioCardGroup,
-} from "../../Component/RadioCardGroup/RadioCardGroup";
 import {
   CheckboxCard,
   CheckboxCardGroup,
 } from "../../../Application/FormElements/CheckboxCardGroup/CheckboxCardGroup";
+import { cities, districts } from "./data";
+import { addDocument, setDocument } from "../../Firebase/Database";
+import { SelectButton } from "../../Component/SelectButton";
 
-export const Consulting = () => {
+interface UserData {
+  userInfo: {
+    id: string; // 유저정보
+    // step1
+    shelter: string; // 요양시설
+    city: string; // 시
+    dong: string; // 동
+    type: string; // 요양시설 등급
+    size: string; // 요양시설 크기
+    //step2
+    grade: string; // 요양비용
+    program: string; // 요양프로그램
+    //step3
+    senior_name: string; // 어르신 성함
+    senior_age: string; // 어르신 연세
+    care_grade: string; // 노인장기요양등급
+    need_help_meal: string; // 식사도움여부
+    need_help_brushing_teeth: string; // 양치도움여부
+    physical_condition: string; // 불편한 신체부위
+    problem: string; // 질병또는 지병
+    nursing_time: string; // 간병시간
+    price: string; // 간병비용
+    experience: string; // 시설 경험
+    //step4
+    agreement: boolean; // 개인정보 이용동의
+  };
+}
+
+export const Consulting = (props: UserData) => {
   const [step, setStep] = useState(1);
 
+  const toast = useToast();
+  const { userInfo } = props;
+
+  const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    console.log("컨설팅 유저정보", userInfo);
+    // setFormData(userInfo);
+  }, [userInfo]);
+
   const handleSubmit = () => {
-    // 여기에 제출 로직을 추가할 수 있습니다.
-    alert("상담 내용이 제출되었습니다.");
+    console.log(formData, userInfo.id);
+    addDocument("consulting", { ...formData, uid: userInfo.id }).then(() => {
+      toast({
+        title: "상담 내용을 제출합니다.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    });
+    console.log(formData);
   };
 
   return (
@@ -47,314 +93,67 @@ export const Consulting = () => {
           "개인정보 이용동의",
         ]}
       />
-      <Stack maxW={"2xl"} mx="auto" py={{ base: "2", md: "4" }}>
-        {step === 1 && <Step1 />}
-        {step === 2 && <Step2 />}
-        {step === 3 && <Step3 />}
-        {step === 4 && <Step4 />}
-      </Stack>
-      <Stack py={{ base: "2", md: "4" }} align="center">
-        <ButtonGroup size="lg" colorScheme="blue">
-          <Button
-            variant={"outline"}
-            onClick={() => setStep(step - 1)}
-            display={step === 1 ? "none" : "block"}
-          >
-            이전단계로
-          </Button>
-          {step !== 4 ? (
-            <Button onClick={() => setStep(step + 1)}>
-              저장하고 다음단계로
-            </Button>
-          ) : (
-            <Button onClick={() => handleSubmit()}>
-              동의하고 무료 상담 신청하기
-            </Button>
+      <form onSubmit={handleSubmit}>
+        <Stack maxW={"2xl"} mx="auto" py={{ base: "2", md: "4" }}>
+          {step === 1 && (
+            <Step1 formData={formData} setFormData={setFormData} />
           )}
-        </ButtonGroup>
-      </Stack>
+          {step === 2 && (
+            <Step2 formData={formData} setFormData={setFormData} />
+          )}
+          {step === 3 && (
+            <Step3 formData={formData} setFormData={setFormData} />
+          )}
+          {step === 4 && (
+            <Step4 formData={formData} setFormData={setFormData} />
+          )}
+        </Stack>
+        <Stack py={{ base: "2", md: "4" }} align="center">
+          <ButtonGroup size="lg" colorScheme="blue">
+            <Button
+              variant={"outline"}
+              onClick={() => setStep(step - 1)}
+              display={step === 1 ? "none" : "block"}
+            >
+              이전단계로
+            </Button>
+            {step !== 4 ? (
+              <Button type="button" onClick={() => setStep(step + 1)}>
+                저장하고 다음단계로
+              </Button>
+            ) : (
+              <Button onClick={handleSubmit}>
+                동의하고 무료 상담 신청하기
+              </Button>
+            )}
+          </ButtonGroup>
+        </Stack>
+      </form>
     </Box>
   );
 };
 
-// 시/도, 군/구
-const cities = [
-  "강원",
-  "경기",
-  "경남",
-  "경북",
-  "광주",
-  "대구",
-  "대전",
-  "부산",
-  "서울",
-  "세종",
-  "울산",
-  "인천",
-  "전남",
-  "전북",
-  "제주",
-  "충남",
-  "충북",
-];
-const districts = {
-  강원: [
-    "강릉시",
-    "고성군",
-    "동해시",
-    "삼척시",
-    "속초시",
-    "양구군",
-    "양양군",
-    "영월군",
-    "원주시",
-    "인제군",
-    "정선군",
-    "철원군",
-    "춘천시",
-    "태백시",
-    "평창군",
-    "홍천군",
-    "화천군",
-    "횡성군",
-  ],
-  경기: [
-    "가평군",
-    "고양시 덕양구",
-    "고양시 일산동구",
-    "고양시 일산서구",
-    "과천시",
-    "광명시",
-    "광주시",
-    "구리시",
-    "군포시",
-    "김포시",
-    "남양주시",
-    "동두천시",
-    "부천시",
-    "성남시 분당구",
-    "성남시 수정구",
-    "성남시 중원구",
-    "수원시 권선구",
-    "수원시 영통구",
-    "수원시 장안구",
-    "수원시 팔달구",
-    "시흥시",
-    "안산시 단원구",
-    "안산시 상록구",
-    "안성시",
-    "안양시 동안구",
-    "안양시 만안구",
-    "양주시",
-    "양평군",
-    "여주시",
-    "연천군",
-    "오산시",
-    "용인시 기흥구",
-    "용인시 수지구",
-    "용인시 처인구",
-    "의왕시",
-    "의정부시",
-    "이천시",
-    "파주시",
-    "평택시",
-    "포천시",
-    "하남시",
-    "화성시",
-  ],
-  경남: [
-    "거제시",
-    "거창군",
-    "고성군",
-    "김해시",
-    "남해군",
-    "밀양시",
-    "사천시",
-    "산청군",
-    "양산시",
-    "의령군",
-    "진주시",
-    "창녕군",
-    "창원시 마산합포구",
-    "창원시 마산회원구",
-    "창원시 성산구",
-    "창원시 의창구",
-    "창원시 진해구",
-    "통영시",
-    "하동군",
-    "함안군",
-    "함양군",
-    "합천군",
-  ],
-  경북: [
-    "경산시",
-    "경주시",
-    "고령군",
-    "구미시",
-    "군위군",
-    "김천시",
-    "문경시",
-    "봉화군",
-    "상주시",
-    "성주군",
-    "안동시",
-    "영덕군",
-    "영양군",
-    "영주시",
-    "영천시",
-    "예천군",
-    "울릉군",
-    "울진군",
-    "의성군",
-    "청도군",
-    "청송군",
-    "칠곡군",
-    "포항시 남구",
-    "포항시 북구",
-  ],
-  광주: ["광산구", "남구", "동구", "북구", "서구"],
-  대구: ["남구", "달서구", "달성군", "동구", "북구", "서구", "수성구", "중구"],
-  대전: ["대덕구", "동구", "서구", "유성구", "중구"],
-  부산: [
-    "강서구",
-    "금정구",
-    "기장군",
-    "남구",
-    "동구",
-    "동래구",
-    "부산진구",
-    "북구",
-    "사상구",
-    "사하구",
-    "서구",
-    "수영구",
-    "연제구",
-    "영도구",
-    "중구",
-    "해운대구",
-  ],
-  서울: [
-    "강남구",
-    "강동구",
-    "강북구",
-    "강서구",
-    "관악구",
-    "광진구",
-    "구로구",
-    "금천구",
-    "노원구",
-    "도봉구",
-    "동대문구",
-    "동작구",
-    "마포구",
-    "서대문구",
-    "서초구",
-    "성동구",
-    "성북구",
-    "송파구",
-    "양천구",
-    "영등포구",
-    "용산구",
-    "은평구",
-    "종로구",
-    "중구",
-    "중랑구",
-  ],
-  세종: [],
-  울산: ["남구", "동구", "북구", "울주군", "중구"],
-  인천: [
-    "강화군",
-    "계양구",
-    "남동구",
-    "동구",
-    "미추홀구",
-    "부평구",
-    "서구",
-    "연수구",
-    "옹진군",
-    "중구",
-  ],
-  전남: [
-    "강진군",
-    "고흥군",
-    "곡성군",
-    "광양시",
-    "구례군",
-    "나주시",
-    "담양군",
-    "목포시",
-    "무안군",
-    "보성군",
-    "순천시",
-    "신안군",
-    "여수시",
-    "영광군",
-    "영암군",
-    "완도군",
-    "장성군",
-    "장흥군",
-    "진도군",
-    "함평군",
-    "해남군",
-    "화순군",
-  ],
-  전북: [
-    "고창군",
-    "군산시",
-    "김제시",
-    "남원시",
-    "무주군",
-    "부안군",
-    "순창군",
-    "완주군",
-    "익산시",
-    "임실군",
-    "장수군",
-    "전주시 덕진구",
-    "전주시 완산구",
-    "정읍시",
-    "진안군",
-  ],
-  제주: ["서귀포시", "제주시"],
-  충남: [
-    "계룡시",
-    "공주시",
-    "금산군",
-    "논산시",
-    "당진시",
-    "보령시",
-    "부여군",
-    "서산시",
-    "서천군",
-    "아산시",
-    "예산군",
-    "천안시 동남구",
-    "천안시 서북구",
-    "청양군",
-    "태안군",
-    "홍성군",
-  ],
-  충북: [
-    "괴산군",
-    "단양군",
-    "보은군",
-    "영동군",
-    "옥천군",
-    "음성군",
-    "제천시",
-    "증평군",
-    "진천군",
-    "청주시 상당구",
-    "청주시 서원구",
-    "청주시 청원구",
-    "청주시 흥덕구",
-    "충주시",
-  ],
-};
+interface StepConsultingProps {
+  formData: any;
+  setFormData: (data: any) => void;
+}
 
-export const Step1 = () => {
+export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
   const [selectedCity, setSelectedCity] = useState("서울");
   const [selectedDong, setSelectedDong] = useState("전체");
+
+  const handleselectCity = (value: string) => {
+    // console.log(value);
+    setSelectedCity(value);
+    setFormData({ ...formData, city: value });
+  };
+
+  const handleselectDong = (value: string) => {
+    // console.log(value);
+    setSelectedDong(value);
+    setFormData({ ...formData, dong: value });
+  };
+
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
@@ -363,7 +162,11 @@ export const Step1 = () => {
             요양시설 선택
           </Text>
           <Text opacity={0.5}>원하시는 요양시설을 아래에서 선택해주세요.</Text>
-          <RadioCardGroupContainer />
+          <RadioCardGroupContainer
+            onChange={(value: any) => {
+              setFormData({ ...formData, shelter: value });
+            }}
+          />
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
@@ -394,7 +197,7 @@ export const Step1 = () => {
                 <Center
                   cursor={"pointer"}
                   p={{ base: "1", md: "2" }}
-                  onClick={() => setSelectedCity(city)}
+                  onClick={() => handleselectCity(city)}
                   bgColor={city === selectedCity ? "accent" : ""}
                   color={city === selectedCity ? "bg.surface" : ""}
                 >
@@ -425,7 +228,7 @@ export const Step1 = () => {
                   <Center
                     p={{ base: "1", md: "2" }}
                     cursor={"pointer"}
-                    onClick={() => setSelectedDong(district)}
+                    onClick={() => handleselectDong(district)}
                     bgColor={district === selectedDong ? "accent" : ""}
                     color={district === selectedDong ? "bg.surface" : ""}
                   >
@@ -446,6 +249,9 @@ export const Step1 = () => {
             있습니다.
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({ ...formData, type: e.target.value });
+            }}
             list={["A등급", "B등급", "C등급", "D등급", "E등급", "상관없음"]}
           />
         </Stack>
@@ -459,6 +265,9 @@ export const Step1 = () => {
             <Text opacity={0.5}>소형 : 10~30인</Text>
             <Text opacity={0.5}>치매전담형 : 16인 이하</Text>
             <RadioButtonGroupContainer
+              onChange={(e: any) => {
+                setFormData({ ...formData, size: e.target.value });
+              }}
               list={["대형", "중형", "소형", "치매전담형", "상관없음"]}
             />
           </Stack>
@@ -468,7 +277,7 @@ export const Step1 = () => {
   );
 };
 
-export const Step2 = () => {
+export const Step2 = ({ formData, setFormData }: StepConsultingProps) => {
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
@@ -483,6 +292,9 @@ export const Step2 = () => {
             원하시는 비용 형태를 선택 하세요.
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({ ...formData, grade: e.target.value });
+            }}
             list={["고급형", "일반형", "실속형", "상관없음"]}
           />
         </Stack>
@@ -496,27 +308,30 @@ export const Step2 = () => {
             <br />
             원하시는 프로그램을 선택해주세요.
           </Text>
-          <Stack>
-            <RadioButtonGroupContainer
-              list={["운동보조", "인지기능향상"]}
-              py={0}
-            />
-            <RadioButtonGroupContainer
-              list={["불교", "천주교", "기독교", "기타"]}
-              py={0}
-            />
-            <RadioButtonGroupContainer
-              list={["재활특화", "치매특화", "맞춤형서비스"]}
-              py={0}
-            />
-          </Stack>
+          <SelectButton
+            onChange={(value: any) => {
+              setFormData({ ...formData, program: value });
+            }}
+            multiple
+            options={[
+              "운동보조",
+              "인지기능향상",
+              "기타",
+              "불교",
+              "기독교",
+              "천주교",
+              "재활특화",
+              "치매특화",
+              "맞춤형서비스",
+            ]}
+          />
         </Stack>
       </Stack>
     </Container>
   );
 };
 
-export const Step3 = () => {
+export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
@@ -524,13 +339,21 @@ export const Step3 = () => {
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             어르신 성함 입력
           </Text>
-          <Input placeholder="성함 입력" />
+          <Input
+            placeholder="성함 입력"
+            onChange={(e) =>
+              setFormData({ ...formData, senior_name: e.target.value })
+            }
+          />
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             연세 선택
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({ ...formData, senior_age: e.target.value });
+            }}
             list={["81세 이상", "71~80세", "65세~70세", "64세 이하"]}
           />
         </Stack>
@@ -539,6 +362,9 @@ export const Step3 = () => {
             노인장기요양등급
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({ ...formData, care_grade: e.target.value });
+            }}
             list={[
               "1등급",
               "2등급",
@@ -555,6 +381,9 @@ export const Step3 = () => {
             혼자서 식사가 가능하신가요?
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({ ...formData, need_help_meal: e.target.value });
+            }}
             list={["도움없이 가능", "일부 도움 필요", "완전히 도움 필요"]}
           />
         </Stack>
@@ -563,6 +392,12 @@ export const Step3 = () => {
             혼자서 양치질이 가능하신가요?
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({
+                ...formData,
+                need_help_brushing_teeth: e.target.value,
+              });
+            }}
             list={["도움없이 가능", "일부 도움 필요", "완전히 도움 필요"]}
           />
         </Stack>
@@ -571,6 +406,12 @@ export const Step3 = () => {
             스스로 몸을 움직이셨을 때 불편하신 부분이 있으신가요?
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({
+                ...formData,
+                physical_condition: e.target.value,
+              });
+            }}
             list={[
               "오른쪽 상체",
               "오른쪽 하체",
@@ -584,7 +425,12 @@ export const Step3 = () => {
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             앓고 있는 질병이나 증상을 적어주세요.
           </Text>
-          <Input placeholder="암, 치매, 뇌졸증, 고혈압, 당뇨병, 관절염, 심부전, 폐질환..." />
+          <Input
+            placeholder="암, 치매, 뇌졸증, 고혈압, 당뇨병, 관절염, 심부전, 폐질환..."
+            onChange={(e) =>
+              setFormData({ ...formData, problem: e.target.value })
+            }
+          />
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
@@ -595,6 +441,9 @@ export const Step3 = () => {
             시간입니다.
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) =>
+              setFormData({ ...formData, nursing_time: e.target.value })
+            }
             list={["10~24시간", "3~10시간", "3시간 이내"]}
           />
         </Stack>
@@ -602,27 +451,37 @@ export const Step3 = () => {
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             월 예상 간병비는 얼마인가요?
           </Text>
-          <RadioButtonGroupContainer
-            py={0}
-            list={["30만원 이하", "월 30~50만원", "월 50~100만원"]}
-          />
-          <RadioButtonGroupContainer
-            py={0}
-            list={["월 100~150만원", "월 150~200만원", "월 200만원 이상"]}
+          <SelectButton
+            onChange={(value: any) => {
+              setFormData({ ...formData, price: value });
+            }}
+            options={[
+              "30만원 이하",
+              "월 30~50만원",
+              "월 50~50만원",
+              "월 100~150만원",
+              "월 150~200만원",
+              "월 200만원 이상",
+            ]}
           />
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             요양시설 경험이 있으신가요?
           </Text>
-          <RadioButtonGroupContainer list={["있음", "없음"]} />
+          <RadioButtonGroupContainer
+            onChange={(e: any) =>
+              setFormData({ ...formData, experience: e.target.value })
+            }
+            list={["있음", "없음"]}
+          />
         </Stack>
       </Stack>
     </Container>
   );
 };
 
-export const Step4 = () => {
+export const Step4 = ({ formData, setFormData }: StepConsultingProps) => {
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack>

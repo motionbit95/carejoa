@@ -12,12 +12,6 @@ export const RadioButtonGroupContainer = ({ ...props }) => (
               {item}
             </RadioButton>
           ))}
-          {/* <RadioButton value="1">A등급</RadioButton>
-            <RadioButton value="2">B등급</RadioButton>
-            <RadioButton value="3">C등급</RadioButton>
-            <RadioButton value="4">D등급</RadioButton>
-            <RadioButton value="5">E등급</RadioButton>
-            <RadioButton value="6">상관없음</RadioButton> */}
         </RadioButtonGroup>
       ))}
     </SimpleGrid>

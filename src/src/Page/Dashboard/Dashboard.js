@@ -17,7 +17,7 @@ function Dashboard(props) {
       case "home":
         return <Home onclick={(menu) => setSelectedMenu(menu)} />;
       case "consulting":
-        return <Consulting />;
+        return <Consulting userInfo={props.userInfo} />;
       case "estimate":
         return <Estimate onclick={(menu) => setSelectedMenu(menu)} />;
       case "list":

@@ -25,6 +25,7 @@ import { db } from "./Config";
 // 문서 생성
 export const addDocument = async (collectionName, data) => {
   // Add a new document with a generated id.
+  console.log(data);
   const docRef = await addDoc(collection(db, collectionName), {
     ...data,
     createAt: serverTimestamp(),
@@ -81,7 +82,7 @@ export const getDocument = async (collectionName, id) => {
   let data;
 
   if (docSnap.exists()) {
-    data = docSnap.data();
+    data = { ...docSnap.data(), id: docSnap.id };
     console.log("검색된 문서의 데이터 입니다 : ", docSnap.data());
   } else {
     // docSnap.data() will be undefined in this case
