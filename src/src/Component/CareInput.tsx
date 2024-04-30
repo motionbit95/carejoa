@@ -36,7 +36,7 @@ export const CareInput = ({ ...props }) => {
         )}
 
         <HStack flex={{ base: 2, md: 4 }}>
-          {istype && <Input placeholder="장비명" />}
+          {istype && <Input placeholder="장비명" id="label" />}
           <InputGroup>
             <Input
               type="number"

@@ -1,5 +1,5 @@
 import { Button, SimpleGrid, Stack } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const SelectButton = ({ ...props }) => {
   const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
@@ -17,9 +17,12 @@ export const SelectButton = ({ ...props }) => {
     } else {
       setSelectedButtons([option]);
     }
-    console.log(selectedButtons);
     props.onChange(selectedButtons);
   };
+
+  useEffect(() => {
+    console.log(selectedButtons);
+  }, [selectedButtons]);
   return (
     <Stack {...props}>
       <SimpleGrid

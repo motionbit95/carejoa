@@ -21,6 +21,7 @@ import { CareInput } from "../../Component/CareInput";
 import { CalculateInput } from "../../Component/CalculateInput";
 import { HiUpload } from "react-icons/hi";
 import { SelectButton } from "../../Component/SelectButton";
+import { addDocument } from "../../Firebase/Database";
 
 export const Estimate = ({ ...props }) => {
   return (
@@ -55,27 +56,23 @@ export const Estimate = ({ ...props }) => {
 };
 
 interface EstimateData {
-  estimateInfo: {
-    // id: string; // 유저정보
+  userInfo: {
+    id: string; // 유저정보
     // step1
-    shelter_name: string; // 요양시설명
-    shelter_image: string; // 요양시설이미지
-    shelter_address: string; // 요양시설주소
-    shelter_tel: string; // 요양시설번호
-    shelter_rank: string; // 요양시설등급
-    shelter_size: string; // 요양시설크기
-    shelter_specialization: string; // 요양시설 정보
-    establishment_date: string; // 설립일
+    shelter_name: string; // 요양시설명 -OK
+    shelter_image: string; // 요양시설이미지 -x
+    shelter_address: string; // 요양시설주소 -x
+    shelter_tel: string; // 요양시설번호 -OK
+    shelter_rank: string; // 요양시설등급 -OK
+    shelter_size: string; // 요양시설크기 -OK
+    shelter_specialization: string; // 요양시설 정보 -Ok
+    establishment_date: string; // 설립일 -OK
     //step2
-    count_medical: string; // 의료 인력 수
-    count_specialists: string; // 전문의 수
-    count_care: string; // 치료 인력 수
-    count_equipment: string; // 의료 장비 수
+    label: string; // 라벨
+    count: string; // 인원(장비)수
     //step3
-    program: string; // 프로그램
-    count_nursing: string; // 요양 인력 수
-    grade: string; // 요양 비용 등급
-    count_bed: string; // 병상 수
+    shelter_program: string; // 프로그램 -X
+    shelter_grade: string; // 요양 비용 등급 -X
     //step4
     price: string; // 비용
   };
@@ -84,9 +81,24 @@ interface EstimateData {
 export const CreateEstimate = (props: EstimateData) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const toast = useToast();
+
+  const { userInfo } = props;
+  useEffect(() => {
+    console.log("견적 기관정보", userInfo);
+  }, [userInfo]);
 
   const handleSubmit = () => {
-    alert("견적 내용을 제출합니다.");
+    console.log(formData);
+    addDocument("estimate", { ...formData, uid: userInfo.id }).then(() => {
+      toast({
+        title: "견적 내용을 제출합니다.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    });
+    console.log(formData);
   };
 
   return (
@@ -101,13 +113,7 @@ export const CreateEstimate = (props: EstimateData) => {
             <Step1 formData={formData} setFormData={setFormData} />
           )}
           {step === 2 && (
-            <Step2
-              formData={formData}
-              setFormData={(data) => {
-                console.log(data);
-                setFormData(data);
-              }}
-            />
+            <Step2 formData={formData} setFormData={setFormData} />
           )}
           {step === 3 && (
             <Step3 formData={formData} setFormData={setFormData} />
@@ -148,6 +154,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
   const handleUploadImage = () => {
     console.log("이미지 업로드");
   };
+
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
@@ -377,23 +384,23 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
           <Stack pt={"2"}>
             <CareInput
               id="physical_therapist"
-              label="물리치료사"
+              label="장비1"
               count="대"
-              // onChange={handleCountChange}
+              onChange={handleCountChange}
               istype
             />
             <CareInput
               id="occupational_therapist"
-              label="작업치료사"
+              label="장비2"
               count="대"
-              // onChange={handleCountChange}
+              onChange={handleCountChange}
               istype
             />
             <CareInput
               id="physical_therapyroom"
-              label="물리치료실"
+              label="장비3"
               count="대"
-              // onChange={handleCountChange}
+              onChange={handleCountChange}
               istype
             />
           </Stack>
@@ -404,6 +411,12 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
 };
 
 export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
+  const handleCountChange = (label: string, count: number) => {
+    setFormData({
+      ...formData,
+      [label]: count,
+    });
+  };
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
@@ -417,9 +430,9 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
             프로그램을 선택해주세요.
           </Text>
           <SelectButton
-            // onChange={(value: any) => {
-            //   setFormData({ ...formData, program: value });
-            // }}
+            onChange={(value: any) => {
+              setFormData({ ...formData, shelter_program: value });
+            }}
             multiple
             options={[
               "운동보조",
@@ -439,9 +452,24 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
             요양인력
           </Text>
           <Stack pt={"2"}>
-            <CareInput id="physical_therapist" label="사회복지사" count="명" />
-            <CareInput id="occupational_therapist" label="영양사" count="명" />
-            <CareInput id="physical_therapyroom" label="조리사" count="명" />
+            <CareInput
+              id="physical_therapist"
+              label="사회복지사"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="occupational_therapist"
+              label="영양사"
+              count="명"
+              onChange={handleCountChange}
+            />
+            <CareInput
+              id="physical_therapyroom"
+              label="조리사"
+              count="명"
+              onChange={handleCountChange}
+            />
           </Stack>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
@@ -454,6 +482,9 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
             프로그램을 선택해주세요.
           </Text>
           <RadioButtonGroupContainer
+            onChange={(e: any) => {
+              setFormData({ ...formData, shelter_grade: e.target.value });
+            }}
             list={["고급형", "일반형", "실속형", "상관없음"]}
           />
         </Stack>
@@ -462,13 +493,24 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
             침실구성
           </Text>
           <Stack pt={"2"}>
-            <CareInput id="physical_therapist" label="상급병상" count="개" />
+            <CareInput
+              id="physical_therapist"
+              label="상급병상"
+              count="개"
+              onChange={handleCountChange}
+            />
             <CareInput
               id="occupational_therapist"
               label="일반병상"
               count="개"
+              onChange={handleCountChange}
             />
-            <CareInput id="physical_therapyroom" label="격리병상" count="개" />
+            <CareInput
+              id="physical_therapyroom"
+              label="격리병상"
+              count="개"
+              onChange={handleCountChange}
+            />
           </Stack>
         </Stack>
       </Stack>
@@ -477,13 +519,16 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
 };
 
 export const Step4 = ({ formData, setFormData }: StepEstimateProps) => {
+  const handleCountChange = (title: string, value: number) => {
+    setFormData({ ...formData, [title]: value });
+  };
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
-        <CalculateInput title="입원비" />
-        <CalculateInput title="식대" />
-        <CalculateInput title="비급여 상급병상" />
-        <CalculateInput title="비급여 간병비" />
+        <CalculateInput title="입원비" onChange={handleCountChange} />
+        <CalculateInput title="식대" onChange={handleCountChange} />
+        <CalculateInput title="비급여 상급병상" onChange={handleCountChange} />
+        <CalculateInput title="비급여 간병비" onChange={handleCountChange} />
       </Stack>
     </Container>
   );

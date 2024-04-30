@@ -25,7 +25,7 @@ import {
   CheckboxCardGroup,
 } from "../../../Application/FormElements/CheckboxCardGroup/CheckboxCardGroup";
 import { cities, districts } from "./data";
-import { addDocument, setDocument } from "../../Firebase/Database";
+import { addDocument } from "../../Firebase/Database";
 import { SelectButton } from "../../Component/SelectButton";
 
 interface UserData {

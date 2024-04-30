@@ -11,10 +11,13 @@ import { useState } from "react";
 export const CalculateInput = ({ ...props }) => {
   const { title } = props;
   const [number, setNumber] = useState<number | undefined>(undefined);
+  // const [result, setResult] = useState<number | undefined>(undefined);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     setNumber(isNaN(value) ? undefined : value);
+    // setResult(value * 30);
+    props.onChange(title, value * 30);
   };
 
   return (
