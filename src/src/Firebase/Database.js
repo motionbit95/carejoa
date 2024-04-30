@@ -28,7 +28,7 @@ export const addDocument = async (collectionName, data) => {
   console.log(data);
   const docRef = await addDoc(collection(db, collectionName), {
     ...data,
-    createAt: serverTimestamp(),
+    createdAt: serverTimestamp(),
   })
     .then(() => {
       console.log(
@@ -45,7 +45,7 @@ export const addDocument = async (collectionName, data) => {
 export const setDocument = async (collectionName, id, data) => {
   await setDoc(doc(db, collectionName, id), {
     ...data,
-    createAt: serverTimestamp(),
+    createdAt: serverTimestamp(),
   })
     .then(() => {
       console.log(

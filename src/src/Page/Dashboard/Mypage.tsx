@@ -21,6 +21,7 @@ import { delUser, logOut, useAuth } from "../../Firebase/Auth";
 import { getDocument } from "../../Firebase/Database";
 
 export const Mypage = () => {
+  // 마이페이지
   const [showPWUpdate, setShowPWUpdate] = useState(false);
 
   const toggleVisibility = () => {

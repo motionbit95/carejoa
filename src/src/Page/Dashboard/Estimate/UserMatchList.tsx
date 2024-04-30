@@ -19,10 +19,11 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { data } from "../../Page/Dashboard/data";
+import { data } from "../data";
 import { useState } from "react";
 
 const SendEstimate = (props: any) => {
+  // UserMatchList(기관) - 견적서 보내기 버튼 component
   return (
     <>
       <Modal
@@ -67,8 +68,16 @@ const SendEstimate = (props: any) => {
   );
 };
 
-export const UserList = ({ ...props }) => {
+export const UserMatchList = ({ ...props }) => {
+  // List(기관) - 기관이 유저와 매칭된 정보 List Card Component
   const [popupOpen, setPopupOpen] = useState(false);
+  const handleModalButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.stopPropagation(); // 모달 버튼 클릭 시 이벤트 전파 중지
+    setPopupOpen(true);
+  };
+
   const {
     userName,
     userImg,
@@ -80,6 +89,7 @@ export const UserList = ({ ...props }) => {
     info,
     price,
   } = props;
+
   return (
     <Card
       borderRadius={"xl"}
@@ -112,10 +122,10 @@ export const UserList = ({ ...props }) => {
             </Stack>
           </HStack>
           <ButtonGroup size={"sm"}>
-            <Button onClick={() => setPopupOpen(true)}>견적서 보내기</Button>
-            {/* <Button bgColor={"gray.100"} color={"gray.500"}>
+            <Button onClick={handleModalButtonClick}>견적서 보내기</Button>
+            <Button bgColor={"gray.100"} color={"gray.500"}>
               견적완료
-            </Button> */}
+            </Button>
           </ButtonGroup>
           <SendEstimate
             isOpen={popupOpen}

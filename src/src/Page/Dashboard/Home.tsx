@@ -11,10 +11,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Topbar } from "../../Component/TopBar/TopBar";
-import { CardList } from "../../Component/CardList/CardList";
 import { consultingList } from "./data";
 
 export const Home = () => (
+  // 대시보드 메인페이지
   <Box as="section">
     <Topbar
       menu="대시보드"
@@ -74,15 +74,16 @@ export const Home = () => (
           shadow={"sm"}
           spacing={{ base: "3", md: "6" }}
         >
+          {/* 수정필요 */}
           <Heading size={"xs"}>최근에 신청한 상담</Heading>
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-            {consultingList.map((consulting, index) => (
-              <CardList
+            {/* {consultingList.map((consulting, index) => (
+              <ListCard
                 bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
                 key={index}
                 {...consulting}
               />
-            ))}
+            ))} */}
           </SimpleGrid>
         </Stack>
       </Stack>

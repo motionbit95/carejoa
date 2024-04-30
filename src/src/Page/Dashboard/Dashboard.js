@@ -8,6 +8,7 @@ import { Sidebar } from "../../Component/Sidebar/Sidebar";
 import { CreateEstimate, Estimate } from "./Estimate";
 
 function Dashboard(props) {
+  // 대시보드 - 페이지 이동관리
   const [selectedMenu, setSelectedMenu] = useState(
     localStorage.getItem("menu") ? localStorage.getItem("menu") : "home"
   );

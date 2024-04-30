@@ -13,45 +13,46 @@ import {
   Tag,
   Text,
 } from "@chakra-ui/react";
-import { data } from "../../Page/Dashboard/data";
+import { data } from "../data";
 import { MdClose } from "react-icons/md";
 
-const goDetail = () => {
-  alert("상세 상담페이지로 이동");
-};
+export const ListCard = ({ ...props }) => {
+  // List(유저) - 상담 신청작성 후 생성된 리스트 Component
+  const { uid, createdAt, grade, city, dong, size, shelter, program } = props;
 
-export const CardList = ({ ...props }) => {
-  const { title, grade, place, call, size, shelter, info } = props;
   return (
-    <Card borderRadius={"xl"} onClick={goDetail} {...props}>
+    <Card borderRadius={"xl"} {...props}>
       <CardBody p={{ base: "2", md: "4" }}>
         <Flex justify={"space-between"}>
           <HStack>
-            <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
-              {title}
-            </Text>
+            {/* <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
+              {uid}
+            </Text> */}
             <Tag bgColor={"blue.100"} color={"blue.800"}>
-              {grade}
+              작성중
             </Tag>
           </HStack>
           <Icon as={MdClose} boxSize={6} />
         </Flex>
-
         <Stack
           spacing={0.5}
           fontSize={{ base: "12px", md: "sm" }}
           py={2}
           color={"fg.muted"}
         >
-          <Text>{place}</Text>
           <HStack divider={<StackDivider />}>
-            <Text>{call}</Text>
-            <HStack>
-              <Text>{size}</Text>
-              <Text>{shelter}</Text>
-            </HStack>
-
-            <Text>{info}</Text>
+            <Text>신청일</Text>
+            <Text>
+              {city} {dong}
+            </Text>
+          </HStack>
+          <HStack divider={<StackDivider />}>
+            <Text>{grade}</Text>
+            <Text>{size}</Text>
+            <Text>{shelter}</Text>
+            <Text>
+              {program[0]} {program[1]} {program[2]}
+            </Text>
           </HStack>
         </Stack>
         <Stack align={"end"}>

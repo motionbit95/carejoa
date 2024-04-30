@@ -72,7 +72,7 @@ export const Sidebar = (props: {
               >
                 대시보드
               </SidebarButton>
-              {userInfo.type === "0" && (
+              {userInfo?.type === "0" && (
                 <SidebarButton
                   opacity={menu === "consulting" ? 1 : 0.5}
                   leftIcon={<MdCalendarToday />}
@@ -81,7 +81,7 @@ export const Sidebar = (props: {
                   상담 신청하기
                 </SidebarButton>
               )}
-              {userInfo.type === "1" && (
+              {userInfo?.type === "1" && (
                 <SidebarButton
                   opacity={menu === "estimate" ? 1 : 0.5}
                   leftIcon={<MdCalendarToday />}

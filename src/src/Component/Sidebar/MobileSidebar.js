@@ -29,12 +29,12 @@ export const MobileDrawer = (props) => {
               <SidebarButton onClick={() => props.handleMenu("home")}>
                 대시보드
               </SidebarButton>
-              {userInfo.type === "0" && (
+              {userInfo?.type === "0" && (
                 <SidebarButton onClick={() => props.handleMenu("consulting")}>
                   상담 신청하기
                 </SidebarButton>
               )}
-              {userInfo.type === "1" && (
+              {userInfo?.type === "1" && (
                 <SidebarButton onClick={() => props.handleMenu("estimate")}>
                   견적서 관리
                 </SidebarButton>

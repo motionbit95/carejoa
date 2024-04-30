@@ -9,7 +9,7 @@ import { getDocument } from "./src/Firebase/Database";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./src/Firebase/Config";
 function App() {
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<any>(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
