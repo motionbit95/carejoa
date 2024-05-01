@@ -8,6 +8,7 @@ import {
   HStack,
   Heading,
   Icon,
+  IconButton,
   Stack,
   StackDivider,
   Tag,
@@ -27,6 +28,19 @@ export const EstimateList = ({ ...props }) => {
     shelter_tel,
     shelter_program,
   } = props;
+
+  const handleModify = () => {
+    alert("수정하기 버튼");
+  };
+
+  const handleCopy = () => {
+    alert("복사하기 버튼");
+  };
+
+  const handleDelete = () => {
+    alert("삭제하기 버튼");
+  };
+
   return (
     <Card borderRadius={"xl"} {...props}>
       <CardBody p={{ base: "2", md: "4" }}>
@@ -39,7 +53,15 @@ export const EstimateList = ({ ...props }) => {
               {shelter_grade}
             </Tag>
           </HStack>
-          <Icon as={MdClose} boxSize={6} />
+          <IconButton
+            onClick={handleDelete}
+            aria-label="닫기"
+            icon={<MdClose />}
+            size={"sm"}
+            color={"black"}
+            colorScheme="none"
+            _hover={{ bgColor: "blue.200" }}
+          />
         </Flex>
         <Stack
           spacing={0.5}
@@ -52,8 +74,8 @@ export const EstimateList = ({ ...props }) => {
           </HStack>
           <HStack divider={<StackDivider />}>
             <Text>{shelter_tel}</Text>
-            {/* <Text>크기 {shelter_size}</Text> */}
-            {/* <Text>랭크 {shelter_rank}</Text> */}
+            <Text>{shelter_size}</Text>
+            <Text>{shelter_rank}</Text>
             <Text>
               {shelter_program[0]} {shelter_program[1]} {shelter_program[2]}
             </Text>
@@ -61,10 +83,14 @@ export const EstimateList = ({ ...props }) => {
         </Stack>
         <Stack align={"end"}>
           <ButtonGroup p={{ base: "1", md: "2" }}>
-            <Button bgColor={"gray.100"} color={"gray.500"}>
+            <Button
+              onClick={handleModify}
+              bgColor={"gray.100"}
+              color={"gray.500"}
+            >
               수정하기
             </Button>
-            <Button>복사하기</Button>
+            <Button onClick={handleCopy}>복사하기</Button>
           </ButtonGroup>
         </Stack>
       </CardBody>

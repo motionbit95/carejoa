@@ -30,9 +30,9 @@ import { searchDocument } from "../../Firebase/Database";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../../Firebase/Config";
 import { EstimateList } from "./Estimate/EstimateList";
+import { LabelInput } from "../../Component/LabelInput";
 
 export const Estimate = ({ ...props }) => {
-  const [showDetail, setShowDetail] = useState(false);
   const [estimateList, setEstimateList] = useState<any>([]);
 
   const { userInfo } = props;
@@ -53,41 +53,35 @@ export const Estimate = ({ ...props }) => {
   }, [userInfo]);
   return (
     <Box as="section">
-      {!showDetail ? (
-        <Stack spacing={0}>
-          <Flex
-            justify={"space-between"}
-            align={"center"}
-            px={"4"}
-            py={{ base: "2", md: "4" }}
-          >
-            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
-              견적서 목록
-            </Text>
-            <Button size={"sm"} onClick={() => props.onclick("createEstimate")}>
-              견적서 생성하기
-            </Button>
-          </Flex>
-          <Filter onFilter={(filter) => console.log(filter)} />
-          <Stack px={"4"} py={{ base: "2", md: "4" }}>
-            <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
-              {estimateList &&
-                estimateList?.map((estimate: any, index: number) => (
-                  <EstimateList
-                    bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
-                    key={index}
-                    {...estimate}
-                    // onClick={() => setShowDetail(true)}
-                  />
-                ))}
-            </SimpleGrid>
-          </Stack>
+      <Stack spacing={0}>
+        <Flex
+          justify={"space-between"}
+          align={"center"}
+          px={"4"}
+          py={{ base: "2", md: "4" }}
+        >
+          <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+            견적서 목록
+          </Text>
+          <Button size={"sm"} onClick={() => props.onclick("createEstimate")}>
+            견적서 생성하기
+          </Button>
+        </Flex>
+        <Filter onFilter={(filter) => console.log(filter)} />
+        <Stack px={"4"} py={{ base: "2", md: "4" }}>
+          <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
+            {estimateList &&
+              estimateList?.map((estimate: any, index: number) => (
+                <EstimateList
+                  bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
+                  key={index}
+                  {...estimate}
+                  // onClick={() => setShowDetail(true)}
+                />
+              ))}
+          </SimpleGrid>
         </Stack>
-      ) : (
-        <Stack>
-          <Text>견적 상세 페이지</Text>
-        </Stack>
-      )}
+      </Stack>
     </Box>
   );
 };
@@ -116,6 +110,7 @@ interface EstimateData {
 }
 
 export const CreateEstimate = (props: EstimateData) => {
+  // Estimate(기관) - 견적 생성 페이지
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const toast = useToast();
@@ -275,11 +270,13 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               주소 입력
             </FormLabel>
             <Text opacity={0.5}>요양시설의 주소를 입력해주세요.</Text>
-            <HStack>
-              <Input placeholder="주소 입력" />
-              <Button>주소검색</Button>
-            </HStack>
-            <Input placeholder="상세주소" />
+            <Stack>
+              <HStack>
+                <Input placeholder="주소 입력" />
+                <Button>주소검색</Button>
+              </HStack>
+              <Input placeholder="상세주소" />
+            </Stack>
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
@@ -371,6 +368,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
 
 export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
   const handleCountChange = (label: string, count: number) => {
+    // console.log(label, count);
     setFormData({
       ...formData,
       [label]: count,
@@ -486,26 +484,20 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
               의료장비
             </FormLabel>
             <Stack pt={"2"}>
-              <CareInput
+              <LabelInput
                 id="physical_therapist"
-                label="장비1"
                 count="대"
                 onChange={handleCountChange}
-                istype
               />
-              <CareInput
+              <LabelInput
                 id="occupational_therapist"
-                label="장비2"
                 count="대"
                 onChange={handleCountChange}
-                istype
               />
-              <CareInput
+              <LabelInput
                 id="physical_therapyroom"
-                label="장비3"
                 count="대"
                 onChange={handleCountChange}
-                istype
               />
             </Stack>
           </FormControl>

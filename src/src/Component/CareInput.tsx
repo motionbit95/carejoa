@@ -11,12 +11,12 @@ import { useState } from "react";
 export const CareInput = ({ ...props }) => {
   const { id, label, count, istype } = props;
 
-  const [countValue, setCountValue] = useState(0);
+  const [countValue, setCountValue] = useState("");
 
   const handleCountChange = (e: any) => {
     const newCount = e.target.value;
     if (newCount < 0) {
-      setCountValue(0);
+      setCountValue("");
     } else {
       setCountValue(newCount);
     }
@@ -36,11 +36,11 @@ export const CareInput = ({ ...props }) => {
         )}
 
         <HStack flex={{ base: 2, md: 4 }}>
-          {istype && <Input placeholder="장비명" id="label" />}
           <InputGroup>
             <Input
               type="number"
-              // placeholder="0"
+              placeholder="0"
+              defaultValue={0}
               value={countValue}
               onChange={handleCountChange}
             />

@@ -16,7 +16,7 @@ import { BsSearchHeart } from "react-icons/bs";
 import { FiClock, FiHome } from "react-icons/fi";
 import { HiOutlineCalendar, HiOutlineOfficeBuilding } from "react-icons/hi";
 import { RiFirstAidKitFill } from "react-icons/ri";
-import { BannerCarousel } from "../../Component/BannerCarousel";
+import { BannerCarousel } from "../../Component/LandingForm/BannerCarousel";
 
 export const Banner = () => (
   <Box as="section" bg="bg.surface">

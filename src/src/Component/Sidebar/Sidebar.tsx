@@ -63,7 +63,7 @@ export const Sidebar = (props: {
               </HStack>
               <Text opacity={0.5}>함께할 때 더 가치있습니다.</Text>
             </Stack>
-            <AccountSwitcher />
+            <AccountSwitcher userInfo={userInfo} />
             <Stack spacing="1">
               <SidebarButton
                 opacity={menu === "home" ? 1 : 0.5}
@@ -72,7 +72,7 @@ export const Sidebar = (props: {
               >
                 대시보드
               </SidebarButton>
-              {userInfo?.type === "0" && (
+              {userInfo?.type === "0" ? (
                 <SidebarButton
                   opacity={menu === "consulting" ? 1 : 0.5}
                   leftIcon={<MdCalendarToday />}
@@ -80,8 +80,7 @@ export const Sidebar = (props: {
                 >
                   상담 신청하기
                 </SidebarButton>
-              )}
-              {userInfo?.type === "1" && (
+              ) : (
                 <SidebarButton
                   opacity={menu === "estimate" ? 1 : 0.5}
                   leftIcon={<MdCalendarToday />}

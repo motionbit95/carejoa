@@ -16,7 +16,12 @@ function Dashboard(props) {
   const getPage = () => {
     switch (selectedMenu) {
       case "home":
-        return <Home onclick={(menu) => setSelectedMenu(menu)} />;
+        return (
+          <Home
+            userInfo={props.userInfo}
+            onclick={(menu) => setSelectedMenu(menu)}
+          />
+        );
       case "consulting":
         return <Consulting userInfo={props.userInfo} />;
       case "estimate":

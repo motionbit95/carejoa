@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { HiChevronDown } from "react-icons/hi";
 
-export const AccountSwitcherButton = (props: FlexProps) => {
+export const AccountSwitcherButton = ({ ...props }) => {
   const buttonProps = useMenuButton(props);
   return (
     <Flex
@@ -33,10 +33,10 @@ export const AccountSwitcherButton = (props: FlexProps) => {
         <Avatar w="8" h="8" rounded="full" objectFit="cover" />
         <Box textAlign="start">
           <Box noOfLines={1} fontWeight="semibold">
-            케어조아
+            {props.userInfo?.name}
           </Box>
           <Box fontSize="xs" color="gray.400">
-            ID {"cKQ5BC5Q6oS8w7UjrgFAajTnFxd2".substring(0, 8)}
+            ID {props.userInfo?.email}
           </Box>
         </Box>
       </HStack>

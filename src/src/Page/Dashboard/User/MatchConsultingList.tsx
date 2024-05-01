@@ -1,6 +1,6 @@
 import { Avatar, Divider, HStack, Stack, Text } from "@chakra-ui/react";
 
-export const ConsultingList = ({ ...props }) => {
+export const MatchCounsultingList = ({ ...props }) => {
   // UserDetail(유저) - 유저와 기관이 상담 매칭하는 리스트 Component
   const { title, place, size, shelter, info, price } = props;
   return (

@@ -23,11 +23,19 @@ import { UserMatchList } from "./Estimate/UserMatchList";
 
 export const List = ({ ...props }) => {
   // List 페이지 - 유저와 기관 데이터 가져와서 사용
+
+  // UI 변경 플래그
   const [consultingDetail, setConsultingDetail] = useState(false);
   const [userDetail, setUserDetail] = useState(false);
 
+  // 선택한 상담 정보 저장하는 state
+  const [selectedConsulting, setSelectedConsulting] = useState<any>(null);
+  const [selectedUserConsulting, setSelectedUserConsulting] =
+    useState<any>(null);
+
   const { userInfo } = props;
   const [consultingList, setConsultingList] = useState<any>([]);
+  const [userList, setUserList] = useState<any>([]);
 
   useEffect(() => {
     if (userInfo) {
@@ -44,6 +52,17 @@ export const List = ({ ...props }) => {
     }
   }, [userInfo]);
 
+  useEffect(() => {
+    if (userInfo) {
+      const q = query(collection(db, "consulting"));
+
+      searchDocument(q).then(async (data) => {
+        console.log("유저 상담 목록", data);
+        setUserList(data);
+      });
+    }
+  }, [userInfo]);
+
   return (
     <Box as="section">
       {!consultingDetail && !userDetail ? (
@@ -55,7 +74,7 @@ export const List = ({ ...props }) => {
           </Flex>
           <Filter onFilter={(filter) => console.log(filter)} />
           <Stack px={"4"} py={{ base: "2", md: "4" }}>
-            {userInfo?.type === "0" && (
+            {userInfo?.type === "0" ? (
               <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
                 {consultingList &&
                   consultingList?.map((consulting: any, index: number) => (
@@ -63,21 +82,28 @@ export const List = ({ ...props }) => {
                       bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
                       key={index}
                       {...consulting}
-                      onClick={() => setConsultingDetail(true)}
+                      onClick={() => {
+                        setSelectedConsulting(consulting);
+                        setConsultingDetail(true);
+                      }}
                     />
                   ))}
               </SimpleGrid>
-            )}
-            {userInfo?.type === "1" && (
+            ) : (
               <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
-                {UserData.map((user, index) => (
-                  <UserMatchList
-                    bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
-                    key={index}
-                    {...user}
-                    onClick={() => setUserDetail(true)}
-                  />
-                ))}
+                {/* 유저들 목록 가져오기 */}
+                {userList &&
+                  userList.map((consulting: any, index: number) => (
+                    <UserMatchList
+                      bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
+                      key={index}
+                      {...consulting}
+                      onClick={() => {
+                        setSelectedUserConsulting(consulting);
+                        setUserDetail(true);
+                      }}
+                    />
+                  ))}
               </SimpleGrid>
             )}
             <Flex p={3} gap={6} alignItems={"center"}>
@@ -98,12 +124,12 @@ export const List = ({ ...props }) => {
       ) : (
         <>
           {consultingDetail && (
-            // 나의 상세 상담 정보로 이동
-            <ListDetail />
+            // 유저가 신청한 상세 상담 정보로 이동
+            <ListDetail {...selectedConsulting} />
           )}
           {userDetail && (
             <>
-              <Flex p={2} justify={"end"}>
+              <Flex p={2}>
                 <Button
                   variant={"none"}
                   leftIcon={<Icon as={BsChevronLeft} />}
@@ -116,11 +142,10 @@ export const List = ({ ...props }) => {
                 </Button>
               </Flex>
               {/* 유저 상세 정보로 이동 */}
-              <UserDetailCard />
+              <UserDetailCard {...selectedUserConsulting} />
             </>
           )}
         </>
-        // <ListDetail />
       )}
     </Box>
   );

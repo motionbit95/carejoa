@@ -9,20 +9,19 @@ export const SelectButton = ({ ...props }) => {
     if (multiple) {
       if (selectedButtons.includes(option)) {
         setSelectedButtons(selectedButtons.filter((item) => item !== option));
+        props.onChange(selectedButtons.filter((item) => item !== option));
       } else {
         if (selectedButtons.length < 3) {
           setSelectedButtons([...selectedButtons, option]);
+          props.onChange([...selectedButtons, option]);
         }
       }
     } else {
       setSelectedButtons([option]);
+      props.onChange([option]);
     }
-    props.onChange(selectedButtons);
   };
 
-  useEffect(() => {
-    console.log(selectedButtons);
-  }, [selectedButtons]);
   return (
     <Stack {...props}>
       <SimpleGrid

@@ -41,7 +41,8 @@ export const ListCard = ({ ...props }) => {
           color={"fg.muted"}
         >
           <HStack divider={<StackDivider />}>
-            <Text>신청일</Text>
+            {/* <Text>신청일</Text> */}
+            <Text>{createdAt.toDate().toLocaleDateString()}</Text>
             <Text>
               {city} {dong}
             </Text>

@@ -80,43 +80,52 @@ export const UserMatchList = ({ ...props }) => {
 
   const {
     userName,
-    userImg,
-    place,
-    rating,
+    userProfile,
+    city,
+    dong,
+    rank,
     size,
     grade,
     shelter,
-    info,
+    program,
     price,
   } = props;
 
   return (
-    <Card
-      borderRadius={"xl"}
-      {...props}
-      // bgColor={"#F5F6F8"}
-    >
+    <Card borderRadius={"xl"} {...props}>
       <CardBody p={{ base: "3", md: "4" }}>
         <HStack justify={"space-between"} align={"flex-start"}>
           <HStack align={"center"}>
-            <Avatar src={userImg} w={"64px"} h={"64px"} />
+            <Avatar
+              src={userProfile}
+              size={{ base: "md", md: "lg" }}
+              bgColor={"gray.300"}
+            />
             <Stack spacing={0}>
               <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
                 {userName}
               </Text>
-              <Stack spacing={0.5} fontSize={{ base: "12px", md: "sm" }}>
-                <Text>{place}</Text>
+              <Stack
+                spacing={0.5}
+                fontSize={{ base: "12px", md: "sm" }}
+                color={"fg.muted"}
+              >
+                <Text>
+                  {city} {dong}
+                </Text>
                 <HStack divider={<StackDivider />}>
                   <HStack>
                     <Text>{size}</Text>
                     <Text>{shelter}</Text>
                   </HStack>
-                  <Text>{info}</Text>
+                  <Text>
+                    {program[0]} {program[1]} {program[2]}
+                  </Text>
                 </HStack>
                 <HStack divider={<StackDivider />}>
-                  <Text>{rating}</Text>
+                  <Text>{rank}</Text>
                   <Text>{grade}</Text>
-                  <Text>월 {price}만원</Text>
+                  <Text>{price}</Text>
                 </HStack>
               </Stack>
             </Stack>

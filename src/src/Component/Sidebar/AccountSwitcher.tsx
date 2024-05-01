@@ -10,10 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
 
-export const AccountSwitcher = () => {
+export const AccountSwitcher = ({ ...props }) => {
   return (
     <Menu>
-      <AccountSwitcherButton />
+      <AccountSwitcherButton userInfo={props.userInfo} />
       {/* <MenuList
         shadow="lg"
         py="4"

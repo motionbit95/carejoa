@@ -8,9 +8,9 @@ export const BannerCarousel = () => {
       overflowX={"scroll"}
       className="Non-scroll"
     >
-      <Image src={require("../asset/Banner2.png")} />
-      <Image src={require("../asset/Banner3.png")} />
-      <Image src={require("../asset/Banner1.png")} />
+      <Image src={require("../../asset/Banner2.png")} />
+      <Image src={require("../../asset/Banner3.png")} />
+      <Image src={require("../../asset/Banner1.png")} />
     </HStack>
   );
 };

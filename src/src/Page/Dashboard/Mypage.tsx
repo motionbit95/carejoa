@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -14,15 +15,17 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { delUser, logOut, useAuth } from "../../Firebase/Auth";
 import { getDocument } from "../../Firebase/Database";
+import { uploadFile } from "../../Firebase/Storage";
 
 export const Mypage = () => {
   // 마이페이지
   const [showPWUpdate, setShowPWUpdate] = useState(false);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const toggleVisibility = () => {
     setShowPWUpdate((prev) => !prev);
@@ -42,6 +45,23 @@ export const Mypage = () => {
       getUser();
     }
   }, [currentUser]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+
+    if (files && files.length > 0) {
+      const firstFile = files[0];
+      console.log(firstFile);
+      uploadFile("profile", firstFile).then((url) => {
+        console.log(url);
+        setUserInfo({ ...userInfo, profile: url });
+      });
+    }
+
+    if (imageRef.current) {
+      imageRef.current.value = "";
+    }
+  };
 
   return (
     <Box as="section">
@@ -64,38 +84,46 @@ export const Mypage = () => {
               내정보 관리
             </Text>
             <Divider />
-            <Stack spacing={7}>
+            <Stack spacing={7} fontSize={{ base: "lg", md: "xl" }}>
               <HStack justify={"space-between"}>
-                <Text fontSize={{ base: "lg", md: "xl" }}>이름</Text>
-                <Text fontSize={{ base: "lg", md: "xl" }}>
-                  {userInfo?.name}
-                </Text>
+                <Text>이름</Text>
+                <Text>{userInfo?.name}</Text>
+              </HStack>
+              <HStack justify={"space-between"}>
+                <Text>프로필 이미지 등록</Text>
+                <Input
+                  type={"file"}
+                  ref={imageRef}
+                  onChange={handleChange}
+                  accept="image/*"
+                  display={"none"}
+                />
+                <Button size={"sm"} onClick={() => imageRef.current?.click()}>
+                  변경하기
+                </Button>
               </HStack>
               {/* <HStack justify={"space-between"}>
-                <Text fontSize={{ base: "lg", md: "xl" }}>연락처</Text>
+                <Text>연락처</Text>
                 <HStack spacing={0}>
-                  <Text fontSize={{ base: "lg", md: "xl" }}>000-0000-0000</Text>
+                  <Text>000-0000-0000</Text>
                   <Icon as={BiChevronRight} boxSize={7} />
                 </HStack>
               </HStack> */}
               <HStack justify={"space-between"}>
-                <Text fontSize={{ base: "lg", md: "xl" }}>비밀번호</Text>
-
+                <Text>비밀번호</Text>
                 <HStack
                   spacing={0}
                   onClick={toggleVisibility}
                   cursor={"pointer"}
                 >
-                  <Text fontSize={{ base: "lg", md: "xl" }}>변경하기</Text>
+                  <Text>변경하기</Text>
                   <Icon as={BiChevronRight} boxSize={7} />
                 </HStack>
               </HStack>
               {showPWUpdate && <PWUpdate />}
               <HStack justify={"space-between"}>
-                <Text fontSize={{ base: "lg", md: "xl" }}>이메일</Text>
-                <Text fontSize={{ base: "lg", md: "xl" }}>
-                  {userInfo?.email}
-                </Text>
+                <Text>이메일</Text>
+                <Text>{userInfo?.email}</Text>
               </HStack>
               <Button
                 bgColor="gray.100"

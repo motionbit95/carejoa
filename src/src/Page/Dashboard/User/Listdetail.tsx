@@ -16,7 +16,7 @@ import { Topbar } from "../../../Component/TopBar/TopBar";
 import { consultingList } from "../data";
 import { StepsWithCirclesAndText } from "../../../Component/StepsWithCirclesAndText/App";
 import { useEffect, useState } from "react";
-import { ConsultingList } from "./ConsultingList";
+import { MatchCounsultingList } from "./MatchConsultingList";
 import { UserDetailCard } from "./UserDetailCard";
 
 export const ListDetail = ({ ...props }) => {
@@ -48,7 +48,7 @@ export const ListDetail = ({ ...props }) => {
                 <Tag>작성중</Tag>
               </Box>
               <Text fontWeight={"bold"} fontSize={"lg"}>
-                신청일
+                {props.createdAt.toDate().toLocaleDateString()}
               </Text>
               <StepsWithCirclesAndText
                 title={[
@@ -72,12 +72,12 @@ export const ListDetail = ({ ...props }) => {
               >
                 {/* 병원 상담 내역 */}
                 {consultingList.map(({ ...props }) => (
-                  <ConsultingList {...props} />
+                  <MatchCounsultingList {...props} />
                 ))}
               </SimpleGrid>
             </Stack>
           </Stack>
-          <UserDetailCard />
+          <UserDetailCard {...props} />
         </Flex>
       </Stack>
     </Box>

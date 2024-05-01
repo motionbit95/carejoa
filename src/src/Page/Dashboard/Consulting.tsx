@@ -21,7 +21,7 @@ import {
 import { RadioCardGroupContainer } from "../../Component/RadioCardGroup/App";
 import { RadioButtonGroupContainer } from "../../Component/RadioButtonGroup/App";
 import { useEffect, useState } from "react";
-import { StepsWithAccent } from "../../Component/Step/StepsWithAccent";
+import { StepsWithAccent } from "../../Component/StepWithAccent/StepsWithAccent";
 import {
   CheckboxCard,
   CheckboxCardGroup,
@@ -34,6 +34,8 @@ import { doc, getDoc } from "firebase/firestore";
 interface UserData {
   userInfo: {
     id: string; // 유저정보
+    name: string; // 이름
+    profile: string; // 이미지
     // step1
     shelter: string; // 요양시설
     city: string; // 시
@@ -74,7 +76,12 @@ export const Consulting = (props: UserData) => {
   // FormData에 저장된 내용 addDoc으로 firebase에 문서 추가
   const handleSubmit = () => {
     console.log(formData, userInfo.id);
-    addDocument("consulting", { ...formData, uid: userInfo.id }).then(() => {
+    addDocument("consulting", {
+      ...formData,
+      uid: userInfo.id,
+      userName: userInfo.name,
+      // userProfile: userInfo.profile,
+    }).then(() => {
       toast({
         title: "상담 내용을 제출합니다.",
         status: "success",
@@ -145,16 +152,20 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
   const [selectedCity, setSelectedCity] = useState("서울");
   const [selectedDong, setSelectedDong] = useState("전체");
 
+  useEffect(() => {
+    setFormData({ ...formData, city: selectedCity, dong: selectedDong });
+  }, [selectedCity, selectedDong]);
+
   const handleselectCity = (value: string) => {
     // console.log(value);
     setSelectedCity(value);
-    setFormData({ ...formData, city: value });
+    // setFormData({ ...formData, city: value });
   };
 
   const handleselectDong = (value: string) => {
     // console.log(value);
     setSelectedDong(value);
-    setFormData({ ...formData, dong: value });
+    // setFormData({ ...formData, dong: value });
   };
 
   return (
@@ -492,7 +503,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               options={[
                 "30만원 이하",
                 "월 30~50만원",
-                "월 50~50만원",
+                "월 50~100만원",
                 "월 100~150만원",
                 "월 150~200만원",
                 "월 200만원 이상",
