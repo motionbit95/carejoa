@@ -24,6 +24,11 @@ import { useState } from "react";
 
 const SendEstimate = (props: any) => {
   // UserMatchList(기관) - 견적서 보내기 버튼 component
+  const handleSendEstimate = () => {
+    alert("견적서를 보내시겠습니까?");
+    props.onClose();
+    props.setShowButton(true);
+  };
   return (
     <>
       <Modal
@@ -59,7 +64,7 @@ const SendEstimate = (props: any) => {
               <Button bgColor={"gray.100"} color={"gray.800"}>
                 취소
               </Button>
-              <Button>견적서 보내기</Button>
+              <Button onClick={handleSendEstimate}>견적서 보내기</Button>
             </ButtonGroup>
           </Stack>
         </ModalContent>
@@ -71,6 +76,7 @@ const SendEstimate = (props: any) => {
 export const UserMatchList = ({ ...props }) => {
   // List(기관) - 기관이 유저와 매칭된 정보 List Card Component
   const [popupOpen, setPopupOpen] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   const handleModalButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -79,16 +85,16 @@ export const UserMatchList = ({ ...props }) => {
   };
 
   const {
-    userName,
-    userProfile,
-    city,
-    dong,
-    rank,
-    size,
-    grade,
-    shelter,
-    program,
-    price,
+    userName = "",
+    userProfile = "",
+    city = "",
+    dong = "",
+    rank = "",
+    size = "",
+    grade = "",
+    shelter = "",
+    program = "",
+    price = "",
   } = props;
 
   return (
@@ -105,11 +111,7 @@ export const UserMatchList = ({ ...props }) => {
               <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
                 {userName}
               </Text>
-              <Stack
-                spacing={0.5}
-                fontSize={{ base: "12px", md: "sm" }}
-                color={"fg.muted"}
-              >
+              <Stack spacing={0.5} fontSize={{ base: "12px", md: "sm" }}>
                 <Text>
                   {city} {dong}
                 </Text>
@@ -131,14 +133,20 @@ export const UserMatchList = ({ ...props }) => {
             </Stack>
           </HStack>
           <ButtonGroup size={"sm"}>
-            <Button onClick={handleModalButtonClick}>견적서 보내기</Button>
-            <Button bgColor={"gray.100"} color={"gray.500"}>
-              견적완료
-            </Button>
+            {/* 상태 가져오기(견적서 전송 여부) */}
+            {!showButton && (
+              <Button onClick={handleModalButtonClick}>견적서 보내기</Button>
+            )}
+            {showButton && (
+              <Button bgColor={"gray.100"} color={"gray.500"}>
+                견적완료
+              </Button>
+            )}
           </ButtonGroup>
           <SendEstimate
             isOpen={popupOpen}
             onClose={() => setPopupOpen(false)}
+            setShowButton={setShowButton}
           />
         </HStack>
       </CardBody>

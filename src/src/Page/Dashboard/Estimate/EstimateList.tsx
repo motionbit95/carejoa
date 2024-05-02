@@ -3,30 +3,29 @@ import {
   ButtonGroup,
   Card,
   CardBody,
-  CardHeader,
   Flex,
   HStack,
-  Heading,
-  Icon,
   IconButton,
   Stack,
   StackDivider,
   Tag,
   Text,
 } from "@chakra-ui/react";
-import { data } from "../data";
 import { MdClose } from "react-icons/md";
+import { deleteDocument } from "../../../Firebase/Database";
+import { doc } from "firebase/firestore";
+import { db } from "../../../Firebase/Config";
 
 export const EstimateList = ({ ...props }) => {
   // Estimate(기관) 견적서관리 - 견적서 리스트
   const {
-    shelter_name,
-    shelter_address,
-    shelter_grade,
-    shelter_size,
-    shelter_rank,
-    shelter_tel,
-    shelter_program,
+    shelter_name = "",
+    shelter_address = "",
+    shelter_grade = "",
+    shelter_size = "",
+    shelter_rank = "",
+    shelter_tel = "",
+    shelter_program = "",
   } = props;
 
   const handleModify = () => {
@@ -37,8 +36,11 @@ export const EstimateList = ({ ...props }) => {
     alert("복사하기 버튼");
   };
 
-  const handleDelete = () => {
-    alert("삭제하기 버튼");
+  const handleDelete = async () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      await deleteDocument("estimate", props.id);
+      window.location.reload();
+    }
   };
 
   return (
@@ -70,7 +72,7 @@ export const EstimateList = ({ ...props }) => {
           color={"fg.muted"}
         >
           <HStack divider={<StackDivider />}>
-            <Text>주소</Text>
+            <Text>{shelter_address}</Text>
           </HStack>
           <HStack divider={<StackDivider />}>
             <Text>{shelter_tel}</Text>

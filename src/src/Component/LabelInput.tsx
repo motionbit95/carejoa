@@ -1,12 +1,9 @@
 import {
   FormControl,
-  FormLabel,
   HStack,
   Input,
   InputGroup,
   InputRightAddon,
-  Stack,
-  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -19,21 +16,20 @@ export const LabelInput = ({ ...props }) => {
     setLabelname(newLabel);
   };
   const handleCountChange = (e: any) => {
-    const newCount = e.target.value;
-    setCountValue(newCount);
-  };
-
-  const handleAdd = () => {
-    props.onChange(labelname, countValue);
+    if (labelname !== "") {
+      const newCount = e.target.value;
+      setCountValue(newCount);
+      props.onChange(labelname, newCount);
+    } else {
+      setCountValue("");
+    }
   };
 
   return (
-    <FormControl
-    // onChange={handleAdd}
-    >
+    <FormControl>
       <HStack>
         <Input
-          //   onChange={handleChangeLabel}
+          onChange={handleChangeLabel}
           placeholder="장비명"
           id="label"
           value={labelname}
@@ -43,7 +39,7 @@ export const LabelInput = ({ ...props }) => {
             type="number"
             placeholder="0"
             defaultValue={0}
-            // onChange={handleCountChange}
+            onChange={handleCountChange}
             value={countValue}
           />
           <InputRightAddon>{props.count}</InputRightAddon>

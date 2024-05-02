@@ -51,6 +51,7 @@ export const Estimate = ({ ...props }) => {
       });
     }
   }, [userInfo]);
+
   return (
     <Box as="section">
       <Stack spacing={0}>
@@ -63,7 +64,7 @@ export const Estimate = ({ ...props }) => {
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
             견적서 목록
           </Text>
-          <Button size={"sm"} onClick={() => props.onclick("createEstimate")}>
+          <Button size={"lg"} onClick={() => props.onclick("createEstimate")}>
             견적서 생성하기
           </Button>
         </Flex>
@@ -76,7 +77,6 @@ export const Estimate = ({ ...props }) => {
                   bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
                   key={index}
                   {...estimate}
-                  // onClick={() => setShowDetail(true)}
                 />
               ))}
           </SimpleGrid>
@@ -368,10 +368,18 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
 
 export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
   const handleCountChange = (label: string, count: number) => {
-    // console.log(label, count);
+    console.log(label, count);
     setFormData({
       ...formData,
       [label]: count,
+    });
+  };
+
+  const handleChange = (EquipmentLabel: string, EquipmentCount: number) => {
+    console.log(EquipmentLabel, EquipmentCount);
+    setFormData({
+      ...formData,
+      [EquipmentLabel]: EquipmentCount,
     });
   };
 
@@ -487,17 +495,17 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
               <LabelInput
                 id="physical_therapist"
                 count="대"
-                onChange={handleCountChange}
+                onChange={handleChange}
               />
               <LabelInput
                 id="occupational_therapist"
                 count="대"
-                onChange={handleCountChange}
+                onChange={handleChange}
               />
               <LabelInput
                 id="physical_therapyroom"
                 count="대"
-                onChange={handleCountChange}
+                onChange={handleChange}
               />
             </Stack>
           </FormControl>

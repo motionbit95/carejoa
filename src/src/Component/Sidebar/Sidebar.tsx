@@ -89,7 +89,6 @@ export const Sidebar = (props: {
                   견적서 관리
                 </SidebarButton>
               )}
-
               <SidebarButton
                 opacity={menu === "list" ? 1 : 0.5}
                 leftIcon={<MdFormatListBulleted />}

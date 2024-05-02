@@ -4,24 +4,24 @@ import { useEffect } from "react";
 export const UserDetailCard = ({ ...props }) => {
   // ListDetail(유저) - 유저 상세 정보 Component (기관이 가져다 사용할 수 있음)
   const {
-    id,
-    sheter,
-    city,
-    dong,
-    rank,
-    size,
-    grade,
-    program,
-    senior_name,
-    senior_age,
-    care_grade,
-    need_help_meal,
-    need_help_brushing_teeth,
-    physical_condition,
-    problem,
-    nursing_time,
-    price,
-    experience,
+    id = "",
+    sheter = "",
+    city = "",
+    dong = "",
+    rank = "",
+    size = "",
+    grade = "",
+    program = "",
+    senior_name = "",
+    senior_age = "",
+    care_grade = "",
+    need_help_meal = "",
+    need_help_brushing_teeth = "",
+    physical_condition = "",
+    problem = "",
+    nursing_time = "",
+    price = "",
+    experience = "",
   } = props;
 
   useEffect(() => {
@@ -109,8 +109,8 @@ export const UserDetailCard = ({ ...props }) => {
           </HStack>
           <HStack justify={"space-between"}>
             <Text fontWeight={"bold"}>노인장기요양등급</Text>
-            <Text>모름</Text>
-            {/* <Text>{care_grade}</Text> */}
+            {/* <Text>모름</Text> */}
+            <Text>{care_grade}</Text>
           </HStack>
           <HStack justify={"space-between"}>
             <Text fontWeight={"bold"}>자립식사능력</Text>

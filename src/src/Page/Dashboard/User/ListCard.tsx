@@ -3,22 +3,40 @@ import {
   ButtonGroup,
   Card,
   CardBody,
-  CardHeader,
   Flex,
   HStack,
-  Heading,
   Icon,
+  IconButton,
   Stack,
   StackDivider,
   Tag,
   Text,
 } from "@chakra-ui/react";
-import { data } from "../data";
 import { MdClose } from "react-icons/md";
+import { deleteDocument } from "../../../Firebase/Database";
 
 export const ListCard = ({ ...props }) => {
   // List(유저) - 상담 신청작성 후 생성된 리스트 Component
-  const { uid, createdAt, grade, city, dong, size, shelter, program } = props;
+  const {
+    uid = "",
+    createdAt = "",
+    grade = "",
+    city = "",
+    dong = "",
+    size = "",
+    shelter = "",
+    program = "",
+  } = props;
+
+  // 작성중, 상담완료 태그 일때만 삭제 가능하게. 상담신청완료, 상담도착, 상담후기작성에서는 삭제 불가능
+  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    if (window.confirm("삭제하시겠습니까?")) {
+      await deleteDocument("consulting", props.id);
+      window.location.reload();
+    }
+  };
 
   return (
     <Card borderRadius={"xl"} {...props}>
@@ -32,7 +50,6 @@ export const ListCard = ({ ...props }) => {
               작성중
             </Tag>
           </HStack>
-          <Icon as={MdClose} boxSize={6} />
         </Flex>
         <Stack
           spacing={0.5}
@@ -58,10 +75,24 @@ export const ListCard = ({ ...props }) => {
         </Stack>
         <Stack align={"end"}>
           <ButtonGroup p={{ base: "1", md: "2" }}>
-            <Button bgColor={"gray.100"} color={"gray.500"}>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                alert("수정하시겠습니까?");
+              }}
+              bgColor={"gray.100"}
+              color={"gray.500"}
+            >
               수정하기
             </Button>
-            <Button>복사하기</Button>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                alert("삭제하시겠습니까?");
+              }}
+            >
+              삭제하기
+            </Button>
           </ButtonGroup>
         </Stack>
       </CardBody>

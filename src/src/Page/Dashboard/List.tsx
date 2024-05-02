@@ -68,7 +68,11 @@ export const List = ({ ...props }) => {
       {!consultingDetail && !userDetail ? (
         <Stack spacing={0}>
           <Flex align={"center"} px={"4"} py={{ base: "2", md: "4" }}>
-            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+            <Text
+              fontSize={{ base: "xl", md: "2xl" }}
+              fontWeight={"bold"}
+              py={"4px"}
+            >
               상담 목록
             </Text>
           </Flex>
@@ -93,7 +97,7 @@ export const List = ({ ...props }) => {
               <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
                 {/* 유저들 목록 가져오기 */}
                 {userList &&
-                  userList.map((consulting: any, index: number) => (
+                  userList?.map((consulting: any, index: number) => (
                     <UserMatchList
                       bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
                       key={index}
