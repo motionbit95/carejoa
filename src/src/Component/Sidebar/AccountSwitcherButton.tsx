@@ -6,9 +6,13 @@ import {
   HStack,
   useMenuButton,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { HiChevronDown } from "react-icons/hi";
 
 export const AccountSwitcherButton = ({ ...props }) => {
+  useEffect(() => {
+    console.log("사이드바 프로필 받는곳 =============>", props.userInfo);
+  });
   const buttonProps = useMenuButton(props);
   return (
     <Flex
@@ -30,7 +34,13 @@ export const AccountSwitcherButton = ({ ...props }) => {
       _focus={{ shadow: "outline" }}
     >
       <HStack flex="1" spacing="3">
-        <Avatar w="8" h="8" rounded="full" objectFit="cover" />
+        <Avatar
+          src={props.userInfo?.profileImage ? props.userInfo?.profileImage : ""}
+          w="8"
+          h="8"
+          rounded="full"
+          objectFit="cover"
+        />
         <Box textAlign="start">
           <Box noOfLines={1} fontWeight="semibold">
             {props.userInfo?.name}

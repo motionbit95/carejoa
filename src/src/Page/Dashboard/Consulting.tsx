@@ -35,7 +35,7 @@ interface UserData {
   userInfo: {
     id: string; // 유저정보
     name: string; // 이름
-    profile: string; // 이미지
+    profileImage: string; // 이미지
     // step1
     shelter: string; // 요양시설
     city: string; // 시
@@ -80,7 +80,7 @@ export const Consulting = (props: UserData) => {
       ...formData,
       uid: userInfo.id,
       userName: userInfo.name,
-      // userProfile: userInfo.profile,
+      userProfile: userInfo?.profileImage ? userInfo?.profileImage : "",
     }).then(() => {
       toast({
         title: "상담 내용을 제출합니다.",

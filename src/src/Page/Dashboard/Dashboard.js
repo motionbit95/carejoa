@@ -34,7 +34,7 @@ function Dashboard(props) {
       case "list":
         return <List userInfo={props.userInfo} />;
       case "mypage":
-        return <Mypage />;
+        return <Mypage userInfo={props.userInfo} />;
       case "createEstimate":
         return <CreateEstimate userInfo={props.userInfo} />;
     }

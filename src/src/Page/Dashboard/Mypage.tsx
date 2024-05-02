@@ -9,6 +9,7 @@ import {
   FormLabel,
   HStack,
   Icon,
+  Image,
   Input,
   InputGroup,
   Stack,
@@ -18,49 +19,43 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
-import { delUser, logOut, useAuth } from "../../Firebase/Auth";
-import { getDocument } from "../../Firebase/Database";
+import { delUser, logOut } from "../../Firebase/Auth";
+import { updateDocument } from "../../Firebase/Database";
 import { uploadFile } from "../../Firebase/Storage";
 
-export const Mypage = () => {
+export const Mypage = ({ ...props }) => {
   // 마이페이지
-  const [showPWUpdate, setShowPWUpdate] = useState(false);
-  const imageRef = useRef<HTMLInputElement>(null);
+  const { userInfo } = props;
+  useEffect(() => {
+    console.log("마이페이지 유저정보", userInfo);
+  }, [userInfo]);
 
-  const toggleVisibility = () => {
-    setShowPWUpdate((prev) => !prev);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      try {
+        const url = await uploadFile("profile", file);
+        await updateDocument("users", userInfo.id, { profileImage: url });
+
+        console.log("정상적으로 업데이트 완료", userInfo);
+      } catch (error) {
+        console.log("업데이트 중 오류 발생", error);
+      }
+    } else {
+      console.log("파일이 선택되지 않았습니다.");
+    }
   };
 
-  const currentUser: any = useAuth();
-  const [userInfo, setUserInfo] = useState<any>({});
-
-  useEffect(() => {
-    if (currentUser) {
-      console.log(currentUser.uid);
-
-      const getUser = async () => {
-        const user = await getDocument("users", currentUser.uid);
-        setUserInfo(user);
-      };
-      getUser();
-    }
-  }, [currentUser]);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-
-    if (files && files.length > 0) {
-      const firstFile = files[0];
-      console.log(firstFile);
-      uploadFile("profile", firstFile).then((url) => {
-        console.log(url);
-        setUserInfo({ ...userInfo, profile: url });
-      });
-    }
-
+  const updateProfileImage = () => {
     if (imageRef.current) {
-      imageRef.current.value = "";
+      imageRef.current.click();
     }
+  };
+
+  const [showPWUpdate, setShowPWUpdate] = useState(false);
+  const toggleVisibility = () => {
+    setShowPWUpdate((prev) => !prev);
   };
 
   return (
@@ -80,28 +75,38 @@ export const Mypage = () => {
             bgColor={"white"}
             borderTopRadius={"2xl"}
           >
-            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
-              내정보 관리
-            </Text>
+            <HStack justify={"space-between"}>
+              <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+                내정보 관리
+              </Text>
+              {userInfo?.profileImage && (
+                <Image
+                  w={{ base: "8", md: "12" }}
+                  src={userInfo?.profileImage || ""}
+                />
+              )}
+            </HStack>
             <Divider />
             <Stack spacing={7} fontSize={{ base: "lg", md: "xl" }}>
               <HStack justify={"space-between"}>
                 <Text>이름</Text>
                 <Text>{userInfo?.name}</Text>
               </HStack>
-              <HStack justify={"space-between"}>
-                <Text>프로필 이미지 등록</Text>
-                <Input
-                  type={"file"}
-                  ref={imageRef}
-                  onChange={handleChange}
-                  accept="image/*"
-                  display={"none"}
-                />
-                <Button size={"sm"} onClick={() => imageRef.current?.click()}>
-                  변경하기
-                </Button>
-              </HStack>
+              {userInfo?.type === "0" && (
+                <HStack justify={"space-between"}>
+                  <Text>프로필 이미지 등록</Text>
+                  <Input
+                    type={"file"}
+                    ref={imageRef}
+                    onChange={handleChange}
+                    accept="image/*"
+                    display={"none"}
+                  />
+                  <Button size={"sm"} onClick={updateProfileImage}>
+                    변경하기
+                  </Button>
+                </HStack>
+              )}
               {/* <HStack justify={"space-between"}>
                 <Text>연락처</Text>
                 <HStack spacing={0}>
@@ -153,7 +158,7 @@ export const Mypage = () => {
                 textAlign={"left"}
                 onClick={() => {
                   if (window.confirm("탈퇴하시겠습니까?")) {
-                    delUser(currentUser);
+                    delUser(userInfo?.uid);
                     window.location.href = "/";
                   }
                 }}
