@@ -27,7 +27,11 @@ import {
   CheckboxCardGroup,
 } from "../../../Application/FormElements/CheckboxCardGroup/CheckboxCardGroup";
 import { cities, districts } from "./data";
-import { addDocument } from "../../Firebase/Database";
+import {
+  addDocument,
+  setDocument,
+  updateDocument,
+} from "../../Firebase/Database";
 import { SelectButton } from "../../Component/SelectButton";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -36,28 +40,6 @@ interface UserData {
     id: string; // 유저정보
     name: string; // 이름
     profileImage: string; // 이미지
-    // step1
-    shelter: string; // 요양시설
-    city: string; // 시
-    dong: string; // 동
-    rank: string; // 요양시설 등급
-    size: string; // 요양시설 크기
-    //step2
-    grade: string; // 요양비용
-    program: string; // 요양프로그램
-    //step3
-    senior_name: string; // 어르신 성함
-    senior_age: string; // 어르신 연세
-    care_grade: string; // 노인장기요양등급
-    need_help_meal: string; // 식사도움여부
-    need_help_brushing_teeth: string; // 양치도움여부
-    physical_condition: string; // 불편한 신체부위
-    problem: string; // 질병또는 지병
-    nursing_time: string; // 간병시간
-    price: string; // 간병비용
-    experience: string; // 시설 경험
-    //step4
-    agreement: boolean; // 개인정보 이용동의
   };
 }
 
@@ -74,22 +56,49 @@ export const Consulting = (props: UserData) => {
   }, [userInfo]);
 
   // FormData에 저장된 내용 addDoc으로 firebase에 문서 추가
-  const handleSubmit = () => {
-    console.log(formData, userInfo.id);
-    addDocument("consulting", {
-      ...formData,
-      uid: userInfo.id,
-      userName: userInfo.name,
-      userProfile: userInfo?.profileImage ? userInfo?.profileImage : "",
-    }).then(() => {
+  const handleSubmitStep = async () => {
+    setStep(step + 1);
+  };
+
+  const handleSubmit = async () => {
+    if (!userInfo) {
       toast({
-        title: "상담 내용을 제출합니다.",
-        status: "success",
+        title: "유저 정보를 가져오지 못했습니다.",
+        status: "error",
         duration: 3000,
         isClosable: true,
       });
-    });
-    console.log(formData);
+      return;
+    }
+
+    console.log(formData, userInfo.id);
+    await addDocument("consulting", {
+      ...formData,
+      uid: userInfo.id,
+      userName: userInfo.name,
+      userProfile: userInfo.profileImage ? userInfo.profileImage : "",
+    })
+      .then(() => {
+        toast({
+          title: "상담을 제출합니다.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: "상담을 제출하는 중에 오류가 발생했습니다.",
+          description: error.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const handlePrevStep = () => {
+    setStep(step - 1);
   };
 
   return (
@@ -103,7 +112,10 @@ export const Consulting = (props: UserData) => {
           "개인정보 이용동의",
         ]}
       />
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        // onSubmit={handleSubmitStep}
+      >
         <Stack maxW={"2xl"} mx="auto" py={{ base: "2", md: "4" }}>
           {step === 1 && (
             <Step1 formData={formData} setFormData={setFormData} />
@@ -122,20 +134,20 @@ export const Consulting = (props: UserData) => {
           <ButtonGroup size="lg" colorScheme="blue">
             <Button
               variant={"outline"}
-              onClick={() => setStep(step - 1)}
+              onClick={handlePrevStep}
               display={step === 1 ? "none" : "block"}
             >
               이전단계로
             </Button>
-            {step !== 4 ? (
-              <Button type="button" onClick={() => setStep(step + 1)}>
-                저장하고 다음단계로
-              </Button>
-            ) : (
-              <Button onClick={handleSubmit}>
-                동의하고 무료 상담 신청하기
-              </Button>
-            )}
+            <Button
+              onClick={step === 4 ? handleSubmit : () => setStep(step + 1)}
+              type="button"
+              // onClick={handleSubmitStep}
+            >
+              {step === 4
+                ? "동의하고 무료 상담 신청하기"
+                : "저장하고 다음단계로"}
+            </Button>
           </ButtonGroup>
         </Stack>
       </form>
@@ -172,7 +184,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 선택
             </FormLabel>
@@ -187,7 +199,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               지역 선택
             </FormLabel>
@@ -260,7 +272,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 등급
             </FormLabel>
@@ -278,7 +290,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 크기
             </FormLabel>
@@ -306,7 +318,7 @@ export const Step2 = ({ formData, setFormData }: StepConsultingProps) => {
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양비용
             </FormLabel>
@@ -325,7 +337,7 @@ export const Step2 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양프로그램 선택
             </FormLabel>
@@ -364,7 +376,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               어르신 성함 입력
             </FormLabel>
@@ -377,7 +389,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               연세 선택
             </FormLabel>
@@ -390,7 +402,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               노인장기요양등급
             </FormLabel>
@@ -411,7 +423,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               혼자서 식사가 가능하신가요?
             </FormLabel>
@@ -424,7 +436,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               혼자서 양치질이 가능하신가요?
             </FormLabel>
@@ -440,7 +452,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               스스로 몸을 움직이셨을 때 불편하신 부분이 있으신가요?
             </FormLabel>
@@ -462,7 +474,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               앓고 있는 질병이나 증상을 적어주세요.
             </FormLabel>
@@ -475,7 +487,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               필요한 간병 시간은 몇시간인가요?
             </FormLabel>
@@ -492,7 +504,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               월 예상 간병비는 얼마인가요?
             </FormLabel>
@@ -512,7 +524,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 경험이 있으신가요?
             </FormLabel>
@@ -534,7 +546,7 @@ export const Step4 = ({ formData, setFormData }: StepConsultingProps) => {
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               개인정보 수집, 제공
             </FormLabel>

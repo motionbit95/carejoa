@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { MdClose } from "react-icons/md";
 import { deleteDocument } from "../../../Firebase/Database";
+import { useState } from "react";
 
 export const ListCard = ({ ...props }) => {
   // List(유저) - 상담 신청작성 후 생성된 리스트 Component
@@ -33,10 +34,16 @@ export const ListCard = ({ ...props }) => {
     event.stopPropagation();
 
     if (window.confirm("삭제하시겠습니까?")) {
-      await deleteDocument("consulting", props.id);
-      window.location.reload();
+      if (
+        window.confirm("정말로 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.")
+      ) {
+        await deleteDocument("consulting", props.id);
+        window.location.reload();
+      }
     }
   };
+
+  const [tagState, setTagState] = useState("작성중");
 
   return (
     <Card borderRadius={"xl"} {...props}>
@@ -46,9 +53,16 @@ export const ListCard = ({ ...props }) => {
             {/* <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
               {uid}
             </Text> */}
-            <Tag bgColor={"blue.100"} color={"blue.800"}>
-              작성중
-            </Tag>
+            {/* 신청서를 작성중 일 때 작성중, 신청서 완료시 신청완료, 견적 및 상담 받았을 때 상담완료 태그 */}
+            {tagState === "작성중" ? (
+              <Tag colorScheme="red">작성중</Tag>
+            ) : tagState === "신청완료" ? (
+              <Tag colorScheme="blue">신청완료</Tag>
+            ) : tagState === "상담완료" ? (
+              <Tag colorScheme="green">상담완료</Tag>
+            ) : (
+              <Tag colorScheme="yellow">삭제된 상담입니다</Tag>
+            )}
           </HStack>
         </Flex>
         <Stack
@@ -86,10 +100,13 @@ export const ListCard = ({ ...props }) => {
               수정하기
             </Button>
             <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                alert("삭제하시겠습니까?");
-              }}
+              onClick={
+                handleDelete
+                //   (e) => {
+                //   e.stopPropagation();
+                //   alert("삭제하시겠습니까?");
+                // }
+              }
             >
               삭제하기
             </Button>
