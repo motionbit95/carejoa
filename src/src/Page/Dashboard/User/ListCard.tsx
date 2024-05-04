@@ -29,6 +29,7 @@ export const ListCard = ({ ...props }) => {
     size = "",
     shelter = "",
     program = "",
+    state = 0,
   } = props;
 
   // 작성중, 상담완료 태그 일때만 삭제 가능하게. 상담신청완료, 상담도착, 상담후기작성에서는 삭제 불가능
@@ -45,7 +46,7 @@ export const ListCard = ({ ...props }) => {
     }
   };
 
-  const [tagState, setTagState] = useState("작성중");
+  const [tagState, setTagState] = useState(state);
 
   return (
     <Card borderRadius={"xl"} {...props}>
@@ -56,11 +57,11 @@ export const ListCard = ({ ...props }) => {
               {uid}
             </Text> */}
             {/* 신청서를 작성중 일 때 작성중, 신청서 완료시 신청완료, 견적 및 상담 받았을 때 상담완료 태그 */}
-            {tagState === "작성중" ? (
+            {tagState === 0 ? (
               <Tag colorScheme="red">작성중</Tag>
-            ) : tagState === "신청완료" ? (
+            ) : tagState === 1 ? (
               <Tag colorScheme="blue">신청완료</Tag>
-            ) : tagState === "상담완료" ? (
+            ) : tagState === 2 ? (
               <Tag colorScheme="green">상담완료</Tag>
             ) : (
               <Tag colorScheme="yellow">삭제된 상담입니다</Tag>
@@ -98,7 +99,7 @@ export const ListCard = ({ ...props }) => {
               onClick={(e) => {
                 e.stopPropagation();
                 alert("수정하시겠습니까?");
-                props.onClick();
+                props.onModify();
               }}
               bgColor={"gray.100"}
               color={"gray.500"}

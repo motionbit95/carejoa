@@ -59,7 +59,7 @@ export const Step = (props: StepProps) => {
         // pb={isMobile && !isLastStep ? "8" : "0"}
         align={"center"}
       >
-        <Text fontSize={{ base: "11px", sm: "sm", md: "md" }}>{title}</Text>
+        <Text fontSize={{ base: "10px", sm: "xs", md: "sm" }}>{title}</Text>
       </Stack>
     </Stack>
   );

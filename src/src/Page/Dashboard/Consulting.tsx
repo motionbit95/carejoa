@@ -70,13 +70,14 @@ export const Consulting = ({ ...props }) => {
     }
 
     console.log(formData, userInfo.id);
-    if (step === 1) {
+    if (step === 1 && !consultingId) {
       // 상담 제일 첫 스텝에서 addDoc을 하고 상담 id를 받아옵니다.
       await addDocument("consulting", {
         ...formData,
         uid: userInfo.id,
         userName: userInfo.name,
         userProfile: userInfo.profileImage ? userInfo.profileImage : "",
+        state: 0, // 작성중
       })
         .then(async (ret: string) => {
           setConsultingId(ret);
@@ -90,22 +91,32 @@ export const Consulting = ({ ...props }) => {
             isClosable: true,
           });
         });
+    } else if (step === 4) {
+      // 최종 저장
+      await setDocument("consulting", consultingId, {
+        ...formData,
+        state: 1, // 작성 완료
+      })
+        .then(async () => {
+          console.log("문서에 데이터를 추가합니다.");
+          toast({
+            title: "상담을 제출합니다.",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+
+          // TODO - 상담 내역 리스트로 페이지 이동
+        })
+        .catch(async (error) => {
+          console.error("문서에 데이터를 추가할 수 없습니다. ", error);
+        });
     } else {
       await setDocument("consulting", consultingId, {
         ...formData,
       })
         .then(async () => {
           console.log("문서에 데이터를 추가합니다.");
-          if (step === 4) {
-            toast({
-              title: "상담을 제출합니다.",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            });
-
-            // TODO - 상담 내역 리스트로 페이지 이동
-          }
         })
         .catch(async (error) => {
           console.error("문서에 데이터를 추가할 수 없습니다. ", error);
@@ -134,7 +145,7 @@ export const Consulting = ({ ...props }) => {
       return;
     }
 
-    // handleSubmit();
+    handleSubmit();
 
     setStep(step + 1);
   };
@@ -204,10 +215,10 @@ interface StepConsultingProps {
 
 export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
   const [selectedCity, setSelectedCity] = useState(
-    formData.city ? formData.city : "서울"
+    formData?.city ? formData?.city : "서울"
   );
   const [selectedDong, setSelectedDong] = useState(
-    formData.dong ? formData.dong : "전체"
+    formData?.dong ? formData?.dong : "전체"
   );
 
   useEffect(() => {
@@ -238,7 +249,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
               원하시는 요양시설을 아래에서 선택해주세요.
             </Text>
             <RadioCardGroupContainer
-              defaultValue={formData.shelter}
+              defaultValue={formData?.shelter}
               onChange={(value: any) => {
                 setFormData({ ...formData, shelter: value });
               }}
@@ -331,7 +342,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
               있습니다.
             </Text>
             <RadioButtonGroupContainer
-              defaultValue={formData.rank}
+              defaultValue={formData?.rank}
               onChange={(e: any) => {
                 setFormData({ ...formData, rank: e.target.value });
               }}
@@ -350,7 +361,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
               <Text opacity={0.5}>소형 : 10~30인</Text>
               <Text opacity={0.5}>치매전담형 : 16인 이하</Text>
               <RadioButtonGroupContainer
-                defaultValue={formData.size}
+                defaultValue={formData?.size}
                 onChange={(e: any) => {
                   setFormData({ ...formData, size: e.target.value });
                 }}
@@ -380,7 +391,7 @@ export const Step2 = ({ formData, setFormData }: StepConsultingProps) => {
               원하시는 비용 형태를 선택 하세요.
             </Text>
             <RadioButtonGroupContainer
-              defaultValue={formData.grade}
+              defaultValue={formData?.grade}
               onChange={(e: any) => {
                 setFormData({ ...formData, grade: e.target.value });
               }}
@@ -400,7 +411,7 @@ export const Step2 = ({ formData, setFormData }: StepConsultingProps) => {
               원하시는 프로그램을 선택해주세요.
             </Text>
             <SelectButton
-              defaultValue={formData.program}
+              defaultValue={formData?.program}
               onChange={(value: any) => {
                 setFormData({ ...formData, program: value });
               }}
@@ -434,7 +445,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               어르신 성함 입력
             </FormLabel>
             <Input
-              value={formData.senior_name}
+              value={formData?.senior_name}
               placeholder="성함 입력"
               onChange={(e) =>
                 setFormData({ ...formData, senior_name: e.target.value })
@@ -448,7 +459,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               연세 선택
             </FormLabel>
             <RadioButtonGroupContainer
-              defaultValue={formData.senior_age}
+              defaultValue={formData?.senior_age}
               onChange={(e: any) => {
                 setFormData({ ...formData, senior_age: e.target.value });
               }}
@@ -462,7 +473,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               노인장기요양등급
             </FormLabel>
             <RadioButtonGroupContainer
-              defaultValue={formData.care_grade}
+              defaultValue={formData?.care_grade}
               onChange={(e: any) => {
                 setFormData({ ...formData, care_grade: e.target.value });
               }}
@@ -484,7 +495,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               혼자서 식사가 가능하신가요?
             </FormLabel>
             <RadioButtonGroupContainer
-              defaultValue={formData.need_help_meal}
+              defaultValue={formData?.need_help_meal}
               onChange={(e: any) => {
                 setFormData({ ...formData, need_help_meal: e.target.value });
               }}
@@ -498,7 +509,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               혼자서 양치질이 가능하신가요?
             </FormLabel>
             <RadioButtonGroupContainer
-              defaultValue={formData.need_help_brushing_teeth}
+              defaultValue={formData?.need_help_brushing_teeth}
               onChange={(e: any) => {
                 setFormData({
                   ...formData,
@@ -515,7 +526,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               스스로 몸을 움직이셨을 때 불편하신 부분이 있으신가요?
             </FormLabel>
             <RadioButtonGroupContainer
-              defaultValue={formData.physical_condition}
+              defaultValue={formData?.physical_condition}
               onChange={(e: any) => {
                 setFormData({
                   ...formData,
@@ -538,7 +549,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               앓고 있는 질병이나 증상을 적어주세요.
             </FormLabel>
             <Input
-              value={formData.problem}
+              value={formData?.problem}
               placeholder="암, 치매, 뇌졸증, 고혈압, 당뇨병, 관절염, 심부전, 폐질환..."
               onChange={(e) =>
                 setFormData({ ...formData, problem: e.target.value })
@@ -556,7 +567,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               필수 시간입니다.
             </Text>
             <RadioButtonGroupContainer
-              defaultValue={formData.nursing_time}
+              defaultValue={formData?.nursing_time}
               onChange={(e: any) =>
                 setFormData({ ...formData, nursing_time: e.target.value })
               }
@@ -570,7 +581,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               월 예상 간병비는 얼마인가요?
             </FormLabel>
             <SelectButton
-              defaultValue={formData.price}
+              defaultValue={formData?.price}
               onChange={(value: any) => {
                 setFormData({ ...formData, price: value });
               }}
@@ -591,7 +602,7 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
               요양시설 경험이 있으신가요?
             </FormLabel>
             <RadioButtonGroupContainer
-              defaultValue={formData.experience}
+              defaultValue={formData?.experience}
               onChange={(e: any) =>
                 setFormData({ ...formData, experience: e.target.value })
               }

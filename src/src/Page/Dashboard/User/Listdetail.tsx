@@ -22,13 +22,14 @@ import { UserDetailCard } from "./UserDetailCard";
 export const ListDetail = ({ ...props }) => {
   // List(유저) - 상담 리스트 클릭시 보이는 상세정보 Component
 
-  const [tagState, setTagState] = useState("작성중");
+  const [tagState, setTagState] = useState(props.state);
   return (
     <Box as="section">
       <Topbar
         menu="상담 상세정보"
         buttons={["삭제하기", "수정하기"]}
         isbackstack
+        onclick={props.onclick}
       />
       <Stack p={"4"}>
         <Flex
@@ -38,7 +39,7 @@ export const ListDetail = ({ ...props }) => {
           justify="space-between"
         >
           <Stack
-            minW={{ base: "full", lg: "700px" }}
+            // minW={{ base: "full", lg: "700px" }}
             flex={3}
             bgColor={"bg.surface"}
             borderRadius={"xl"}
@@ -47,11 +48,11 @@ export const ListDetail = ({ ...props }) => {
           >
             <Stack spacing={6} mb={7}>
               <Box>
-                {tagState === "작성중" ? (
+                {tagState === 0 ? (
                   <Tag colorScheme="red">작성중</Tag>
-                ) : tagState === "신청완료" ? (
+                ) : tagState === 1 ? (
                   <Tag colorScheme="blue">신청완료</Tag>
-                ) : tagState === "상담완료" ? (
+                ) : tagState === 2 ? (
                   <Tag colorScheme="green">상담완료</Tag>
                 ) : (
                   <Tag colorScheme="yellow">삭제된 상담입니다</Tag>
@@ -61,6 +62,7 @@ export const ListDetail = ({ ...props }) => {
                 {props.createdAt.toDate().toLocaleDateString()}
               </Text>
               <StepsWithCirclesAndText
+                currentStep={tagState + 1}
                 title={[
                   "신청서작성",
                   "상담신청완료",

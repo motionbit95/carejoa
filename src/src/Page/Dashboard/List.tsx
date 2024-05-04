@@ -90,6 +90,9 @@ export const List = ({ ...props }) => {
                         setSelectedConsulting(consulting);
                         setConsultingDetail(true);
                       }}
+                      onModify={() => {
+                        props.onclick("consulting", consulting);
+                      }}
                     />
                   ))}
               </SimpleGrid>
@@ -129,7 +132,10 @@ export const List = ({ ...props }) => {
         <>
           {consultingDetail && (
             // 유저가 신청한 상세 상담 정보로 이동
-            <ListDetail {...selectedConsulting} />
+            <ListDetail
+              {...selectedConsulting}
+              onclick={() => props.onclick("consulting", selectedConsulting)}
+            />
           )}
           {userDetail && (
             <>

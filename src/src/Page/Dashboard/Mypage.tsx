@@ -39,6 +39,9 @@ export const Mypage = ({ ...props }) => {
         await updateDocument("users", userInfo.id, { profileImage: url });
 
         console.log("정상적으로 업데이트 완료", userInfo);
+
+        // 새로고침
+        window.location.reload();
       } catch (error) {
         console.log("업데이트 중 오류 발생", error);
       }

@@ -12,11 +12,26 @@ import {
 } from "@chakra-ui/react";
 import { ToggleButton } from "./ToggleButton";
 import { BsChevronLeft } from "react-icons/bs";
+import { deleteDocument } from "../../Firebase/Database";
 
 export const Topbar = ({ ...props }) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
   const mobileNavbar = useDisclosure();
   const { menu, buttons, isbackstack, navigations, isNav } = props;
+
+  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
+    if (window.confirm("삭제하시겠습니까?")) {
+      if (
+        window.confirm("정말로 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.")
+      ) {
+        await deleteDocument("consulting", props.id);
+        window.location.reload();
+      }
+    }
+  };
+
   return (
     <Box as="section">
       <Box borderBottomWidth="1px" bg="bg.surface">
@@ -60,8 +75,10 @@ export const Topbar = ({ ...props }) => {
                 </ButtonGroup>
               ) : (
                 <ButtonGroup size="lg" spacing="4">
-                  <Button variant="outline">{buttons[0]}</Button>
-                  <Button>{buttons[1]}</Button>
+                  <Button onClick={handleDelete} variant="outline">
+                    {buttons[0]}
+                  </Button>
+                  <Button onClick={props.onclick}>{buttons[1]}</Button>
                 </ButtonGroup>
               )}
             </HStack>

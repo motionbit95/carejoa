@@ -37,7 +37,15 @@ function Dashboard(props) {
           />
         );
       case "list":
-        return <List userInfo={props.userInfo} />;
+        return (
+          <List
+            userInfo={props.userInfo}
+            onclick={(menu, data) => {
+              setConsultingData(data);
+              setSelectedMenu(menu);
+            }}
+          />
+        );
       case "mypage":
         return <Mypage userInfo={props.userInfo} />;
       case "createEstimate":
