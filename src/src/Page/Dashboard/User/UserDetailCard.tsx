@@ -5,7 +5,7 @@ export const UserDetailCard = ({ ...props }) => {
   // ListDetail(유저) - 유저 상세 정보 Component (기관이 가져다 사용할 수 있음)
   const {
     id = "",
-    sheter = "",
+    shelter = "",
     city = "",
     dong = "",
     rank = "",
@@ -54,7 +54,7 @@ export const UserDetailCard = ({ ...props }) => {
           <HStack justify={"space-between"}>
             <Text fontWeight={"bold"}>요양시설</Text>
             {/* <Text>요양병원</Text> */}
-            <Text>{sheter}</Text>
+            <Text>{shelter}</Text>
           </HStack>
           <HStack justify={"space-between"}>
             <Text fontWeight={"bold"}>지역</Text>

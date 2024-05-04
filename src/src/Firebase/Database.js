@@ -24,21 +24,29 @@ import { db } from "./Config";
 
 // 문서 생성
 export const addDocument = async (collectionName, data) => {
+  console.log(collectionName, data);
+
+  let consulting_id = "";
   // Add a new document with a generated id.
   console.log(data);
-  const docRef = await addDoc(collection(db, collectionName), {
+  await addDoc(collection(db, collectionName), {
     ...data,
     createdAt: serverTimestamp(),
   })
-    .then(() => {
+    .then(async (doc) => {
       console.log(
         `[${collectionName}]에 문서가 성공적으로 생성되었습니다 : `,
-        docRef.id
+        // docRef.id
+        doc.id
       );
+
+      consulting_id = doc.id;
     })
-    .catch((error) => {
+    .catch(async (error) => {
       console.error("문서 생성 중 오류 발생 : ", error);
     });
+
+  return consulting_id;
 };
 
 // 문서 생성
@@ -49,7 +57,7 @@ export const setDocument = async (collectionName, id, data) => {
   })
     .then(() => {
       console.log(
-        `[${collectionName}]에 문서가 성공적으로 생성되었습니다 : `,
+        `[${collectionName}]에 문서가 성공적으로 세팅되었습니다 : `,
         id
       );
     })

@@ -21,6 +21,8 @@ import { UserDetailCard } from "./UserDetailCard";
 
 export const ListDetail = ({ ...props }) => {
   // List(유저) - 상담 리스트 클릭시 보이는 상세정보 Component
+
+  const [tagState, setTagState] = useState("작성중");
   return (
     <Box as="section">
       <Topbar
@@ -45,7 +47,15 @@ export const ListDetail = ({ ...props }) => {
           >
             <Stack spacing={6} mb={7}>
               <Box>
-                <Tag>작성중</Tag>
+                {tagState === "작성중" ? (
+                  <Tag colorScheme="red">작성중</Tag>
+                ) : tagState === "신청완료" ? (
+                  <Tag colorScheme="blue">신청완료</Tag>
+                ) : tagState === "상담완료" ? (
+                  <Tag colorScheme="green">상담완료</Tag>
+                ) : (
+                  <Tag colorScheme="yellow">삭제된 상담입니다</Tag>
+                )}
               </Box>
               <Text fontWeight={"bold"} fontSize={"lg"}>
                 {props.createdAt.toDate().toLocaleDateString()}

@@ -49,6 +49,7 @@ export const Consulting = (props: UserData) => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const [consultingId, setConsultingId] = useState("");
 
   // 유저 정보(uid)를 consulting 페이지에 가져오기
   useEffect(() => {
@@ -56,10 +57,6 @@ export const Consulting = (props: UserData) => {
   }, [userInfo]);
 
   // FormData에 저장된 내용 addDoc으로 firebase에 문서 추가
-  const handleSubmitStep = async () => {
-    setStep(step + 1);
-  };
-
   const handleSubmit = async () => {
     if (!userInfo) {
       toast({
@@ -72,33 +69,73 @@ export const Consulting = (props: UserData) => {
     }
 
     console.log(formData, userInfo.id);
-    await addDocument("consulting", {
-      ...formData,
-      uid: userInfo.id,
-      userName: userInfo.name,
-      userProfile: userInfo.profileImage ? userInfo.profileImage : "",
-    })
-      .then(() => {
-        toast({
-          title: "상담을 제출합니다.",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
+    if (step === 1) {
+      // 상담 제일 첫 스텝에서 addDoc을 하고 상담 id를 받아옵니다.
+      await addDocument("consulting", {
+        ...formData,
+        uid: userInfo.id,
+        userName: userInfo.name,
+        userProfile: userInfo.profileImage ? userInfo.profileImage : "",
       })
-      .catch((error) => {
-        toast({
-          title: "상담을 제출하는 중에 오류가 발생했습니다.",
-          description: error.message,
-          status: "error",
-          duration: 3000,
-          isClosable: true,
+        .then(async (ret: string) => {
+          setConsultingId(ret);
+        })
+        .catch(async (error) => {
+          toast({
+            title: "상담을 제출하는 중에 오류가 발생했습니다.",
+            description: error.message,
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
         });
-      });
+    } else {
+      await setDocument("consulting", consultingId, {
+        ...formData,
+      })
+        .then(async () => {
+          console.log("문서에 데이터를 추가합니다.");
+          if (step === 4) {
+            toast({
+              title: "상담을 제출합니다.",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+            });
+
+            // TODO - 상담 내역 리스트로 페이지 이동
+          }
+        })
+        .catch(async (error) => {
+          console.error("문서에 데이터를 추가할 수 없습니다. ", error);
+        });
+    }
   };
 
   const handlePrevStep = () => {
     setStep(step - 1);
+  };
+
+  // 에러를 확인하고 다음 스텝으로 이동합니다.
+  const saveStepData = () => {
+    console.log(formData);
+
+    let ret = checkValidData({ ...formData, step: step });
+    console.log(ret);
+    if (ret) {
+      console.log("검증 중 오류가 발생했습니다.");
+      toast({
+        title: ret,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    // handleSubmit();
+
+    setStep(step + 1);
   };
 
   return (
@@ -140,7 +177,11 @@ export const Consulting = (props: UserData) => {
               이전단계로
             </Button>
             <Button
-              onClick={step === 4 ? handleSubmit : () => setStep(step + 1)}
+              onClick={
+                step === 4
+                  ? handleSubmit
+                  : () => saveStepData() /*setStep(step + 1)*/
+              }
               type="button"
               // onClick={handleSubmitStep}
             >
@@ -598,4 +639,69 @@ export const Step4 = ({ formData, setFormData }: StepConsultingProps) => {
       </Stack>
     </Container>
   );
+};
+
+const checkValidData = ({ ...props }) => {
+  let errorMsg = "";
+  switch (props.step.toString()) {
+    case "1":
+      if (!props.shelter) {
+        errorMsg = "요양시설을 선택해주세요!";
+      }
+      if (props.dong == "전체") {
+        errorMsg = "지역를 선택해주세요!";
+      }
+      if (!props.rank) {
+        errorMsg = "요양시설 등급을 선택해주세요!";
+      }
+      if (!props.size) {
+        errorMsg = "요양시설 크기를 선택해주세요!";
+      }
+      break;
+    case "2":
+      if (!props.grade) {
+        errorMsg = "요양비용을 선택해주세요!";
+      }
+      if (!props.program) {
+        errorMsg = "요양프로그램을 하나라도 선택해주세요!";
+      }
+      break;
+    case "3":
+      if (!props.senior_name) {
+        errorMsg = "어르신 성함을 입력해주세요!";
+      }
+      if (!props.senior_age) {
+        errorMsg = "연세를 선택해주세요!";
+      }
+      if (!props.care_grade) {
+        errorMsg = "노인장기요양등급을 선택해주세요!";
+      }
+      if (!props.need_help_meal) {
+        errorMsg = "혼자 식사가 가능한지 확인해주세요!";
+      }
+      if (!props.need_help_brushing_teeth) {
+        errorMsg = "혼자 양치질이 가능하신지 확인해주세요!";
+      }
+      if (!props.problem) {
+        errorMsg = "앓고있는 질병이나 증상을 적어주세요.";
+      }
+      if (!props.nursing_time) {
+        errorMsg = "지원이 필요한 간병시간을 선택해주세요!";
+      }
+      if (!props.price) {
+        errorMsg = "예상 간병비를 선택해주세요!";
+      }
+      if (!props.experience) {
+        errorMsg = "요양시설 경험 유무를 선택해주세요!";
+      }
+      break;
+    case "4":
+      break;
+    default:
+      break;
+  }
+
+  console.log("checkValidData : ", errorMsg);
+
+  return errorMsg;
 };
