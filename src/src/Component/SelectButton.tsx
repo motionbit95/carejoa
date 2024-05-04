@@ -2,7 +2,9 @@ import { Button, SimpleGrid, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export const SelectButton = ({ ...props }) => {
-  const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
+  const [selectedButtons, setSelectedButtons] = useState<string[]>(
+    props.defaultValue ? props.defaultValue : []
+  );
   const { options, multiple } = props;
 
   const handleButtonClick = (option: string) => {

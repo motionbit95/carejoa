@@ -13,17 +13,22 @@ function Dashboard(props) {
     localStorage.getItem("menu") ? localStorage.getItem("menu") : "home"
   );
 
+  const [consultingData, setConsultingData] = useState(null);
+
   const getPage = () => {
     switch (selectedMenu) {
       case "home":
         return (
           <Home
             userInfo={props.userInfo}
-            onclick={(menu) => setSelectedMenu(menu)}
+            onclick={(menu, data) => {
+              setConsultingData(data);
+              setSelectedMenu(menu);
+            }}
           />
         );
       case "consulting":
-        return <Consulting userInfo={props.userInfo} />;
+        return <Consulting userInfo={props.userInfo} data={consultingData} />;
       case "estimate":
         return (
           <Estimate

@@ -144,6 +144,9 @@ export const Home = ({ ...props }) => {
                       bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
                       key={index}
                       {...consulting}
+                      onClick={() => {
+                        props.onclick("consulting", consulting);
+                      }}
                       // onClick={() => {
                       //   setLastConsultList(consulting);
                       //   setConsultingDetail(true);

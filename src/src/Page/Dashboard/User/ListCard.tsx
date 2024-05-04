@@ -3,6 +3,7 @@ import {
   ButtonGroup,
   Card,
   CardBody,
+  Divider,
   Flex,
   HStack,
   Icon,
@@ -11,6 +12,7 @@ import {
   StackDivider,
   Tag,
   Text,
+  Wrap,
 } from "@chakra-ui/react";
 import { MdClose } from "react-icons/md";
 import { deleteDocument } from "../../../Firebase/Database";
@@ -78,14 +80,17 @@ export const ListCard = ({ ...props }) => {
               {city} {dong}
             </Text>
           </HStack>
-          <HStack divider={<StackDivider />}>
+          <Wrap align={"center"}>
             <Text>{grade}</Text>
+            <Divider orientation="vertical" h={4} />
             <Text>{size}</Text>
+            <Divider orientation="vertical" h={4} />
             <Text>{shelter}</Text>
+            <Divider orientation="vertical" h={4} />
             <Text>
               {program[0]} {program[1]} {program[2]}
             </Text>
-          </HStack>
+          </Wrap>
         </Stack>
         <Stack align={"end"}>
           <ButtonGroup p={{ base: "1", md: "2" }}>
@@ -93,6 +98,7 @@ export const ListCard = ({ ...props }) => {
               onClick={(e) => {
                 e.stopPropagation();
                 alert("수정하시겠습니까?");
+                props.onClick();
               }}
               bgColor={"gray.100"}
               color={"gray.500"}
