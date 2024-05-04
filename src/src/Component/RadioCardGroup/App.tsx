@@ -1,12 +1,14 @@
 import { Box, Container, Text } from "@chakra-ui/react";
 import { RadioCard, RadioCardGroup } from "./RadioCardGroup";
 import { shelters } from "../../Page/Dashboard/data";
+import React from "react";
 
 export const RadioCardGroupContainer = ({ ...props }) => {
+  const { defaultValue } = props;
   return (
     <Box as="section" py={{ base: "4", md: "8" }}>
       <Container>
-        <RadioCardGroup spacing="3">
+        <RadioCardGroup spacing="3" value={defaultValue}>
           {shelters.map((shelter, id) => (
             <RadioCard
               key={id}

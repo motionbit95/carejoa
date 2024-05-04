@@ -6,7 +6,12 @@ export const RadioButtonGroupContainer = ({ ...props }) => (
     {/* <Container> */}
     <SimpleGrid spacing="5">
       {["lg"].map((size) => (
-        <RadioButtonGroup w={"full"} key={size} size={size}>
+        <RadioButtonGroup
+          w={"full"}
+          key={size}
+          size={size}
+          value={props.defaultValue}
+        >
           {props.list?.map((item: string) => (
             <RadioButton flex={1} key={item} value={item}>
               {item}
