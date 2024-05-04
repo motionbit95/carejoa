@@ -24,15 +24,17 @@ import { CareInput } from "../../Component/CareInput";
 import { CalculateInput } from "../../Component/CalculateInput";
 import { HiUpload } from "react-icons/hi";
 import { SelectButton } from "../../Component/SelectButton";
-import { addDocument } from "../../Firebase/Database";
+import { addDocument, setDocument } from "../../Firebase/Database";
 
 import { searchDocument } from "../../Firebase/Database";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../../Firebase/Config";
 import { EstimateList } from "./Estimate/EstimateList";
 import { LabelInput } from "../../Component/LabelInput";
+import { AddressInput } from "../../Component/MInput";
 
 export const Estimate = ({ ...props }) => {
+  console.log(props);
   const [estimateList, setEstimateList] = useState<any>([]);
 
   const { userInfo } = props;
@@ -51,6 +53,13 @@ export const Estimate = ({ ...props }) => {
       });
     }
   }, [userInfo]);
+
+  const handleCopy = (data: any) => {
+    addDocument("estimate", { ...data, uid: userInfo.id }).then(() => {
+      alert("견적서 복사가 완료되었습니다.");
+      window.location.reload();
+    });
+  };
 
   return (
     <Box as="section">
@@ -77,6 +86,8 @@ export const Estimate = ({ ...props }) => {
                   bgColor={index % 2 === 0 ? "#EBF8FF" : "#F5F6F8"}
                   key={index}
                   {...estimate}
+                  onModify={() => props.onclick("createEstimate", estimate)}
+                  onCopy={() => handleCopy(estimate)}
                 />
               ))}
           </SimpleGrid>
@@ -109,28 +120,41 @@ interface EstimateData {
   };
 }
 
-export const CreateEstimate = (props: EstimateData) => {
+export const CreateEstimate = ({ ...props }) => {
   // Estimate(기관) - 견적 생성 페이지
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const toast = useToast();
 
-  const { userInfo } = props;
+  const { userInfo, data } = props;
   useEffect(() => {
-    console.log("견적 기관정보", userInfo);
-  }, [userInfo]);
+    // console.log("견적 기관정보", userInfo);
+    console.log("견적 정보", data);
+    setFormData(data);
+  }, [userInfo, data]);
 
   const handleSubmit = () => {
-    console.log(formData);
-    addDocument("estimate", { ...formData, uid: userInfo.id }).then(() => {
-      toast({
-        title: "견적 내용을 제출합니다.",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
+    if (formData.hasOwnProperty("id")) {
+      console.log("견적 내용을 수정합니다.");
+      setDocument("estimate", data.id, formData).then(() => {
+        toast({
+          title: "견적 내용이 수정되었습니다.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       });
-    });
-    console.log(formData);
+    } else {
+      addDocument("estimate", { ...formData, uid: userInfo.id }).then(() => {
+        toast({
+          title: "견적 내용을 제출합니다.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      });
+      console.log(formData);
+    }
   };
 
   return (
@@ -224,6 +248,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               요양시설 이름 입력
             </FormLabel>
             <Input
+              value={formData.shelter_name}
               placeholder="이름 입력"
               onChange={(e) =>
                 setFormData({ ...formData, shelter_name: e.target.value })
@@ -249,9 +274,13 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
                 display={"none"}
               />
               <HStack justify={"center"} align={"center"}>
-                {imagPreview && (
+                {(imagPreview || formData.shelter_image) && (
                   <Image
-                    src={imagPreview as string}
+                    src={
+                      (imagPreview as string)
+                        ? imagPreview
+                        : formData.shelter_image
+                    }
                     alt={"shelter image"}
                     w={"100px"}
                     h={"100px"}
@@ -270,13 +299,19 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               주소 입력
             </FormLabel>
             <Text opacity={0.5}>요양시설의 주소를 입력해주세요.</Text>
-            <Stack>
+            <AddressInput
+              street={formData.street}
+              zonecode={formData.zonecode}
+              address={formData.address}
+              onChange={(data: any) => setFormData({ ...formData, ...data })}
+            />
+            {/* <Stack>
               <HStack>
                 <Input placeholder="주소 입력" />
                 <Button>주소검색</Button>
               </HStack>
               <Input placeholder="상세주소" />
-            </Stack>
+            </Stack> */}
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
@@ -288,6 +323,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               상담 연락이 가능한 요양시설의 전화번호를 입력해주세요.
             </Text>
             <Input
+              value={formData.shelter_tel}
               placeholder="전화번호 입력"
               onChange={(e) =>
                 setFormData({ ...formData, shelter_tel: e.target.value })
@@ -306,6 +342,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               있습니다.
             </Text>
             <RadioButtonGroupContainer
+              defaultValue={formData.shelter_rank}
               onChange={(e: any) => {
                 setFormData({ ...formData, shelter_rank: e.target.value });
               }}
@@ -324,6 +361,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               <Text opacity={0.5}>소형 : 10~30인</Text>
               <Text opacity={0.5}>치매전담형 : 16인 이하</Text>
               <RadioButtonGroupContainer
+                defaultValue={formData.shelter_size}
                 onChange={(e: any) => {
                   setFormData({ ...formData, shelter_size: e.target.value });
                 }}
@@ -338,6 +376,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               특화영역
             </FormLabel>
             <RadioButtonGroupContainer
+              defaultValue={formData.shelter_specialization}
               onChange={(e: any) => {
                 setFormData({
                   ...formData,
@@ -354,6 +393,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               설립일자
             </FormLabel>
             <Input
+              value={formData.establishment_date}
               type="date"
               onChange={(e) =>
                 setFormData({ ...formData, establishment_date: e.target.value })
@@ -393,18 +433,21 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
             </FormLabel>
             <Stack pt={"2"}>
               <CareInput
+                value={formData.의사}
                 id="doctor"
                 label="의사"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.치과의사}
                 id="dentist"
                 label="치과의사"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.한의사}
                 id="dkom"
                 label="한의사"
                 count="명"
@@ -420,12 +463,14 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
             </FormLabel>
             <Stack pt={"2"}>
               <CareInput
+                value={formData.내과}
                 id="medicine"
                 label="내과"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.재활의학과}
                 id="rehabilitation"
                 label="재활의학과"
                 count="명"
@@ -433,24 +478,28 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
                 s
               />
               <CareInput
+                value={formData.가정의학과}
                 id="family"
                 label="가정의학과"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.신경외과}
                 id="neurosurgery"
                 label="신경외과"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.한방내과}
                 id="Oriental"
                 label="한방내과"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.침구과}
                 id="bedclothes"
                 label="침구과"
                 count="명"
@@ -466,18 +515,21 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
             </FormLabel>
             <Stack pt={"2"}>
               <CareInput
+                value={formData.물리치료사}
                 id="physical_therapist"
                 label="물리치료사"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.작업치료사}
                 id="occupational_therapist"
                 label="작업치료사"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.물리치료실}
                 id="physical_therapyroom"
                 label="물리치료실"
                 count="실"
@@ -536,6 +588,7 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
               프로그램을 선택해주세요.
             </Text>
             <SelectButton
+              defaultValue={formData.shelter_program}
               onChange={(value: any) => {
                 setFormData({ ...formData, shelter_program: value });
               }}
@@ -561,18 +614,21 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
             </FormLabel>
             <Stack pt={"2"}>
               <CareInput
+                value={formData.사회복지사}
                 id="physical_therapist"
                 label="사회복지사"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.영양사}
                 id="occupational_therapist"
                 label="영양사"
                 count="명"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.조리사}
                 id="physical_therapyroom"
                 label="조리사"
                 count="명"
@@ -592,6 +648,7 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
               프로그램을 선택해주세요.
             </Text>
             <RadioButtonGroupContainer
+              defaultValue={formData.shelter_grade}
               onChange={(e: any) => {
                 setFormData({ ...formData, shelter_grade: e.target.value });
               }}
@@ -606,18 +663,21 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
             </FormLabel>
             <Stack pt={"2"}>
               <CareInput
+                value={formData.상급병상}
                 id="physical_therapist"
                 label="상급병상"
                 count="개"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.일반병상}
                 id="occupational_therapist"
                 label="일반병상"
                 count="개"
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData.격리병상}
                 id="physical_therapyroom"
                 label="격리병상"
                 count="개"
@@ -638,8 +698,16 @@ export const Step4 = ({ formData, setFormData }: StepEstimateProps) => {
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
-        <CalculateInput title="입원비" onChange={handleCountChange} />
-        <CalculateInput title="식대" onChange={handleCountChange} />
+        <CalculateInput
+          defaultValue={formData.입원비}
+          title="입원비"
+          onChange={handleCountChange}
+        />
+        <CalculateInput
+          defaultValue={formData.식대}
+          title="식대"
+          onChange={handleCountChange}
+        />
         <CalculateInput title="비급여 상급병상" onChange={handleCountChange} />
         <CalculateInput title="비급여 간병비" onChange={handleCountChange} />
       </Stack>

@@ -29,11 +29,15 @@ export const EstimateList = ({ ...props }) => {
   } = props;
 
   const handleModify = () => {
-    alert("수정하기 버튼");
+    if (window.confirm("수정하시겠습니까?")) {
+      props.onModify();
+    }
   };
 
   const handleCopy = () => {
-    alert("복사하기 버튼");
+    if (window.confirm("견적서를 복사하시겠습니까?")) {
+      props.onCopy();
+    }
   };
 
   const handleDelete = async () => {

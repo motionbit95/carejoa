@@ -14,6 +14,7 @@ function Dashboard(props) {
   );
 
   const [consultingData, setConsultingData] = useState(null);
+  const [estimateData, setEstimateData] = useState(null);
 
   const getPage = () => {
     switch (selectedMenu) {
@@ -33,7 +34,10 @@ function Dashboard(props) {
         return (
           <Estimate
             userInfo={props.userInfo}
-            onclick={(menu) => setSelectedMenu(menu)}
+            onclick={(menu, data) => {
+              setEstimateData(data);
+              setSelectedMenu(menu);
+            }}
           />
         );
       case "list":
@@ -49,7 +53,7 @@ function Dashboard(props) {
       case "mypage":
         return <Mypage userInfo={props.userInfo} />;
       case "createEstimate":
-        return <CreateEstimate userInfo={props.userInfo} />;
+        return <CreateEstimate userInfo={props.userInfo} data={estimateData} />;
     }
   };
 

@@ -11,7 +11,7 @@ import { useState } from "react";
 export const CareInput = ({ ...props }) => {
   const { id, label, count, istype } = props;
 
-  const [countValue, setCountValue] = useState("");
+  const [countValue, setCountValue] = useState(props.value ? props.value : "");
 
   const handleCountChange = (e: any) => {
     const newCount = e.target.value;
@@ -40,7 +40,6 @@ export const CareInput = ({ ...props }) => {
             <Input
               type="number"
               placeholder="0"
-              defaultValue={0}
               value={countValue}
               onChange={handleCountChange}
             />

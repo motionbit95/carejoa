@@ -10,7 +10,9 @@ import { useState } from "react";
 
 export const CalculateInput = ({ ...props }) => {
   const { title } = props;
-  const [number, setNumber] = useState<number | undefined>(undefined);
+  const [number, setNumber] = useState<number | undefined>(
+    props.defaultValue ? props.defaultValue : undefined
+  );
   // const [result, setResult] = useState<number | undefined>(undefined);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
