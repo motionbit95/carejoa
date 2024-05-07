@@ -29,7 +29,15 @@ function Dashboard(props) {
           />
         );
       case "consulting":
-        return <Consulting userInfo={props.userInfo} data={consultingData} />;
+        return (
+          <Consulting
+            userInfo={props.userInfo}
+            data={consultingData}
+            onclick={(menu) => {
+              setSelectedMenu(menu);
+            }}
+          />
+        );
       case "estimate":
         return (
           <Estimate
@@ -53,7 +61,15 @@ function Dashboard(props) {
       case "mypage":
         return <Mypage userInfo={props.userInfo} />;
       case "createEstimate":
-        return <CreateEstimate userInfo={props.userInfo} data={estimateData} />;
+        return (
+          <CreateEstimate
+            userInfo={props.userInfo}
+            data={estimateData}
+            onclick={(menu) => {
+              setSelectedMenu(menu);
+            }}
+          />
+        );
     }
   };
 

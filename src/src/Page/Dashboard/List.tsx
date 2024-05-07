@@ -15,8 +15,8 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { ListDetail } from "./User/Listdetail";
 import { useEffect, useState } from "react";
 import { UserData } from "./data";
-import { searchDocument } from "../../Firebase/Database";
-import { collection, query, where } from "firebase/firestore";
+import { getDocument, searchDocument } from "../../Firebase/Database";
+import { Timestamp, collection, query, where } from "firebase/firestore";
 import { db } from "../../Firebase/Config";
 import { UserDetailCard } from "./User/UserDetailCard";
 import { UserMatchList } from "./Estimate/UserMatchList";
@@ -56,12 +56,44 @@ export const List = ({ ...props }) => {
     if (userInfo) {
       const q = query(collection(db, "consulting"));
 
-      searchDocument(q).then(async (data) => {
-        console.log("유저 상담 목록", data);
-        setUserList(data);
+      let userList: any[] = [];
+      searchDocument(q).then(async (data: any) => {
+        data.forEach((element: any) => {
+          getDocument("users", element.uid).then(async (user: any) => {
+            userList.push({ ...element, userprofile: user.profileImage });
+            setUserList(userList);
+          });
+        });
       });
     }
   }, [userInfo]);
+
+  const filterList = (data: any) => {
+    const startTimestamp = Timestamp.fromDate(new Date(data.startDate));
+    const endTimestamp = Timestamp.fromDate(new Date(data.endDate));
+    let q = query(
+      collection(db, "consulting"),
+      where("uid", "==", userInfo.id),
+      where("createdAt", ">=", startTimestamp),
+      where("createdAt", "<=", endTimestamp)
+    );
+
+    if (data.status !== "") {
+      console.log(data.status);
+      q = query(
+        collection(db, "consulting"),
+        where("uid", "==", userInfo.id),
+        where("state", "==", parseInt(data.status)),
+        where("createdAt", ">=", startTimestamp),
+        where("createdAt", "<=", endTimestamp)
+      );
+    }
+
+    searchDocument(q).then(async (data) => {
+      console.log("상담 목록", data);
+      setConsultingList(data);
+    });
+  };
 
   return (
     <Box as="section">
@@ -76,7 +108,7 @@ export const List = ({ ...props }) => {
               상담 목록
             </Text>
           </Flex>
-          <Filter onFilter={(filter) => console.log(filter)} />
+          <Filter onFilter={(filter) => filterList(filter)} />
           <Stack px={"4"} py={{ base: "2", md: "4" }}>
             {userInfo?.type === "0" ? (
               <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4}>
@@ -113,7 +145,7 @@ export const List = ({ ...props }) => {
                   ))}
               </SimpleGrid>
             )}
-            <Flex p={3} gap={6} alignItems={"center"}>
+            {/* <Flex p={3} gap={6} alignItems={"center"}>
               <Icon
                 cursor={"pointer"}
                 as={BsChevronLeft}
@@ -125,7 +157,7 @@ export const List = ({ ...props }) => {
                 as={BsChevronRight}
                 boxSize={{ base: "3", md: "4" }}
               />
-            </Flex>
+            </Flex> */}
           </Stack>
         </Stack>
       ) : (

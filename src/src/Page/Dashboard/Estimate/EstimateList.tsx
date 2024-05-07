@@ -19,6 +19,8 @@ import { db } from "../../../Firebase/Config";
 export const EstimateList = ({ ...props }) => {
   // Estimate(기관) 견적서관리 - 견적서 리스트
   const {
+    street = "",
+    address = "",
     shelter_name = "",
     shelter_address = "",
     shelter_grade = "",
@@ -56,7 +58,7 @@ export const EstimateList = ({ ...props }) => {
               {shelter_name}
             </Text>
             <Tag bgColor={"blue.100"} color={"blue.800"}>
-              {shelter_grade}
+              {shelter_rank}
             </Tag>
           </HStack>
           <IconButton
@@ -76,12 +78,14 @@ export const EstimateList = ({ ...props }) => {
           color={"fg.muted"}
         >
           <HStack divider={<StackDivider />}>
-            <Text>{shelter_address}</Text>
+            <Text>
+              {street} {address}
+            </Text>
           </HStack>
           <HStack divider={<StackDivider />}>
             <Text>{shelter_tel}</Text>
             <Text>{shelter_size}</Text>
-            <Text>{shelter_rank}</Text>
+            {/* <Text>{shelter_rank}</Text> */}
             <Text>
               {shelter_program[0]} {shelter_program[1]} {shelter_program[2]}
             </Text>

@@ -13,16 +13,29 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Topbar } from "../../../Component/TopBar/TopBar";
-import { consultingList } from "../data";
+// import { consultingList } from "../data";
 import { StepsWithCirclesAndText } from "../../../Component/StepsWithCirclesAndText/App";
 import { useEffect, useState } from "react";
 import { MatchCounsultingList } from "./MatchConsultingList";
 import { UserDetailCard } from "./UserDetailCard";
+import { getDocument } from "../../../Firebase/Database";
 
 export const ListDetail = ({ ...props }) => {
   // List(유저) - 상담 리스트 클릭시 보이는 상세정보 Component
 
+  const [consultingList, setConsultingList] = useState<any>([]);
   const [tagState, setTagState] = useState(props.state);
+
+  useEffect(() => {
+    let list: any[] = [];
+    props.estimate?.map((data: any) => {
+      console.log(data);
+      getDocument("estimate", data).then((estimate) => {
+        list.push(estimate);
+        setConsultingList(list);
+      });
+    });
+  }, []);
   return (
     <Box as="section">
       <Topbar
@@ -66,8 +79,8 @@ export const ListDetail = ({ ...props }) => {
                 title={[
                   "신청서작성",
                   "상담신청완료",
-                  "상담도착",
-                  "상담후기작성",
+                  // "상담도착",
+                  // "상담후기작성",
                   "상담완료",
                 ]}
               />
@@ -78,7 +91,7 @@ export const ListDetail = ({ ...props }) => {
                 상담내역
               </Text>
               <SimpleGrid
-                columns={{ base: 1, md: 2, lg: 2 }}
+                columns={{ base: 1, md: 2 }}
                 columnGap={{ base: 2, md: 4 }}
                 rowGap={{ base: 2, md: 4 }}
               >

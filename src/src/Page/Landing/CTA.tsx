@@ -7,7 +7,7 @@ export const CTA = () => (
       <Stack spacing={{ base: "4", md: "5" }} padding={{ base: "4" }}>
         <Stack spacing={{ base: "2", md: "4" }}>
           <Text color="fg.muted" maxW="2xl" fontSize="xl">
-            신뢰할 수 있는 요양병원 상담서비스
+            신뢰할 수 있는 요양서비스
           </Text>
           <Heading size={{ base: "sm", md: "md" }} fontWeight="extrabold">
             케어조아와 함께하세요.

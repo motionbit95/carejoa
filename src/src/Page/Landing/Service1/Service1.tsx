@@ -32,7 +32,7 @@ export const Service1 = () => (
       <Stack alignItems={"center"}>
         <SimpleGrid
           // display={{ base: "none", md: "grid" }}
-          columns={{ base: 1, sm: 2, lg: 4 }}
+          columns={{ base: 2, lg: 4 }}
           columnGap={{ base: 10, md: 16 }}
           rowGap={{ base: 10, md: 16 }}
         >

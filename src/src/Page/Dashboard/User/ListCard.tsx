@@ -57,11 +57,11 @@ export const ListCard = ({ ...props }) => {
               {uid}
             </Text> */}
             {/* 신청서를 작성중 일 때 작성중, 신청서 완료시 신청완료, 견적 및 상담 받았을 때 상담완료 태그 */}
-            {tagState === 0 ? (
+            {state === 0 ? (
               <Tag colorScheme="red">작성중</Tag>
-            ) : tagState === 1 ? (
+            ) : state === 1 ? (
               <Tag colorScheme="blue">신청완료</Tag>
-            ) : tagState === 2 ? (
+            ) : state === 2 ? (
               <Tag colorScheme="green">상담완료</Tag>
             ) : (
               <Tag colorScheme="yellow">삭제된 상담입니다</Tag>

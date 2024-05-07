@@ -1,4 +1,4 @@
-import { Divider, Flex, HStack, Stack, Text } from "@chakra-ui/react";
+import { Button, Divider, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 
 export const UserDetailCard = ({ ...props }) => {

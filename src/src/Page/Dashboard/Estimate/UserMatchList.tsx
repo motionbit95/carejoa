@@ -20,15 +20,22 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { data } from "../data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { searchDocument, updateDocument } from "../../../Firebase/Database";
+import { collection, query, updateDoc, where } from "firebase/firestore";
+import { auth, db } from "../../../Firebase/Config";
 
 const SendEstimate = (props: any) => {
+  const [estimate, setEstimate] = useState<any>();
   // UserMatchList(기관) - 견적서 보내기 버튼 component
   const handleSendEstimate = () => {
-    alert("견적서를 보내시겠습니까?");
-    props.onClose();
-    props.setShowButton(true);
+    if (window.confirm("견적서를 보내시겠습니까?")) {
+      props.onSubmit(estimate);
+      props.onClose();
+      props.setShowButton(true);
+    }
   };
+
   return (
     <>
       <Modal
@@ -54,14 +61,28 @@ const SendEstimate = (props: any) => {
             </Text>
             <Stack>
               <Text>견적서 선택</Text>
-              <Select />
+
+              <Select
+                placeholder="견적서를 선택해주세요!"
+                onChange={(e) => setEstimate(e.target.value)}
+              >
+                {props.estimateList.map((estimate: any) => (
+                  <option key={estimate.id} value={estimate.id}>
+                    {estimate.shelter_name}
+                  </option>
+                ))}
+              </Select>
             </Stack>
-            <Stack>
-              <Text>견적서 선택</Text>
+            {/* <Stack>
+              <Text>견적서 내용</Text>
               <Textarea placeholder="견적 내용을 작성해주세요!" />
-            </Stack>
+            </Stack> */}
             <ButtonGroup justifyContent={"flex-end"}>
-              <Button bgColor={"gray.100"} color={"gray.800"}>
+              <Button
+                onClick={props.onClose}
+                bgColor={"gray.100"}
+                color={"gray.800"}
+              >
                 취소
               </Button>
               <Button onClick={handleSendEstimate}>견적서 보내기</Button>
@@ -77,6 +98,7 @@ export const UserMatchList = ({ ...props }) => {
   // List(기관) - 기관이 유저와 매칭된 정보 List Card Component
   const [popupOpen, setPopupOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [estimateList, setEstimateList] = useState<any>([]);
   const handleModalButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -86,7 +108,7 @@ export const UserMatchList = ({ ...props }) => {
 
   const {
     userName = "",
-    userProfile = "",
+    userprofile = "",
     city = "",
     dong = "",
     rank = "",
@@ -95,7 +117,40 @@ export const UserMatchList = ({ ...props }) => {
     shelter = "",
     program = "",
     price = "",
+    estimate = [],
   } = props;
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "estimate"),
+      where("uid", "==", auth.currentUser?.uid)
+    );
+
+    searchDocument(q).then((data: any) => {
+      setEstimateList(data);
+    });
+  }, []);
+
+  const handleSubmit = (eid: string) => {
+    console.log(eid, props.id);
+    if (props.estimate) {
+      updateDocument("consulting", props.id, {
+        estimate: [...props.estimate, eid],
+      });
+    } else {
+      updateDocument("consulting", props.id, { estimate: [eid] });
+    }
+  };
+
+  useEffect(() => {
+    estimateList.map((element: any) => {
+      console.log("estimate", estimate, element.id);
+      if (estimate?.includes(element.id)) {
+        console.log("already");
+        setShowButton(true);
+      }
+    });
+  }, [estimateList]);
 
   return (
     <Card borderRadius={"xl"} {...props}>
@@ -103,7 +158,7 @@ export const UserMatchList = ({ ...props }) => {
         <HStack justify={"space-between"} align={"flex-start"}>
           <HStack align={"center"}>
             <Avatar
-              src={userProfile}
+              src={userprofile ? userprofile : ""}
               size={{ base: "md", md: "lg" }}
               bgColor={"gray.300"}
             />
@@ -144,6 +199,11 @@ export const UserMatchList = ({ ...props }) => {
             )}
           </ButtonGroup>
           <SendEstimate
+            estimateList={estimateList}
+            onSubmit={(eid: string) => {
+              handleSubmit(eid);
+              setPopupOpen(false);
+            }}
             isOpen={popupOpen}
             onClose={() => setPopupOpen(false)}
             setShowButton={setShowButton}

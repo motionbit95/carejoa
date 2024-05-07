@@ -84,6 +84,7 @@ export const updateDocument = async (collectionName, id, data) => {
 
 // 데이터 가지고 오기 - id를 알고있는 경우
 export const getDocument = async (collectionName, id) => {
+  console.log(collectionName, id);
   const docRef = doc(db, collectionName, id);
   const docSnap = await getDoc(docRef);
 

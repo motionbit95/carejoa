@@ -76,7 +76,7 @@ export const Consulting = ({ ...props }) => {
         ...formData,
         uid: userInfo.id,
         userName: userInfo.name,
-        userProfile: userInfo.profileImage ? userInfo.profileImage : "",
+        userprofile: userInfo.profileImage ? userInfo.profileImage : "",
         state: 0, // 작성중
       })
         .then(async (ret: string) => {
@@ -96,6 +96,7 @@ export const Consulting = ({ ...props }) => {
       await setDocument("consulting", consultingId, {
         ...formData,
         state: 1, // 작성 완료
+        uid: userInfo.id,
       })
         .then(async () => {
           console.log("문서에 데이터를 추가합니다.");
@@ -107,6 +108,7 @@ export const Consulting = ({ ...props }) => {
           });
 
           // TODO - 상담 내역 리스트로 페이지 이동
+          props.onclick("list");
         })
         .catch(async (error) => {
           console.error("문서에 데이터를 추가할 수 없습니다. ", error);
@@ -139,8 +141,9 @@ export const Consulting = ({ ...props }) => {
       toast({
         title: ret,
         status: "error",
-        duration: 3000,
+        duration: 10000,
         isClosable: true,
+        position: "top-right",
       });
       return;
     }

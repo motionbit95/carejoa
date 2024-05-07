@@ -15,12 +15,12 @@ export const consultings = [
     image: require("../../../asset/mokup.png"),
     alt: "Lady at work",
   },
-  {
-    title: "투명한 정보 제공",
-    description:
-      "상담 신청부터 상담 완료까지, 단 한순간도 물음표가 생기지 않도록 투명하게 진행상황을 알려드립니다.",
-    tag: "상담현황",
-    image: require("../../../asset/mokup.png"),
-    alt: "Lady at work",
-  },
+  // {
+  //   title: "투명한 정보 제공",
+  //   description:
+  //     "상담 신청부터 상담 완료까지, 단 한순간도 물음표가 생기지 않도록 투명하게 진행상황을 알려드립니다.",
+  //   tag: "상담현황",
+  //   image: require("../../../asset/mokup.png"),
+  //   alt: "Lady at work",
+  // },
 ];

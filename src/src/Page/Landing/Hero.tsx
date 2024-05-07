@@ -18,7 +18,7 @@ export const Hero = () => (
           align={{ base: "center", md: "start" }}
         >
           <Heading size={{ base: "lg", md: "lg" }} fontWeight={"extrabold"}>
-            요양병원 상담이
+            요양서비스 상담이
             <br />
             간편해집니다.
           </Heading>
