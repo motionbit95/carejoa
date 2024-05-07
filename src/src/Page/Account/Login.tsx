@@ -11,17 +11,24 @@ import {
   Link,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { Forgot } from "./Forgot";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn } from "../../Firebase/Auth";
+import { Navbar } from "../../Component/LandingForm/Navbar/Navbar";
 
 export const Login = () => {
+  const toast = useToast();
   const [popupOpen, setPopupOpen] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    document.title = "로그인 | 케어조아";
+  }, [formData]);
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,19 +41,28 @@ export const Login = () => {
 
     if (!res.uid) {
       // 로그인 실패
-      alert(res.error);
+      // alert("로그인 정보를 다시 확인해주세요.");
+      toast({
+        title: "로그인 정보를 다시 확인해주세요.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
     } else {
       // 로그인 성공
       console.log("로그인 성공! uid:", res.uid);
+      localStorage.setItem("menu", "home");
       window.location.href = "/dashboard";
     }
   };
 
   return (
-    <Flex flex="1" align="center">
+    <Stack flex="1">
+      <Navbar />
       <Container
-        maxW="md"
-        py={{ base: "0", sm: "8" }}
+        maxW="sm"
+        py={{ base: "4", sm: "8" }}
         px={{ base: "4", sm: "10" }}
         bg={{ base: "transparent", sm: "bg.surface" }}
         boxShadow={{ base: "none", sm: "md" }}
@@ -120,6 +136,6 @@ export const Login = () => {
           </Stack>
         </Stack>
       </Container>
-    </Flex>
+    </Stack>
   );
 };

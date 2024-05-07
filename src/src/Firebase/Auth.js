@@ -4,6 +4,11 @@ import {
   signOut,
   deleteUser,
   onAuthStateChanged,
+  sendPasswordResetEmail,
+  updatePassword,
+  EmailAuthCredential,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import { auth } from "./Config";
 import { useEffect, useState } from "react";
@@ -109,13 +114,48 @@ export function delUser(user) {
 }
 
 // 사용자 비밀번호 재설정
-export function updatePassword(password) {
-  updatePassword(auth.currentUser, password)
-    .then(() => {
-      // Update successful.
+export async function changePassword(oldPassword, newPassword) {
+  let error = true;
+
+  const user = auth.currentUser;
+
+  console.log(user.email, oldPassword, newPassword);
+  // TODO(you): prompt the user to re-provide their sign-in credentials
+  const credential = EmailAuthProvider.credential(user.email, oldPassword);
+
+  await reauthenticateWithCredential(user, credential)
+    .then(async () => {
+      // User re-authenticated.
+      // 재인증 성공 시, 새 비밀번호로 업데이트
+
+      await updatePassword(user, newPassword);
+
+      // alert("비밀번호가 업데이트 되었습니다. 재로그인을 진행해주세요.");
+
+      error = false;
     })
-    .catch((error) => {
+    .catch(async (error) => {
       // An error ocurred
       // ...
+      console.log(error);
+
+      error = true;
+    });
+
+  return error;
+}
+
+export async function sendEmail(email) {
+  auth.languageCode = "ko";
+  sendPasswordResetEmail(auth, email)
+    .then(async () => {
+      // Password reset email sent!
+      // ..
+      console.log("Password reset email sent!");
+    })
+    .catch(async (error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
     });
 }

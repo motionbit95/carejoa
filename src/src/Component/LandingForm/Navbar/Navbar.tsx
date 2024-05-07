@@ -28,6 +28,7 @@ export const Navbar = ({ ...props }) => {
           <HStack justify="space-between">
             {/* <Logo /> */}
             <Image
+              onClick={() => (window.location.href = "/")}
               height={"48px"}
               src={require("../../../asset/CareJOA.png")}
             />

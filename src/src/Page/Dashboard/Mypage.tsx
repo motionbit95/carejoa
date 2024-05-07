@@ -15,19 +15,22 @@ import {
   Stack,
   Text,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
-import { delUser, logOut } from "../../Firebase/Auth";
+import { changePassword, delUser, logOut } from "../../Firebase/Auth";
 import { updateDocument } from "../../Firebase/Database";
 import { uploadFile } from "../../Firebase/Storage";
+import { useNavigate } from "react-router-dom";
 
 export const Mypage = ({ ...props }) => {
   // 마이페이지
   const { userInfo } = props;
   useEffect(() => {
     console.log("마이페이지 유저정보", userInfo);
+    document.title = "케어조아 | 마이페이지";
   }, [userInfo]);
 
   const imageRef = useRef<HTMLInputElement>(null);
@@ -59,6 +62,15 @@ export const Mypage = ({ ...props }) => {
   const [showPWUpdate, setShowPWUpdate] = useState(false);
   const toggleVisibility = () => {
     setShowPWUpdate((prev) => !prev);
+  };
+
+  const [editName, setEditName] = useState(false);
+  const [name, setName] = useState(userInfo?.name ? userInfo?.name : "");
+  const toggleEditName = async () => {
+    if (editName) {
+      await updateDocument("users", userInfo.id, { name: name });
+    }
+    setEditName((prev) => !prev);
   };
 
   return (
@@ -93,7 +105,19 @@ export const Mypage = ({ ...props }) => {
             <Stack spacing={7} fontSize={{ base: "lg", md: "xl" }}>
               <HStack justify={"space-between"}>
                 <Text>이름</Text>
-                <Text>{userInfo?.name}</Text>
+                <HStack>
+                  {editName ? (
+                    <Input
+                      onChange={(e) => setName(e.target.value)}
+                      defaultValue={userInfo?.name}
+                    />
+                  ) : (
+                    <Text>{userInfo?.name}</Text>
+                  )}
+                  <Button onClick={toggleEditName} size={"sm"}>
+                    변경하기
+                  </Button>
+                </HStack>
               </HStack>
               {userInfo?.type === "0" && (
                 <HStack justify={"space-between"}>
@@ -177,6 +201,8 @@ export const Mypage = ({ ...props }) => {
 };
 
 export const PWUpdate = () => {
+  const navigate = useNavigate();
+  const toast = useToast();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -194,14 +220,44 @@ export const PWUpdate = () => {
 
   const handleSubmit = () => {
     if (newPassword === confirmPassword) {
-      alert("비밀번호 변경");
+      // alert("비밀번호 변경");
+      if (window.confirm("비밀번호 변경하시겠습니까?")) {
+        changePassword(currentPassword, newPassword).then(async (error) => {
+          if (error) {
+            toast({
+              title: "비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.",
+              status: "error",
+              duration: 10000,
+              isClosable: true,
+              position: "top-right",
+            });
+          } else {
+            toast({
+              title: "비밀번호 변경이 완료되었습니다. 재로그인 해주세요.",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+              position: "top-right",
+            });
+
+            navigate("/login");
+          }
+        });
+      }
     } else {
-      console.log(
-        "비밀번호가 일치하지 않습니다.",
-        `${currentPassword} ${newPassword} ${confirmPassword} ${
-          newPassword === confirmPassword
-        }`
-      );
+      toast({
+        title: "비밀번호가 일치하지 않습니다.",
+        status: "error",
+        duration: 10000,
+        isClosable: true,
+        position: "top-right",
+      });
+      // console.log(
+      //   "비밀번호가 일치하지 않습니다.",
+      //   `${currentPassword} ${newPassword} ${confirmPassword} ${
+      //     newPassword === confirmPassword
+      //   }`
+      // );
     }
   };
 
