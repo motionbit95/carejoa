@@ -21,6 +21,7 @@ export const MobileDrawer = (props) => {
             <DrawerCloseButton />
             <DrawerHeader py={4}>
               <Image
+                onClick={() => props.handleMenu("home")}
                 src={require("../../asset/CareJOA.png")}
                 h={{ base: "10", md: "12" }}
               />

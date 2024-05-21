@@ -13,6 +13,7 @@ function Landing(props) {
   return (
     <Layout>
       <Banner />
+      <Review />
       <Hero />
       <Consulting />
       <Box bgColor={"gray.100"}>
@@ -20,7 +21,6 @@ function Landing(props) {
         <Service1 />
       </Box>
       <Service2 />
-      <Review />
       <CTA />
     </Layout>
   );

@@ -87,6 +87,16 @@ export const shelters = [
     title: "방문 시설",
     detail: "일시적으로 노인이나 장애인을 돌보거나 관리하기 위한 시설입니다.",
   },
+  {
+    id: 4,
+    title: "방문요양",
+    detail: "",
+  },
+  {
+    id: 5,
+    title: "잘모르겠음/기타",
+    detail: "",
+  },
 ];
 
 export const consultingList = [

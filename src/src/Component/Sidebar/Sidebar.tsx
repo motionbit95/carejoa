@@ -56,6 +56,7 @@ export const Sidebar = (props: {
             <Stack>
               <HStack>
                 <Image
+                  onClick={() => handleMenu("home")}
                   src={require("../../asset/CareJOA.png")}
                   height={"48px"}
                   w={"auto"}
@@ -118,6 +119,7 @@ export const Sidebar = (props: {
           <Flex align="center" width={"100%"} justify="space-between">
             <HStack>
               <Image
+                onClick={() => handleMenu("home")}
                 src={require("../../asset/CareJOA.png")}
                 height={{ base: "8", md: "12" }}
                 w={"auto"}

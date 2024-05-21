@@ -38,7 +38,7 @@ export const CalculateInput = ({ ...props }) => {
           월 {number === undefined ? 0 : (number * 30)?.toLocaleString()} 원
         </Text>
       </HStack>
-      <Text opacity={0.5}>30일 기준</Text>
+      <Text opacity={0.5}>1일 기준으로 입력해주세요.</Text>
       <InputGroup>
         <Input
           placeholder="0"

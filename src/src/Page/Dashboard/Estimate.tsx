@@ -10,9 +10,11 @@ import {
   Image,
   Img,
   Input,
+  InputGroup,
   SimpleGrid,
   Stack,
   Text,
+  Wrap,
   useToast,
 } from "@chakra-ui/react";
 import { RadioButtonGroupContainer } from "../../Component/RadioButtonGroup/App";
@@ -109,6 +111,7 @@ interface EstimateData {
     shelter_size: string; // 요양시설크기 -OK
     shelter_specialization: string; // 요양시설 정보 -Ok
     establishment_date: string; // 설립일 -OK
+    homepage: string; // Homepage
     //step2
     label: string; // 라벨
     count: string; // 인원(장비)수
@@ -243,8 +246,9 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
+        <Text color={"red.500"}>* 필수입력사항</Text>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               견적서 이름 입력
             </FormLabel>
@@ -258,7 +262,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 사진 등록
             </FormLabel>
@@ -295,7 +299,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               주소 입력
             </FormLabel>
@@ -316,7 +320,7 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               전화번호 입력
             </FormLabel>
@@ -333,7 +337,22 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
+            <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+              홈페이지 주소 입력
+            </FormLabel>
+            {/* <Text opacity={0.5}>홈페이지 주소를 입력해주세요.</Text> */}
+            <Input
+              value={formData?.homepage}
+              placeholder="홈페이지 주소 입력"
+              onChange={(e) =>
+                setFormData({ ...formData, homepage: e.target.value })
+              }
+            />
+          </FormControl>
+        </Stack>
+        <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 등급
             </FormLabel>
@@ -347,12 +366,12 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               onChange={(e: any) => {
                 setFormData({ ...formData, shelter_rank: e.target.value });
               }}
-              list={["A등급", "B등급", "C등급", "D등급", "E등급", "상관없음"]}
+              list={["A등급", "B등급", "C등급", "D등급", "E등급", "해당없음"]}
             />
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 크기(허가병상)
             </FormLabel>
@@ -372,24 +391,32 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               특화영역
             </FormLabel>
-            <RadioButtonGroupContainer
+            <SelectButton
               defaultValue={formData?.shelter_specialization}
-              onChange={(e: any) => {
-                setFormData({
-                  ...formData,
-                  shelter_specialization: e.target.value,
-                });
+              onChange={(value: any) => {
+                setFormData({ ...formData, shelter_specialization: value });
               }}
-              list={["암특화", "재활특화", "혈액투석", "양한방협진", "기타"]}
+              multiple
+              options={[
+                "암특화",
+                "재활특화",
+                "혈액투석",
+                "양한방협진",
+                "치매특화",
+                "고급특화",
+                "감염특화",
+                "케어조아인증",
+                "기타/없음",
+              ]}
             />
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
-          <FormControl>
+          <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               설립일자
             </FormLabel>
@@ -398,6 +425,20 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               type="date"
               onChange={(e) =>
                 setFormData({ ...formData, establishment_date: e.target.value })
+              }
+            />
+          </FormControl>
+        </Stack>{" "}
+        <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
+          <FormControl isRequired>
+            <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+              사업자등록증
+            </FormLabel>
+            <Input
+              value={formData?.business_license}
+              type="file"
+              onChange={(e) =>
+                setFormData({ ...formData, business_license: e.target.value })
               }
             />
           </FormControl>
@@ -427,6 +468,7 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
+        <Text>선택 입력 사항</Text>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <FormControl>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
@@ -471,12 +513,32 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
                 onChange={handleCountChange}
               />
               <CareInput
+                value={formData?.정형외과}
+                id="orthopedics"
+                label="정형외과"
+                count="명"
+                onChange={handleCountChange}
+              />
+              <CareInput
+                value={formData?.신경외과}
+                id="neurosurgery"
+                label="신경외과"
+                count="명"
+                onChange={handleCountChange}
+              />
+              <CareInput
+                value={formData?.신장내과}
+                id="nephrology"
+                label="신장내과"
+                count="명"
+                onChange={handleCountChange}
+              />
+              <CareInput
                 value={formData?.재활의학과}
                 id="rehabilitation"
                 label="재활의학과"
                 count="명"
                 onChange={handleCountChange}
-                s
               />
               <CareInput
                 value={formData?.가정의학과}
@@ -503,6 +565,13 @@ export const Step2 = ({ formData, setFormData }: StepEstimateProps) => {
                 value={formData?.침구과}
                 id="bedclothes"
                 label="침구과"
+                count="명"
+                onChange={handleCountChange}
+              />
+              <CareInput
+                value={formData?.기타}
+                id="etc"
+                label="기타"
                 count="명"
                 onChange={handleCountChange}
               />
@@ -653,7 +722,7 @@ export const Step3 = ({ formData, setFormData }: StepEstimateProps) => {
               onChange={(e: any) => {
                 setFormData({ ...formData, shelter_grade: e.target.value });
               }}
-              list={["고급형", "일반형", "실속형", "상관없음"]}
+              list={["고급형", "일반형", "실속형", "해당없음"]}
             />
           </FormControl>
         </Stack>

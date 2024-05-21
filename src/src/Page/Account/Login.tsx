@@ -17,6 +17,8 @@ import { Forgot } from "./Forgot";
 import { useEffect, useState } from "react";
 import { signIn } from "../../Firebase/Auth";
 import { Navbar } from "../../Component/LandingForm/Navbar/Navbar";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../Firebase/Config";
 
 export const Login = () => {
   const toast = useToast();
@@ -29,6 +31,23 @@ export const Login = () => {
   useEffect(() => {
     document.title = "로그인 | 케어조아";
   }, [formData]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        // ...
+
+        console.log("uid : ", user.uid);
+
+        if (uid) {
+          window.location.href = "/dashboard";
+        }
+      }
+    });
+  }, []);
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

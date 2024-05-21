@@ -24,14 +24,18 @@ export const Feature = () => (
               어디로 모셔야 할까요?
             </Text>
             <Heading
-              size={{ base: "sm", md: "md" }}
+              size={{ base: "xs", md: "sm" }}
               fontWeight="extrabold"
               flexDirection={{ base: "column", md: "row" }}
               display={"flex"}
               gap={2}
+              whiteSpace={{ base: "pre-wrap", md: "normal" }}
             >
-              <Text>어르신의 상황에 맞게,</Text>{" "}
-              <Text>케어조아가 찾아드려요.</Text>
+              <Text>
+                {
+                  "내 집처럼 편안한 곳,\n내 가족처럼 믿을수 있는 곳,\n케어조아에서 찾아보세요~"
+                }
+              </Text>
             </Heading>
           </Stack>
         </Stack>
@@ -41,7 +45,12 @@ export const Feature = () => (
           rowGap={{ base: 10, md: 16 }}
         >
           {services.map((service) => (
-            <Stack key={service.name} spacing={{ base: "4", md: "5" }}>
+            <Stack
+              cursor={"pointer"}
+              key={service.name}
+              spacing={{ base: "4", md: "5" }}
+              onClick={() => window.open("https://cafe.naver.com/pinkqy5cg")}
+            >
               <Square
                 size={{ base: "10", md: "12" }}
                 bgColor={"bg.surface"}

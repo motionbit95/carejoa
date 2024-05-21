@@ -8,6 +8,7 @@ import {
   Button,
   ButtonGroup,
   Center,
+  Checkbox,
   Container,
   FormControl,
   FormLabel,
@@ -15,7 +16,11 @@ import {
   Input,
   Stack,
   StackDivider,
+  Tag,
+  TagCloseButton,
   Text,
+  Textarea,
+  Wrap,
   useToast,
 } from "@chakra-ui/react";
 import { RadioCardGroupContainer } from "../../Component/RadioCardGroup/App";
@@ -224,9 +229,27 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
     formData?.dong ? formData?.dong : "전체"
   );
 
+  const [cityList, setCityList] = useState<string[]>([]);
+
   useEffect(() => {
-    setFormData({ ...formData, city: selectedCity, dong: selectedDong });
+    setFormData({
+      ...formData,
+      city: selectedCity,
+      dong: selectedDong,
+      locations: cityList,
+    });
   }, [selectedCity, selectedDong]);
+
+  const addSelectedLocation = (value: any) => {
+    if (cityList.includes(value)) {
+      return;
+    }
+    setCityList([...cityList, value]);
+  };
+
+  const deleteSelectedLocation = (value: any) => {
+    setCityList(cityList.filter((item) => item !== value));
+  };
 
   const handleselectCity = (value: string) => {
     // console.log(value);
@@ -238,6 +261,8 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
     // console.log(value);
     setSelectedDong(value);
     // setFormData({ ...formData, dong: value });
+
+    addSelectedLocation(selectedCity + " " + value);
   };
 
   return (
@@ -262,7 +287,7 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
-              지역 선택
+              희망 지역 선택
             </FormLabel>
             <Text opacity={0.5}>원하시는 지역을 선택해주세요.</Text>
             <HStack
@@ -333,8 +358,16 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
               </Stack>
             </HStack>
           </FormControl>
+          <Wrap>
+            {cityList.map((city) => (
+              <Tag>
+                <Text>{city}</Text>
+                <TagCloseButton onClick={() => deleteSelectedLocation(city)} />
+              </Tag>
+            ))}
+          </Wrap>
         </Stack>
-        <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
+        {/* <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               요양시설 등급
@@ -372,13 +405,14 @@ export const Step1 = ({ formData, setFormData }: StepConsultingProps) => {
               />
             </Stack>
           </FormControl>
-        </Stack>
+        </Stack> */}
       </Stack>
     </Container>
   );
 };
 
 export const Step2 = ({ formData, setFormData }: StepConsultingProps) => {
+  const [textView, setTextView] = useState(false);
   return (
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
@@ -413,24 +447,38 @@ export const Step2 = ({ formData, setFormData }: StepConsultingProps) => {
               <br />
               원하시는 프로그램을 선택해주세요.
             </Text>
-            <SelectButton
-              defaultValue={formData?.program}
-              onChange={(value: any) => {
-                setFormData({ ...formData, program: value });
-              }}
-              multiple
-              options={[
-                "운동보조",
-                "인지기능향상",
-                "기타",
-                "불교",
-                "기독교",
-                "천주교",
-                "재활특화",
-                "치매특화",
-                "맞춤형서비스",
-              ]}
-            />
+            {!textView && (
+              <SelectButton
+                defaultValue={formData?.program}
+                onChange={(value: any) => {
+                  setFormData({ ...formData, program: value });
+                }}
+                multiple
+                options={[
+                  "운동보조",
+                  "인지기능향상",
+                  "기타",
+                  "불교",
+                  "기독교",
+                  "천주교",
+                  "재활특화",
+                  "치매특화",
+                  "맞춤형서비스",
+                ]}
+              />
+            )}
+            <Checkbox onChange={(e) => setTextView(e.target.checked)} mt="2">
+              직접입력하기
+            </Checkbox>
+            {textView && (
+              <Textarea
+                _placeholder={{ opacity: 0.5 }}
+                placeholder="원하시는 요양 프로그램을 직접 입력해주세요."
+                onChange={(e) =>
+                  setFormData({ ...formData, program: [e.target.value] })
+                }
+              ></Textarea>
+            )}
           </FormControl>
         </Stack>
       </Stack>
@@ -473,21 +521,23 @@ export const Step3 = ({ formData, setFormData }: StepConsultingProps) => {
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
           <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
-              노인장기요양등급
+              노인장기요양등급 및 자격사항
             </FormLabel>
-            <RadioButtonGroupContainer
+            <SelectButton
               defaultValue={formData?.care_grade}
-              onChange={(e: any) => {
-                setFormData({ ...formData, care_grade: e.target.value });
+              onChange={(value: any) => {
+                setFormData({ ...formData, care_grade: value });
               }}
-              list={[
+              options={[
                 "1등급",
                 "2등급",
                 "3등급",
                 "4등급",
                 "5등급",
                 "인지등급",
-                "모름",
+                "기초수급자",
+                "무연고자",
+                "해당없음",
               ]}
             />
           </FormControl>
@@ -623,6 +673,19 @@ export const Step4 = ({ formData, setFormData }: StepConsultingProps) => {
     <Container alignItems={"center"} py={{ base: "2", md: "4" }}>
       <Stack spacing={{ base: "3", md: "6" }}>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
+          <FormControl>
+            <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+              기타/하고 싶은 말
+            </FormLabel>
+            <Textarea
+              _placeholder={{ opacity: 0.5 }}
+              placeholder="전달하고 싶은 말을 작성해주세요."
+              value={formData?.comment}
+              onChange={(e) =>
+                setFormData({ ...formData, comment: e.target.value })
+              }
+            ></Textarea>
+          </FormControl>
           <FormControl isRequired>
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               개인정보 수집, 제공
@@ -638,8 +701,24 @@ export const Step4 = ({ formData, setFormData }: StepConsultingProps) => {
                   <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel pb={4}>
-                  <Text fontSize={{ base: "sm", md: "md" }}>
-                    개인정보 수집 동의
+                  <Text
+                    fontSize={{ base: "sm", md: "md" }}
+                    whiteSpace={"pre-line"}
+                  >
+                    {`<개인정보 수집 동의>
+
+1. 기본수집항목 : [필수] 이름, (휴대)전화번호, 이메일 주소
+* 추가 수집하는 필수 항목
+- 상담자와 환자가 다른 경우 : 환자의 이름, 환자의 건강 정보 등
+                      
+2. 수집 및 이용목적 : 사업자 회원과 상담자의 원활한 상담 진행, 고객 상담, 불만처리 등 민원처리, 분쟁조정 해결을 위한 기록 보존
+
+3. 보관기간
+- 회원 탈퇴 시 지체없이 파기
+- 단. 관련 법령에 의하여 일정 기간 보관이 피여한 경우에는 해당 기간 동안 보관함
+
+4. 동의 및 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상담 서비스 이용에 제약이 있을 수 있습니다. 그 밖의 내용은 케어조아 개인정보 처리방침을 따릅니다.
+                      `}
                   </Text>
                 </AccordionPanel>
               </AccordionItem>
@@ -653,8 +732,25 @@ export const Step4 = ({ formData, setFormData }: StepConsultingProps) => {
                   <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel pb={4}>
-                  <Text fontSize={{ base: "sm", md: "md" }}>
-                    개인정보 제공 동의
+                  <Text
+                    fontSize={{ base: "sm", md: "md" }}
+                    whiteSpace={"pre-line"}
+                  >
+                    {`<개인정보 제공 동의>
+
+1. 개인정보를 제공받는 자 : (주)케어뷰틱스
+
+2. 제공하는 기본 개인정보 항목 : [필수] 상담자의 아이디, 이름, (휴대)전화번호
+- 상담자와 환자가 다른 경우 : 환자의 이름, 환자의 건강 정보 등
+
+2. 수집 및 이용목적 : 사업자 회원과 상담자의 원활한 상담 진행, 고객 상담, 불만처리 등 민원처리, 분쟁조정 해결을 위한 기록 보존
+
+3. 보관기간
+- 회원 탈퇴 시 지체없이 파기
+- 단. 관련 법령에 의하여 일정 기간 보관이 피여한 경우에는 해당 기간 동안 보관함
+
+4. 동의 및 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상담 서비스 이용에 제약이 있을 수 있습니다. 그 밖의 내용은 케어조아 개인정보 처리방침을 따릅니다.
+                      `}
                   </Text>
                 </AccordionPanel>
               </AccordionItem>
@@ -687,12 +783,12 @@ const checkValidData = ({ ...props }) => {
       if (props.dong == "전체") {
         errorMsg = "지역를 선택해주세요!";
       }
-      if (!props.rank) {
-        errorMsg = "요양시설 등급을 선택해주세요!";
-      }
-      if (!props.size) {
-        errorMsg = "요양시설 크기를 선택해주세요!";
-      }
+      // if (!props.rank) {
+      //   errorMsg = "요양시설 등급을 선택해주세요!";
+      // }
+      // if (!props.size) {
+      //   errorMsg = "요양시설 크기를 선택해주세요!";
+      // }
       break;
     case "2":
       if (!props.grade) {

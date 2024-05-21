@@ -17,13 +17,17 @@ export const Hero = () => (
           spacing={{ base: "4", md: "6" }}
           align={{ base: "center", md: "start" }}
         >
-          <Heading size={{ base: "lg", md: "lg" }} fontWeight={"extrabold"}>
-            요양서비스 상담이
+          <Heading
+            size={{ base: "lg", md: "lg" }}
+            fontWeight={"extrabold"}
+            whiteSpace={"pre-line"}
+          >
+            {"여기저기 요양시설\n찾아보느라 힘드셨죠?"}
             <br />
-            간편해집니다.
+            {/* 케어조아가 찾아드릴께요! */}
           </Heading>
           <Text fontSize={{ base: "lg", md: "md" }} color="fg.muted">
-            비용과 시간을 모두 아껴보세요.
+            케어조아는 상담지만 작성하면 끄~읏
           </Text>
           <Link to="/login">
             <Button size={{ base: "lg", md: "xl" }} colorScheme="blue">

@@ -25,8 +25,8 @@ export const Service1 = () => (
           빠르게 확장하고 있어요
         </Heading>
         <Text fontSize={{ base: "md", md: "lg" }} color="fg.muted">
-          현재 케어조아는 일반 회원과 병원 회원으로 운영되고 있으며,
-          <br /> 위치 기반 가까운 환자와 병원을 매칭 시켜드리고 있어요!
+          현재 케어조아는 일반회원과 병원회원을 <br /> 전국의 모든 요양시설과
+          서비스 제공 업체와 상담 시스템을 구축하고 있습니다.
         </Text>
       </Stack>
       <Stack alignItems={"center"}>

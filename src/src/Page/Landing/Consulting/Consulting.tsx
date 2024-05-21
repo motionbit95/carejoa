@@ -29,7 +29,7 @@ export const Consulting = () => {
         bgGradient="linear(to-r, #3182CE, #0038FF)"
       >
         <Text textAlign={"center"}>
-          전화 없이 상담지를 작성하고 요양시설 상담을 신청해보세요.
+          간단한 상담지만 작성하시면 필요한 견적 및 상담을 받아 보실수 있습니다.
         </Text>
       </Stack>
       <Stack mt={12} spacing="8">

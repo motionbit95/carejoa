@@ -22,7 +22,7 @@ export const Service2 = () => (
           color={"green.400"}
         />
         <Heading size={{ base: "sm", md: "md" }} fontWeight={"extrabold"}>
-          케어조아는 이런 서비스를 제공해요!
+          케어조아는 이러한 서비스를 제공합니다.
         </Heading>
       </Stack>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: "4", md: "6" }}>
@@ -35,8 +35,8 @@ export const Service2 = () => (
         >
           <Heading size={{ base: "sm", md: "sm" }}>빠른 상담 서비스</Heading>
           <Text opacity={0.5} fontSize={{ base: "lg", md: "md" }}>
-            현재 케어조아는 개인, 병원 회원으로 운영되고 있으며, 위치 기반
-            가까운 회원과 병원을 매칭해드리고 있어요!
+            빠른상담서비스 밑에 현재 "관리조아는"을 케어조아는 요양케어 시설 및
+            서비스 제공자와 고객의 실시간 견적&상담 서비스를 제공합니다.
           </Text>
           {/* <Box>지도</Box> */}
           <Box position={"relative"} py={{ base: "4", md: "8" }}>
@@ -61,7 +61,7 @@ export const Service2 = () => (
             height={"full"}
           >
             <Heading fontWeight={"extrabold"} size={{ base: "sm", md: "sm" }}>
-              요양 시설 추천
+              전문 요양시설 및 특화된 요양시설을 발굴하고 추천합니다.
             </Heading>
             <Text opacity={0.5}>
               지역과 재활 등 특화 영역 뿐 아니라, 등급과 크기 등 중요한 조건에
@@ -80,11 +80,11 @@ export const Service2 = () => (
             height={"full"}
           >
             <Heading fontWeight={"extrabold"} size={{ base: "sm", md: "sm" }}>
-              100% 무료 상담 보장
+              실시간 상담 및 견적
             </Heading>
             <Text opacity={0.5}>
-              케어조아는 100% 무료 상담을 보장합니다. 상담 신청이 완료되면,
-              이후의 모든 프로세스는 센터에게 안심하고 맡겨주세요.
+              케어조아는 실시간 견적 및 상담을 통해 희망지역 요양시설 들의
+              다양한 정보 를 제공 받고 합리적인 선택을 돕습니다.
             </Text>
             <HStack justifyContent={"flex-end"}>
               {/* <Icon boxSize={{ base: "10", md: "12" }} as={BsStars} /> */}

@@ -35,9 +35,9 @@ export const HeroWithImage = (props: { onClick: () => void }) => (
             align={{ base: "center", md: "start" }}
           >
             <Heading size={{ base: "md", md: "md" }} fontWeight={"extrabold"}>
-              요양서비스 상담이
+              내 집처럼 편안 한 곳
               <br />
-              간편해집니다.
+              케어조아가 찾아드릴께요!
             </Heading>
             <Text fontSize={{ base: "lg", md: "md" }} color="fg.muted">
               비용과 시간을 모두 아껴보세요.
