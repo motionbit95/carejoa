@@ -45,7 +45,7 @@ export const Banner = () => {
             onClick={() => navigate("/login")}
           >
             <Text fontSize={"lg"} fontWeight={"bold"}>
-              견적 요청하기
+              견적 (상담)요청하기
             </Text>
             <Text fontSize={"xs"}>
               희망지역 및 시설 업체의 견적을 받아보실 수 있습니다.
@@ -105,17 +105,29 @@ export const Banner = () => {
             onClick={() => navigate("/login")}
             alignItems={"center"}
             justifyContent={"center"}
-            minH={"100px"}
+            minH={"110px"}
             // background={"linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);"}
             border={"1px solid #E5E5E5"}
             bgColor={"white"}
             boxShadow={"md"}
           >
-            <Text color={"#FF6665"} fontSize={"lg"} fontWeight={"bold"}>
-              응급입소 및 입원상담
+            <Text
+              color={"#FF6665"}
+              fontSize={{ base: "md", md: "lg" }}
+              fontWeight={"bold"}
+              textAlign={"center"}
+              whiteSpace={{ base: "pre-line", sm: "normal" }}
+            >
+              {`응급입소 및\n 입원상담`}
             </Text>
-            <Text color={"#6c6c6c"} fontSize={{ base: "11px", md: "sm" }}>
-              야간 및 주말, 공휴일 응급입소(원)
+            <Text
+              color={"#6c6c6c"}
+              textAlign={"center"}
+              fontSize={{ base: "11px", md: "sm" }}
+              whiteSpace={{ base: "pre-line", sm: "normal" }}
+            >
+              {`야간 및 주말, 공휴일 
+              응급입소(원)`}
             </Text>
           </Stack>
           <Stack
@@ -125,10 +137,10 @@ export const Banner = () => {
             borderRadius={{ base: "xl", md: "2xl" }}
             // _hover={{ bgColor: "#d9d9d9" }}
             cursor={"pointer"}
-            onClick={() => navigate("/login")}
+            onClick={() => window.open("https://cafe.naver.com/pinkqy5cg")}
             justifyContent={"center"}
             alignItems={"center"}
-            minH={"100px"}
+            minH={"110px"}
             // background={"linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);"}
             border={"1px solid #E5E5E5"}
             bgColor={"white"}
@@ -136,11 +148,12 @@ export const Banner = () => {
           >
             <Text
               color={"#FF6665"}
-              fontSize={"lg"}
+              fontSize={{ base: "md", md: "lg" }}
               fontWeight={"bold"}
               textAlign={"center"}
+              whiteSpace={{ base: "pre-line", sm: "normal" }}
             >
-              {"간병사(요양보호사)\n구인구직"}
+              {"간병사\n(요양보호사)\n구인구직"}
             </Text>
           </Stack>
         </HStack>

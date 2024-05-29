@@ -81,7 +81,7 @@ export const Consulting = ({ ...props }) => {
         ...formData,
         uid: userInfo.id,
         userName: userInfo.name,
-        userprofile: userInfo.profileImage ? userInfo.profileImage : "",
+        userprofile: userInfo?.profileImage ? userInfo?.profileImage : "",
         state: 0, // 작성중
       })
         .then(async (ret: string) => {

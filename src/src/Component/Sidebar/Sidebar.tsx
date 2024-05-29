@@ -2,6 +2,7 @@ import {
   Container,
   Flex,
   HStack,
+  IconButton,
   Image,
   Stack,
   Text,
@@ -19,6 +20,7 @@ import {
 import { useState } from "react";
 import { MobileDrawer } from "./MobileSidebar";
 import { ToggleButton } from "../TopBar/ToggleButton";
+import { BiHome } from "react-icons/bi";
 
 export const Sidebar = (props: {
   onChangeMenu: (menu: string) => void;
@@ -54,12 +56,23 @@ export const Sidebar = (props: {
         >
           <Stack spacing="8">
             <Stack>
-              <HStack>
+              <HStack justify={"space-between"}>
                 <Image
                   onClick={() => handleMenu("home")}
                   src={require("../../asset/CareJOA.png")}
                   height={"48px"}
                   w={"auto"}
+                />
+                <IconButton
+                  onClick={() => {
+                    window.confirm("메인으로 돌아가시겠습니까?");
+                    window.location.href = "/";
+                  }}
+                  aria-label="home"
+                  icon={<BiHome />}
+                  variant="ghost"
+                  size="lg"
+                  color={"black"}
                 />
               </HStack>
               <Text opacity={0.5}>함께할 때 더 가치있습니다.</Text>

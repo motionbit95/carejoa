@@ -13,7 +13,7 @@ export const Stat = (props: StatProps) => {
         {label}
       </Text>
       <Heading
-        size={{ base: "lg", md: "lg" }}
+        size={{ base: "md", md: "lg" }}
         fontWeight="bold"
         color="transparent"
         bgClip="text"

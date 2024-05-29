@@ -34,9 +34,9 @@ export const Service2 = () => (
           borderRadius={"2xl"}
         >
           <Heading size={{ base: "sm", md: "sm" }}>빠른 상담 서비스</Heading>
-          <Text opacity={0.5} fontSize={{ base: "lg", md: "md" }}>
-            빠른상담서비스 밑에 현재 "관리조아는"을 케어조아는 요양케어 시설 및
-            서비스 제공자와 고객의 실시간 견적&상담 서비스를 제공합니다.
+          <Text opacity={0.5} fontSize={{ base: "md", md: "md" }}>
+            현재 케어조아는 요양케어 시설 및 서비스 제공자와 고객의 실시간
+            견적&상담 서비스를 제공합니다.
           </Text>
           {/* <Box>지도</Box> */}
           <Box position={"relative"} py={{ base: "4", md: "8" }}>
@@ -60,8 +60,14 @@ export const Service2 = () => (
             borderRadius={"2xl"}
             height={"full"}
           >
-            <Heading fontWeight={"extrabold"} size={{ base: "sm", md: "sm" }}>
-              전문 요양시설 및 특화된 요양시설을 발굴하고 추천합니다.
+            <Heading
+              fontWeight={"extrabold"}
+              size={{ base: "sm", md: "sm" }}
+              whiteSpace={{ base: "pre-line", sm: "normal" }}
+            >
+              {`전문 요양시설 및 
+              특화된 요양시설을 
+              발굴하고 추천합니다.`}
             </Heading>
             <Text opacity={0.5}>
               지역과 재활 등 특화 영역 뿐 아니라, 등급과 크기 등 중요한 조건에
@@ -83,8 +89,8 @@ export const Service2 = () => (
               실시간 상담 및 견적
             </Heading>
             <Text opacity={0.5}>
-              케어조아는 실시간 견적 및 상담을 통해 희망지역 요양시설 들의
-              다양한 정보 를 제공 받고 합리적인 선택을 돕습니다.
+              케어조아는 실시간 견적 및 상담을 통해 희망지역 요양시설들의 다양한
+              정보를 제공 받고 합리적인 선택을 돕습니다.
             </Text>
             <HStack justifyContent={"flex-end"}>
               {/* <Icon boxSize={{ base: "10", md: "12" }} as={BsStars} /> */}

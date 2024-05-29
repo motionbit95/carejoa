@@ -60,7 +60,7 @@ export const List = ({ ...props }) => {
       searchDocument(q).then(async (data: any) => {
         data.forEach((element: any) => {
           getDocument("users", element.uid).then(async (user: any) => {
-            userList.push({ ...element, userprofile: user.profileImage });
+            userList.push({ ...element, userprofile: user?.profileImage });
             setUserList(userList);
           });
         });

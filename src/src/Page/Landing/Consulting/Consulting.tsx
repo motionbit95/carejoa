@@ -17,7 +17,8 @@ export const Consulting = () => {
   return (
     <Container py={{ base: "16", md: "24" }}>
       <Stack
-        fontSize={{ base: "3xl", md: "4xl" }}
+        fontSize={{ base: "30px", md: "36px" }}
+        lineHeight={"1.2"}
         fontWeight={"extrabold"}
         // color={"blue.500"}
         direction={{ base: "column", md: "row" }}
@@ -28,8 +29,11 @@ export const Consulting = () => {
         bgClip="text"
         bgGradient="linear(to-r, #3182CE, #0038FF)"
       >
-        <Text textAlign={"center"}>
-          간단한 상담지만 작성하시면 필요한 견적 및 상담을 받아 보실수 있습니다.
+        <Text
+          textAlign={"center"}
+          whiteSpace={{ base: "pre-line", sm: "normal" }}
+        >
+          {`간단한 상담지만 작성하시면 필요한 견적 및 상담을 받아 보실수 있습니다.`}
         </Text>
       </Stack>
       <Stack mt={12} spacing="8">
@@ -64,10 +68,14 @@ export const Consulting = () => {
                   {consulting.tag}
                 </Tag>
               </Box>
-              <Heading size={{ base: "md", md: "md" }} fontWeight={"extrabold"}>
+              <Heading
+                fontSize={{ base: "30px", md: "36px" }}
+                fontWeight={"extrabold"}
+                lineHeight={"1.2"}
+              >
                 {consulting.title}
               </Heading>
-              <Text fontSize={{ base: "lg", md: "md" }} color="fg.muted">
+              <Text fontSize={{ base: "md", md: "md" }} color="fg.muted">
                 {consulting.description}
               </Text>
             </Stack>

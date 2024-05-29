@@ -29,7 +29,7 @@ export const services = [
     color: "#FE6D6A",
   },
   {
-    name: "방문시설",
+    name: "실버타운",
     description: "일시적인 돌봄 제공",
     icon: MdLocalHotel,
     color: "#FFC001",

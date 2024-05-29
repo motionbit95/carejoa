@@ -212,7 +212,11 @@ interface StepEstimateProps {
 
 export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
   const imgRef = useRef<HTMLInputElement>(null);
-  const [imagPreview, setImagePreview] = useState<string | null>(null);
+
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [businessLicensePreview, setBusinessLicensePreview] = useState<
+    string | null
+  >(null);
 
   const handleUploadButton = () => {
     if (imgRef.current) {
@@ -221,26 +225,58 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+
+    if (files) {
+      const newPreviews: string[] = [];
+      const newShelterImages: string[] = [];
+
+      for (let i = 0; i < Math.min(files.length, 3); i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const fileAsBlob = new Blob([reader.result as ArrayBuffer], {
+            type: file.type,
+          });
+          const previewUrl = URL.createObjectURL(fileAsBlob);
+
+          newPreviews.push(previewUrl);
+          newShelterImages.push(previewUrl);
+
+          // State 업데이트는 파일을 모두 읽은 후에 한 번에 수행
+          if (newPreviews.length === Math.min(files.length, 3)) {
+            setImagePreviews(newPreviews);
+            setFormData({ shelter_images: newShelterImages });
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    } else {
+      // 파일이 선택되지 않은 경우 미리보기 이미지 초기화
+      setImagePreviews([]);
+      setFormData({ shelter_images: [] });
+    }
+  };
+
+  const handleBusinessLicenseChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      // 파일을 Blob으로 변환하여 미리보기 이미지 설정
       const reader = new FileReader();
       reader.onloadend = () => {
         const fileAsBlob = new Blob([reader.result as ArrayBuffer], {
           type: file.type,
-        }); // Blob로 저장
-        setImagePreview(URL.createObjectURL(fileAsBlob)); // URL로 이미지 보여주기
+        });
+        const previewUrl = URL.createObjectURL(fileAsBlob);
+        setBusinessLicensePreview(previewUrl);
+        setFormData({ ...formData, business_license: previewUrl });
       };
       reader.readAsArrayBuffer(file);
     } else {
-      // 파일이 선택되지 않은 경우 미리보기 이미지 초기화
-      setImagePreview(null);
+      setBusinessLicensePreview(null);
+      setFormData({ ...formData, business_license: "" });
     }
-    //URL로 저장
-    setFormData({
-      ...formData,
-      shelter_image: URL.createObjectURL(file as File),
-    });
   };
 
   return (
@@ -273,28 +309,29 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
             >
               <Input
                 type="file"
+                multiple
                 ref={imgRef}
                 onChange={handleImageChange}
-                accept="image/*, image/jpeg, image/png"
+                accept="image/*"
                 display={"none"}
               />
-              <HStack justify={"center"} align={"center"}>
-                {(imagPreview || formData?.shelter_image) && (
-                  <Image
-                    src={
-                      (imagPreview as string)
-                        ? imagPreview
-                        : formData?.shelter_image
-                    }
-                    alt={"shelter image"}
-                    w={"100px"}
-                    h={"100px"}
-                  />
-                )}
+              <Stack justify={"center"} align={"center"}>
                 <Button onClick={handleUploadButton} leftIcon={<HiUpload />}>
                   이미지 업로드
                 </Button>
-              </HStack>
+                {imagePreviews.length > 0 && (
+                  <HStack>
+                    {imagePreviews.map((preview, index) => (
+                      <Image
+                        key={index}
+                        src={preview}
+                        alt={`Preview ${index + 1}`}
+                        boxSize="100px"
+                      />
+                    ))}
+                  </HStack>
+                )}
+              </Stack>
             </Stack>
           </FormControl>
         </Stack>
@@ -310,13 +347,6 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
               address={formData?.address}
               onChange={(data: any) => setFormData({ ...formData, ...data })}
             />
-            {/* <Stack>
-              <HStack>
-                <Input placeholder="주소 입력" />
-                <Button>주소검색</Button>
-              </HStack>
-              <Input placeholder="상세주소" />
-            </Stack> */}
           </FormControl>
         </Stack>
         <Stack p={{ base: "2", md: "4" }} borderRadius={"xl"} shadow={"sm"}>
@@ -434,13 +464,28 @@ export const Step1 = ({ formData, setFormData }: StepEstimateProps) => {
             <FormLabel fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               사업자등록증
             </FormLabel>
-            <Input
-              value={formData?.business_license}
-              type="file"
-              onChange={(e) =>
-                setFormData({ ...formData, business_license: e.target.value })
-              }
-            />
+            <Stack>
+              <Input
+                value={formData?.business_license}
+                type="file"
+                onChange={(e) =>
+                  setFormData({ ...formData, business_license: e.target.value })
+                }
+              />
+              {/* <Stack justify={"center"} align={"center"}>
+                <Button onClick={handleUploadButton} leftIcon={<HiUpload />}>
+                  이미지 업로드
+                </Button>
+                {businessLicensePreview && (
+                  <Box w={"200px"}>
+                    <Image
+                      src={businessLicensePreview}
+                      alt="businessLicensePreview"
+                    />
+                  </Box>
+                )}
+              </Stack> */}
+            </Stack>
           </FormControl>
         </Stack>
       </Stack>

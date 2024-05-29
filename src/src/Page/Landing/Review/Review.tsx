@@ -23,9 +23,15 @@ export const Review = () => {
           align={{ base: "start", md: "center" }}
           color={"white"}
         >
-          <Heading size={{ base: "sm", md: "sm" }} fontWeight={"extrabold"}>
-            <Text>세상에 없던 요양 플랫폼 케어조아,</Text>
-            <Text>지금 이순간에도 빠르게 달려가고 있어요</Text>
+          <Heading
+            fontSize={{ base: "30px", md: "36px" }}
+            whiteSpace={{ base: "pre-line", sm: "normal" }}
+            fontWeight={"extrabold"}
+            lineHeight={"1.2"}
+          >
+            <Text>{`세상에 없던 요양
+            플랫폼 케어조아,`}</Text>
+            <Text>{`지금 이순간에도 빠르게 달려가고 있어요`}</Text>
           </Heading>
           <SimpleGrid
             columns={{ base: 1, md: 2 }}
@@ -38,7 +44,7 @@ export const Review = () => {
               </Text>
               <Rating />
               <Heading
-                size={{ base: "lg", md: "xl" }}
+                size={{ base: "md", md: "xl" }}
                 fontWeight="bold"
                 color="transparent"
                 bgClip="text"
