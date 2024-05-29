@@ -65,8 +65,9 @@ export const Sidebar = (props: {
                 />
                 <IconButton
                   onClick={() => {
-                    window.confirm("메인으로 돌아가시겠습니까?");
-                    window.location.href = "/";
+                    if (window.confirm("메인으로 돌아가시겠습니까?")) {
+                      window.location.href = "/";
+                    }
                   }}
                   aria-label="home"
                   icon={<BiHome />}

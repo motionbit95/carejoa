@@ -25,20 +25,15 @@ export const Feature = () => (
             </Text>
             <Heading
               // size={{ base: "xs", md: "sm" }}
-              fontSize={{ base: "30px", md: "36px" }}
+              fontSize={{ base: "24px", sm: "30px", md: "36px" }}
               lineHeight={"1.2"}
               fontWeight="extrabold"
               flexDirection={{ base: "column", md: "row" }}
               display={"flex"}
               gap={2}
-              whiteSpace={{ base: "pre-line", sm: "normal" }}
             >
               <Text>
-                {`내 집처럼 편안한 곳,
-                  내 가족처럼 
-                  믿을수 있는 곳,
-                  케어조아에서 
-                  찾아보세요~`}
+                {`내 집처럼 편안한 곳, 내 가족처럼 믿을수 있는 곳, 케어조아에서 찾아보세요~`}
               </Text>
             </Heading>
           </Stack>

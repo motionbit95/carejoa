@@ -102,7 +102,7 @@ export const Banner = () => {
             borderRadius={{ base: "xl", md: "2xl" }}
             // _hover={{ bgColor: "#d9d9d9" }}
             cursor={"pointer"}
-            onClick={() => navigate("/login")}
+            onClick={() => window.open("https://cafe.naver.com/pinkqy5cg")}
             alignItems={"center"}
             justifyContent={"center"}
             minH={"110px"}
