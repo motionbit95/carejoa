@@ -90,6 +90,11 @@ export const Test = ({ ...props }) => {
     hmpgAddr = "", //홈페이지주소
     tfMth = "", //교통편
     pkngEquip = "", //주차시설
+
+    // 배열로 들어올 수 있는 것
+    arrayAgency = [],
+    arrayEquipment = [],
+    arrayNonreimbursement = [],
   } = props;
 
   const Data_Nomal = [
@@ -200,6 +205,18 @@ export const Test = ({ ...props }) => {
     { label: "주차시설", value: pkngEquip },
   ];
 
+  arrayEquipment.push(Data_Equipment);
+  arrayEquipment.push(Data_Equipment);
+  arrayEquipment.push(Data_Equipment);
+
+  arrayAgency.push(Data_Agency);
+  arrayAgency.push(Data_Agency);
+  arrayAgency.push(Data_Agency);
+
+  arrayNonreimbursement.push(Data_Nonreimbursement);
+  arrayNonreimbursement.push(Data_Nonreimbursement);
+  arrayNonreimbursement.push(Data_Nonreimbursement);
+
   return (
     <Container maxW={{ base: "full", lg: "container.sm" }}>
       <Box h={"200px"} bgColor={"gray.100"}></Box>
@@ -244,9 +261,9 @@ export const Test = ({ ...props }) => {
               협약기관
             </Text>
             <Stack divider={<StackDivider />}>
-              {[1, 2, 3].map((value) => (
+              {arrayAgency.map((value) => (
                 <Stack>
-                  {Data_Agency.map(({ label, value }) => (
+                  {value.map(({ label, value }) => (
                     <HStack key={label} justify={"space-between"}>
                       <Text>{label}</Text>
                       <Text>{value}</Text>
@@ -289,7 +306,7 @@ export const Test = ({ ...props }) => {
               비급여
             </Text>
             <Stack divider={<StackDivider />}>
-              {[1, 2, 3].map((value) => (
+              {arrayNonreimbursement.map((value) => (
                 <Stack>
                   {Data_Nonreimbursement.map(({ label, value }) => (
                     <HStack key={label} justify={"space-between"}>
