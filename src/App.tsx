@@ -8,6 +8,7 @@ import Dashboard from "./src/Page/Dashboard/Dashboard";
 import { getDocument } from "./src/Firebase/Database";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./src/Firebase/Config";
+import { Test } from "./src/Page/Update/Test";
 function App() {
   const [userInfo, setUserInfo] = useState<any>(null);
 
@@ -34,6 +35,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard userInfo={userInfo} />} />
