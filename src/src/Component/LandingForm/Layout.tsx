@@ -6,7 +6,7 @@ import { Navbar } from "./Navbar/Navbar";
 export const Layout = (props: any) => {
   return (
     <Flex direction="column" flex="1">
-      <Navbar />
+      {/* <Navbar /> */}
       <Main {...props} />
       <Footer />
     </Flex>

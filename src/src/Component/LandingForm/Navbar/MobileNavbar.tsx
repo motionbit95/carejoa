@@ -17,6 +17,12 @@ export const MobileDrawer = (props: Omit<DrawerProps, "children">) => (
         <Stack spacing="8" justify={"flex-end"}>
           <ButtonGroup size="lg" variant="text" colorScheme="gray" spacing="8">
             <VStack w={"full"} spacing={"4"} p={"4"}>
+              <Link href="/interests">
+                <Button>관심시설</Button>
+              </Link>
+              <Link href="/notification">
+                <Button>공지사항</Button>
+              </Link>
               <Link href="/login">
                 <Button>로그인</Button>
               </Link>

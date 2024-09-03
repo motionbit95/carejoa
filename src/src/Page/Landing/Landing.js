@@ -13,10 +13,10 @@ function Landing(props) {
   return (
     <Layout>
       <Banner />
-      <Review />
       <Hero />
-      <Consulting />
-      <Box bgColor={"gray.100"}>
+      <Review />
+      {/* <Consulting /> */}
+      <Box>
         <Feature />
         <Service1 />
       </Box>

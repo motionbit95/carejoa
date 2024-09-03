@@ -30,7 +30,7 @@ export const Footer = () => {
     alert("링크가 복사되었습니다.");
   }
   return (
-    <Box bg="bg.accent.default" color="fg.accent.default">
+    <Box bg="#F2F3F6" color="black">
       <Container as="footer" role="contentinfo" py={{ base: "12", md: "16" }}>
         <Stack
           direction={{ base: "column", md: "row" }}

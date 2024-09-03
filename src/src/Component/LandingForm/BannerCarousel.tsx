@@ -12,7 +12,7 @@ import { Carousel } from "react-responsive-carousel";
 export const BannerCarousel = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   return (
-    <Box>
+    <Box pt={{ base: "4", md: "0" }}>
       <Carousel
         showArrows={true}
         centerMode={true}

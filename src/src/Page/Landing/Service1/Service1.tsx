@@ -23,10 +23,10 @@ export const Service1 = () => (
           fontSize={{ base: "30px", md: "36px" }}
           lineHeight={"1.2"}
           fontWeight={"extrabold"}
-          whiteSpace={{ base: "normal", md: "pre-line" }}
+          whiteSpace={"pre-line"}
         >
-          {`케어조아는 전국 서비스이며
-          빠르게 확장하고 있어요`}
+          {`케어조아는 전국서비스로,
+          빠르게 확장하고 있어요.`}
         </Heading>
         <Text
           fontSize={{ base: "md", md: "lg" }}
@@ -37,7 +37,10 @@ export const Service1 = () => (
           전국의 모든 요양시설과 서비스 제공 업체와 상담 시스템을 구축하고 있습니다.`}
         </Text>
       </Stack>
-      <Stack alignItems={"center"}>
+      <Stack w={"full"}>
+        <Image src={require("../../../asset/장기요양.png")} />
+      </Stack>
+      {/* <Stack alignItems={"center"}>
         <SimpleGrid
           // display={{ base: "none", md: "grid" }}
           columns={{ base: 2, lg: 4 }}
@@ -78,7 +81,7 @@ export const Service1 = () => (
             </Stack>
           ))}
         </SimpleGrid>
-      </Stack>
+      </Stack> */}
     </Stack>
   </Container>
 );

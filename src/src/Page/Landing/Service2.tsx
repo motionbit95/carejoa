@@ -16,14 +16,14 @@ export const Service2 = () => (
   <Container py={{ base: "16", md: "24" }}>
     <Stack gap={16} padding={{ base: "4" }}>
       <Stack align="center" gap={16}>
-        <Icon
+        {/* <Icon
           boxSize={{ base: "10", md: "12" }}
           as={BsStars}
           color={"green.400"}
-        />
-        <Heading size={{ base: "sm", md: "md" }} fontWeight={"extrabold"}>
+        /> */}
+        <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"extrabold"}>
           케어조아는 이러한 서비스를 제공합니다.
-        </Heading>
+        </Text>
       </Stack>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: "4", md: "6" }}>
         <Stack

@@ -58,8 +58,7 @@ export const SignUp = () => {
   };
 
   return (
-    <Stack flex="1">
-      <Navbar />
+    <Stack flex="1" justify={"center"}>
       <Container
         maxW="sm"
         py={{ base: "4", sm: "8" }}

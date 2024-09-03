@@ -1,6 +1,7 @@
 import {
   Box,
   Container,
+  HStack,
   Heading,
   Icon,
   SimpleGrid,
@@ -18,27 +19,54 @@ export const Feature = () => (
         align={{ base: "start", md: "center" }}
         padding={{ base: "4" }}
       >
-        <Stack alignSelf={"stretch"}>
-          <Stack spacing="3" align={"center"}>
-            <Text color="fg.muted" fontSize={{ base: "lg", md: "xl" }}>
+        <Stack>
+          <Stack spacing="3">
+            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
               어디로 모셔야 할까요?
             </Text>
-            <Heading
-              // size={{ base: "xs", md: "sm" }}
-              fontSize={{ base: "24px", sm: "30px", md: "36px" }}
-              lineHeight={"1.2"}
-              fontWeight="extrabold"
-              flexDirection={{ base: "column", md: "row" }}
-              display={"flex"}
-              gap={2}
-            >
-              <Text>
-                {`내 집처럼 편안한 곳, 내 가족처럼 믿을수 있는 곳, 케어조아에서 찾아보세요~`}
-              </Text>
-            </Heading>
+            <Text whiteSpace={"pre-line"} fontSize={{ base: "sm", md: "md" }}>
+              {`내 집처럼 편안한 곳, 
+              내 가족처럼 믿을수 있는 곳, 
+              케어조아에서 찾아보세요.`}
+            </Text>
           </Stack>
         </Stack>
-        <SimpleGrid
+        <Stack
+          align={"center"}
+          justify={"center"}
+          w={"full"}
+          p={"30px"}
+          bg={"linear-gradient(to right, #FFD24F, #FFE875)"}
+          borderRadius={"lg"}
+        >
+          <HStack
+            borderRadius={"lg"}
+            p={"10px"}
+            bgColor={"white"}
+            align={"center"}
+            justify={"center"}
+          >
+            {services.map((service) => (
+              <Stack align={"center"} w={"70px"}>
+                <Square
+                  size={{ base: "10", md: "12" }}
+                  // bgColor={"bg.surface"}
+                  bg={service.bgcolor}
+                  // color="fg.inverted"
+                  borderRadius="lg"
+                >
+                  <Icon
+                    as={service.icon}
+                    color={service.color}
+                    boxSize={{ base: "6", md: "8" }}
+                  />
+                </Square>
+                <Text>{service.name}</Text>
+              </Stack>
+            ))}
+          </HStack>
+        </Stack>
+        {/* <SimpleGrid
           columns={{ base: 1, md: 2, lg: 4 }}
           columnGap={20}
           rowGap={{ base: 10, md: 16 }}
@@ -71,7 +99,7 @@ export const Feature = () => (
               </Stack>
             </Stack>
           ))}
-        </SimpleGrid>
+        </SimpleGrid> */}
       </Stack>
     </Container>
   </Box>

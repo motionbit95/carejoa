@@ -9,6 +9,11 @@ import { getDocument } from "./src/Firebase/Database";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./src/Firebase/Config";
 import { Test } from "./src/Page/Update/Test";
+import { Search } from "./src/Page/Update/Search";
+import { Interests } from "./src/Page/Update/Interests";
+import { Notification } from "./src/Page/Update/Notification";
+import { Maps } from "./src/Page/Update/Maps";
+import { Navbar } from "./src/Component/LandingForm/Navbar/Navbar";
 function App() {
   const [userInfo, setUserInfo] = useState<any>(null);
 
@@ -33,8 +38,13 @@ function App() {
 
   return (
     <BrowserRouter>
+      {window.location.pathname !== "/dashboard" && <Navbar />}
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/search" element={<Search />} />
+        {/* <Route path="/map" element={<Maps />} /> */}
+        <Route path="/interests" element={<Interests />} />
+        <Route path="/notification" element={<Notification />} />
         <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />

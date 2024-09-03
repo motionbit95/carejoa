@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   Container,
   HStack,
+  IconButton,
   Image,
   Link,
   Text,
@@ -12,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { MobileDrawer } from "./MobileNavbar";
 import { ToggleButton } from "./ToggleButton";
+import { FiSearch } from "react-icons/fi";
 
 export const Navbar = ({ ...props }) => {
   const isDesktop = useBreakpointValue({ base: false, lg: true });
@@ -33,12 +35,25 @@ export const Navbar = ({ ...props }) => {
               src={require("../../../asset/CareJOA.png")}
             />
             {isDesktop ? (
-              <HStack spacing="8">
+              <HStack spacing="12">
                 <ButtonGroup
                   size="lg"
                   variant="text"
                   colorScheme="gray"
-                  spacing="8"
+                  spacing="4"
+                >
+                  <Link href="/interests">
+                    <Button>관심시설</Button>
+                  </Link>
+                  <Link href="/notification">
+                    <Button>공지사항</Button>
+                  </Link>
+                </ButtonGroup>
+                <ButtonGroup
+                  size="lg"
+                  variant="text"
+                  colorScheme="gray"
+                  spacing="4"
                 >
                   <Link href="/login">
                     <Button>로그인</Button>
@@ -49,7 +64,13 @@ export const Navbar = ({ ...props }) => {
                 </ButtonGroup>
               </HStack>
             ) : (
-              <>
+              <HStack>
+                <IconButton
+                  aria-label="Search Button"
+                  icon={<FiSearch />}
+                  variant={"tertiary"}
+                  onClick={() => (window.location.href = "/search")}
+                />
                 <ToggleButton
                   onClick={mobileNavbar.onToggle}
                   isOpen={mobileNavbar.isOpen}
@@ -59,7 +80,7 @@ export const Navbar = ({ ...props }) => {
                   isOpen={mobileNavbar.isOpen}
                   onClose={mobileNavbar.onClose}
                 />
-              </>
+              </HStack>
             )}
           </HStack>
         </Container>

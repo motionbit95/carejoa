@@ -218,21 +218,24 @@ export const Test = ({ ...props }) => {
   arrayNonreimbursement.push(Data_Nonreimbursement);
 
   return (
-    <Container maxW={{ base: "full", lg: "container.sm" }}>
+    <Stack spacing={0}>
       <Box h={"200px"} bgColor={"gray.100"}></Box>
       <Stack bgColor={"gray.100"} fontSize={"12px"}>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
-            <Text fontWeight={"bold"} fontSize={"20px"}>
-              번동데이케어센터
-            </Text>
+            <HStack justify={"space-between"}>
+              <Text fontWeight={"bold"} fontSize={"20px"}>
+                번동데이케어센터
+              </Text>
+              <Box boxSize={"20px"} bgColor={"red"} />
+            </HStack>
             <Text>서울특별시 송파구 가락로 278, ....</Text>
             <HStack>
-              <Tag>1등급</Tag>
-              <Tag>소형</Tag>
-              <Tag>설립3년</Tag>
-              <Tag>물리치료</Tag>
-              <Tag>상급병상</Tag>
+              <Tag fontSize={"12px"}>1등급</Tag>
+              <Tag fontSize={"12px"}>소형</Tag>
+              <Tag fontSize={"12px"}>설립3년</Tag>
+              <Tag fontSize={"12px"}>물리치료</Tag>
+              <Tag fontSize={"12px"}>상급병상</Tag>
             </HStack>
             <HStack divider={<StackDivider borderColor={"black"} />}>
               <Text>전화번호</Text>
@@ -255,7 +258,7 @@ export const Test = ({ ...props }) => {
             ))}
           </Stack>
         </Stack>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
             <Text fontWeight={"bold"} fontSize={"14px"}>
               협약기관
@@ -274,7 +277,7 @@ export const Test = ({ ...props }) => {
             </Stack>
           </Stack>
         </Stack>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
             <Text fontWeight={"bold"} fontSize={"14px"}>
               시설현황
@@ -287,7 +290,7 @@ export const Test = ({ ...props }) => {
             ))}
           </Stack>
         </Stack>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
             <Text fontWeight={"bold"} fontSize={"14px"}>
               인력현황
@@ -300,7 +303,7 @@ export const Test = ({ ...props }) => {
             ))}
           </Stack>
         </Stack>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
             <Text fontWeight={"bold"} fontSize={"14px"}>
               비급여
@@ -319,7 +322,7 @@ export const Test = ({ ...props }) => {
             </Stack>
           </Stack>
         </Stack>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
             <Text fontWeight={"bold"} fontSize={"14px"}>
               복지용구
@@ -338,7 +341,7 @@ export const Test = ({ ...props }) => {
             </Stack>
           </Stack>
         </Stack>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
             <Text fontWeight={"bold"} fontSize={"14px"}>
               입소인원
@@ -351,7 +354,7 @@ export const Test = ({ ...props }) => {
             ))}
           </Stack>
         </Stack>
-        <Stack bgColor={"white"}>
+        <Stack bgColor={"white"} px={4}>
           <Stack py={4}>
             <Text fontWeight={"bold"} fontSize={"14px"}>
               기관기타
@@ -365,6 +368,6 @@ export const Test = ({ ...props }) => {
           </Stack>
         </Stack>
       </Stack>
-    </Container>
+    </Stack>
   );
 };

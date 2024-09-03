@@ -25,7 +25,10 @@ export const Banner = () => {
   const navigate = useNavigate();
   return (
     <Box as="section" bg="bg.surface">
-      <Container py={{ base: "4", md: "8" }}>
+      <Container
+        display={{ base: "none", md: "block" }}
+        py={{ base: "4", md: "8" }}
+      >
         <Flex w={"full"} justifyContent={"center"} h={"50"}>
           <SearchBar />
         </Flex>
@@ -37,15 +40,16 @@ export const Banner = () => {
             w={"full"}
             className="eye-catching-button"
             // bgColor={"#BEE3F8"}
-            p={{ base: "2", md: "4" }}
+            px={{ base: "2", md: "4" }}
+            py={{ base: "8", md: "4" }}
             // color={"#2B6CB0"}
             borderRadius={{ base: "xl", md: "2xl" }}
             _hover={{ bgColor: "#A2DBFC" }}
             cursor={"pointer"}
             onClick={() => navigate("/login")}
           >
-            <Text fontSize={"lg"} fontWeight={"bold"}>
-              견적 (상담)요청하기
+            <Text fontSize={"3xl"} fontWeight={"bold"}>
+              상담 요청 하기
             </Text>
             <Text fontSize={"xs"}>
               희망지역 및 시설 업체의 견적을 받아보실 수 있습니다.

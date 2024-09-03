@@ -23,7 +23,19 @@ export const Review = () => {
           align={{ base: "start", md: "center" }}
           color={"white"}
         >
-          <Heading
+          <Stack
+            fontSize={{ base: "22px", md: "36px" }}
+            whiteSpace={{ base: "pre-line", sm: "normal" }}
+            fontWeight={"extrabold"}
+            lineHeight={"1.2"}
+            spacing={{ base: 6, sm: 4 }}
+          >
+            <Text>{`세상에 없던
+            요양 플랫폼 케어조아,`}</Text>
+            <Text>{`지금 이순간에도 
+            빠르게 달려가고 있어요`}</Text>
+          </Stack>
+          {/* <Heading
             fontSize={{ base: "30px", md: "36px" }}
             whiteSpace={{ base: "pre-line", sm: "normal" }}
             fontWeight={"extrabold"}
@@ -32,7 +44,7 @@ export const Review = () => {
             <Text>{`세상에 없던 요양
             플랫폼 케어조아,`}</Text>
             <Text>{`지금 이순간에도 빠르게 달려가고 있어요`}</Text>
-          </Heading>
+          </Heading> */}
           <SimpleGrid
             columns={{ base: 1, md: 2 }}
             gap={30}
