@@ -14,6 +14,7 @@ import { Interests } from "./src/Page/Update/Interests";
 import { Notification } from "./src/Page/Update/Notification";
 import { Maps } from "./src/Page/Update/Maps";
 import { Navbar } from "./src/Component/LandingForm/Navbar/Navbar";
+import { Footer } from "./src/Component/LandingForm/Footer";
 function App() {
   const [userInfo, setUserInfo] = useState<any>(null);
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard userInfo={userInfo} />} />
       </Routes>
+      {window.location.pathname !== "/dashboard" && <Footer />}
     </BrowserRouter>
   );
 }

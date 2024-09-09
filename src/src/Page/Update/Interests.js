@@ -4,17 +4,19 @@ import { HospitalList } from "./Search";
 
 export const Interests = () => {
   return (
-    <Stack spacing={0}>
-      <Stack align={"center"} py={{ base: "8", md: "12" }}>
-        <Text fontSize={"2xl"} fontWeight={"bold"}>
-          관심 시설
-        </Text>
+    <Container maxW={{ base: "full", md: "lg" }} p={{ base: "0", md: "2" }}>
+      <Stack spacing={0}>
+        <Stack align={"center"} py={{ base: "8", md: "12" }}>
+          <Text fontSize={"2xl"} fontWeight={"bold"}>
+            관심 시설
+          </Text>
+        </Stack>
+        <Stack>
+          {[1, 2, 3, 4, 5, 6, 7].map((item) => (
+            <HospitalList />
+          ))}
+        </Stack>
       </Stack>
-      <Stack>
-        {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-          <HospitalList />
-        ))}
-      </Stack>
-    </Stack>
+    </Container>
   );
 };

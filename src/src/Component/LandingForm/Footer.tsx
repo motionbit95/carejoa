@@ -5,6 +5,9 @@ import {
   Circle,
   Container,
   Divider,
+  Grid,
+  GridItem,
+  HStack,
   Icon,
   IconButton,
   Stack,
@@ -30,86 +33,133 @@ export const Footer = () => {
     alert("링크가 복사되었습니다.");
   }
   return (
-    <Box bg="#F2F3F6" color="black">
-      <Container as="footer" role="contentinfo" py={{ base: "12", md: "16" }}>
-        <Stack
-          direction={{ base: "column", md: "row" }}
-          justify={"space-between"}
-        >
-          <Stack spacing={{ base: "4", md: "5" }}>
-            <Stack justify="space-between" direction="row" align="center">
-              {/* <Logo /> */}
-              <Text fontWeight="bold" fontSize="2xl">
-                케어조아
+    <Box color="black">
+      <Stack h={2}></Stack>
+      <Container
+        bg="#F2F3F6"
+        as="footer"
+        role="contentinfo"
+        py={{ base: "12" }}
+        maxW={{
+          base: "full",
+          md: window.location.pathname === "/" ? "full" : "lg",
+        }}
+        fontSize={{ base: "xs", md: "sm" }}
+      >
+        <HStack justify={"space-between"} align={"flex-start"}>
+          <Stack
+            w={"full"}
+            // direction={{ base: "column", md: "row" }}
+            justify={"space-between"}
+          >
+            <Stack p={4} spacing={4}>
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
+                안내
+              </Text>
+              <HStack>
+                <Text w={"80px"}>고객센터</Text>
+                <Text>032-277-4915</Text>
+              </HStack>
+              <HStack>
+                <Text w={"80px"}>이메일</Text>
+                <Text>procos@hanmail.net</Text>
+              </HStack>
+            </Stack>
+            <Stack p={4}>
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
+                케어조아 파트너
               </Text>
             </Stack>
-            <Stack opacity={0.7}>
-              <Stack
-                direction={{ base: "column", md: "row" }}
-                divider={<StackDivider opacity={0.5} />}
-                spacing={4}
-              >
-                <Text>대표자 : 박대수</Text>
-                {/* <Divider orientation="vertical" h={"6"} /> */}
+            <Stack p={4}>
+              <Text fontSize={{ base: "md", md: "lg" }} fontWeight={"bold"}>
+                CareJOA
+              </Text>
+              <Stack color={"rgba(0, 0, 0, 0.7)"}>
+                <Text>대표 : 박대수</Text>
+                <Text>사업자 등록번호 : 693-47-00786</Text>
                 <Text>상호명 : 케이뷰틱스</Text>
               </Stack>
-              <Stack
-                direction={{ base: "column", md: "row" }}
-                divider={<StackDivider opacity={0.5} />}
-                spacing={4}
-              >
-                <Text>Call : 032-277-4915</Text>
-                {/* <Divider orientation="vertical" h={"6"} /> */}
-                <Text>사업자번호 : 693-47-00786</Text>
-                {/* <Divider orientation="vertical" h={"6"} /> */}
-                <Text>이메일 : procos@hanmail.net</Text>
+            </Stack>
+            <Stack p={4}>
+              <HStack gap={6} w={"full"}>
+                <Text fontWeight={"bold"} cursor={"pointer"}>
+                  이용약관
+                </Text>
+                <Text fontWeight={"bold"} cursor={"pointer"}>
+                  개인정보처리방침
+                </Text>
+              </HStack>
+              <Stack w={"full"} align={"center"} pt={6}>
+                <ButtonGroup display={{ base: "flex", md: "none" }}>
+                  {/* <IconButton  aria-label="Naver" /> */}
+                  <Button
+                    fontSize={"xl"}
+                    fontWeight={"extrabold"}
+                    padding={"2px 4px"}
+                    size={"md"}
+                    color={"green.400"}
+                    aria-label="naver"
+                  >
+                    N
+                  </Button>
+                  <Button
+                    aria-label="blog"
+                    fontSize={"sm"}
+                    fontWeight={"extrabold"}
+                    padding={"2px 4px"}
+                    size={"md"}
+                    color={"green.400"}
+                  >
+                    blog
+                  </Button>
+                  <IconButton
+                    color={"red"}
+                    icon={<BsYoutube />}
+                    aria-label="youtube"
+                  />
+                  <IconButton
+                    color={"yellow.400"}
+                    icon={<ImBubble />}
+                    aria-label="kakao"
+                  />
+                </ButtonGroup>
               </Stack>
             </Stack>
-            <Stack
-              justify={"space-between"}
-              direction={{ base: "column", md: "row" }}
-              align="center"
-            >
-              <Text fontSize="sm" color="fg.accent.subtle">
-                &copy; {new Date().getFullYear()} CareJOA Inc. All rights
-                reserved.
-              </Text>
-              <ButtonGroup colorScheme="gray">
-                {/* <IconButton  aria-label="Naver" /> */}
-                <Button
-                  fontSize={"xl"}
-                  fontWeight={"extrabold"}
-                  padding={"2px 4px"}
-                  size={"md"}
-                  color={"green.400"}
-                  aria-label="naver"
-                >
-                  N
-                </Button>
-                <Button
-                  aria-label="blog"
-                  fontSize={"sm"}
-                  fontWeight={"extrabold"}
-                  padding={"2px 4px"}
-                  size={"md"}
-                  color={"green.400"}
-                >
-                  blog
-                </Button>
-                <IconButton
-                  color={"red"}
-                  icon={<BsYoutube />}
-                  aria-label="youtube"
-                />
-                <IconButton
-                  color={"yellow.400"}
-                  icon={<ImBubble />}
-                  aria-label="kakao"
-                />
-              </ButtonGroup>
-            </Stack>
           </Stack>
-        </Stack>
+          <ButtonGroup display={{ base: "none", md: "flex" }}>
+            {/* <IconButton  aria-label="Naver" /> */}
+            <Button
+              fontSize={"xl"}
+              fontWeight={"extrabold"}
+              padding={"2px 4px"}
+              size={"md"}
+              color={"green.400"}
+              aria-label="naver"
+            >
+              N
+            </Button>
+            <Button
+              aria-label="blog"
+              fontSize={"sm"}
+              fontWeight={"extrabold"}
+              padding={"2px 4px"}
+              size={"md"}
+              color={"green.400"}
+            >
+              blog
+            </Button>
+            <IconButton
+              color={"red"}
+              icon={<BsYoutube />}
+              aria-label="youtube"
+            />
+            <IconButton
+              color={"yellow.400"}
+              icon={<ImBubble />}
+              aria-label="kakao"
+            />
+          </ButtonGroup>
+        </HStack>
         <Tooltip label="링크 복사">
           <Circle
             onClick={clip}
@@ -117,8 +167,8 @@ export const Footer = () => {
             size={"40px"}
             color={"black"}
             position={"fixed"}
-            bottom={"10"}
-            right={"10"}
+            bottom={"4"}
+            right={"6"}
             _hover={{ bgColor: "gray.300", color: "white" }}
             cursor={"pointer"}
             zIndex={10}

@@ -17,10 +17,7 @@ export const Hero = () => {
     <Container py={{ base: "16", md: "24" }}>
       <Stack spacing={8}>
         <Stack spacing={{ base: "8", md: "12" }} justifyContent="center">
-          <Stack
-            spacing={{ base: "4", md: "6" }}
-            align={{ base: "center", md: "start" }}
-          >
+          <Stack spacing={{ base: "4", md: "6" }} align={"center"}>
             <Text
               // size={{ base: "md", md: "lg" }}
               fontSize={{ base: "20px", md: "36px" }}
@@ -73,19 +70,21 @@ export const Hero = () => {
           // alt="Lady at work"
         />
       </AspectRatio> */}
-        <Stack align={"center"}>
-          <Stack
-            className="eye-catching-button"
-            w={"100%"}
-            fontWeight={"bold"}
-            borderRadius={{ base: "xl", md: "2xl" }}
-            cursor={"pointer"}
-            align={"center"}
-            onClick={() => navigate("/login")}
-          >
-            <Text>무료 상담하기</Text>
+        <Container maxW={"container.sm"}>
+          <Stack align={"center"}>
+            <Stack
+              className="eye-catching-button"
+              w={"100%"}
+              fontWeight={"bold"}
+              borderRadius={{ base: "xl", md: "2xl" }}
+              cursor={"pointer"}
+              align={"center"}
+              onClick={() => navigate("/login")}
+            >
+              <Text>무료 상담하기</Text>
+            </Stack>
           </Stack>
-        </Stack>
+        </Container>
       </Stack>
     </Container>
   );

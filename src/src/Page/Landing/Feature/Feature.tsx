@@ -14,58 +14,63 @@ import { services } from "./data";
 export const Feature = () => (
   <Box as="section">
     <Container py={{ base: "16", md: "24" }}>
-      <Stack
-        spacing={{ base: "12", md: "16" }}
-        align={{ base: "start", md: "center" }}
-        padding={{ base: "4" }}
-      >
+      <Stack spacing={{ base: "12", md: "16" }} align={"start"}>
         <Stack>
           <Stack spacing="3">
-            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
+            <Text
+              fontSize={{ base: "xl", md: "36px" }}
+              fontWeight={"extrabold"}
+            >
               어디로 모셔야 할까요?
             </Text>
-            <Text whiteSpace={"pre-line"} fontSize={{ base: "sm", md: "md" }}>
+            <Text
+              whiteSpace={{ base: "pre-line", md: "normal" }}
+              fontSize={{ base: "sm", md: "md" }}
+            >
               {`내 집처럼 편안한 곳, 
               내 가족처럼 믿을수 있는 곳, 
               케어조아에서 찾아보세요.`}
             </Text>
           </Stack>
         </Stack>
-        <Stack
-          align={"center"}
-          justify={"center"}
-          w={"full"}
-          p={"30px"}
-          bg={"linear-gradient(to right, #FFD24F, #FFE875)"}
-          borderRadius={"lg"}
-        >
-          <HStack
-            borderRadius={"lg"}
-            p={"10px"}
-            bgColor={"white"}
+        <Container p={{ base: "0", md: "4" }} maxW={"container.sm"}>
+          <Stack
             align={"center"}
             justify={"center"}
+            p={"30px"}
+            bg={"linear-gradient(to right, #FFE875, #FFD24F)"}
+            borderRadius={"lg"}
           >
-            {services.map((service) => (
-              <Stack align={"center"} w={"70px"}>
-                <Square
-                  size={{ base: "10", md: "12" }}
-                  // bgColor={"bg.surface"}
-                  bg={service.bgcolor}
-                  // color="fg.inverted"
-                  borderRadius="lg"
-                >
-                  <Icon
-                    as={service.icon}
-                    color={service.color}
-                    boxSize={{ base: "6", md: "8" }}
-                  />
-                </Square>
-                <Text>{service.name}</Text>
-              </Stack>
-            ))}
-          </HStack>
-        </Stack>
+            <HStack
+              borderRadius={"lg"}
+              p={"10px"}
+              bgColor={"white"}
+              align={"center"}
+              justify={"center"}
+            >
+              {services.map((service) => (
+                <Stack align={"center"} w={{ base: "60px", md: "100px" }}>
+                  <Square
+                    size={{ base: "9", md: "12" }}
+                    // bgColor={"bg.surface"}
+                    bg={service.bgcolor}
+                    // color="fg.inverted"
+                    borderRadius="xl"
+                  >
+                    <Icon
+                      as={service.icon}
+                      color={service.color}
+                      boxSize={{ base: "5", md: "8" }}
+                    />
+                  </Square>
+                  <Text fontSize={{ base: "xs", md: "md" }}>
+                    {service.name}
+                  </Text>
+                </Stack>
+              ))}
+            </HStack>
+          </Stack>
+        </Container>
         {/* <SimpleGrid
           columns={{ base: 1, md: 2, lg: 4 }}
           columnGap={20}

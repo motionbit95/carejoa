@@ -29,7 +29,12 @@ export const Banner = () => {
         display={{ base: "none", md: "block" }}
         py={{ base: "4", md: "8" }}
       >
-        <Flex w={"full"} justifyContent={"center"} h={"50"}>
+        <Flex
+          w={"full"}
+          justifyContent={"center"}
+          h={"50"}
+          onClick={() => navigate("/search")}
+        >
           <SearchBar />
         </Flex>
       </Container>

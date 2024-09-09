@@ -37,9 +37,12 @@ export const Service1 = () => (
           전국의 모든 요양시설과 서비스 제공 업체와 상담 시스템을 구축하고 있습니다.`}
         </Text>
       </Stack>
-      <Stack w={"full"}>
-        <Image src={require("../../../asset/장기요양.png")} />
-      </Stack>
+      <Container p={{ base: "0", md: "4" }} maxW={"container.sm"}>
+        <Stack w={"full"}>
+          <Image src={require("../../../asset/장기요양.png")} />
+        </Stack>
+      </Container>
+
       {/* <Stack alignItems={"center"}>
         <SimpleGrid
           // display={{ base: "none", md: "grid" }}

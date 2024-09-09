@@ -8,7 +8,7 @@ export const Layout = (props: any) => {
     <Flex direction="column" flex="1">
       {/* <Navbar /> */}
       <Main {...props} />
-      <Footer />
+      {/* <Footer /> */}
     </Flex>
   );
 };
